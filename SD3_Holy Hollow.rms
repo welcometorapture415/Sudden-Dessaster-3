@@ -1,0 +1,2970 @@
+/* 
+Title:
+Holy Hollow
+Created by Deathcounter 
+
+Start Date: 05.05.26
+Finished: 06.06.26
+Last Updated: 06.06.26
+
+Suitable Player count: 1v1
+Currently supported modes: RM, Regicide
+
+Submitted to:
+Sudden Disaster 3
+
+
+Updated for 
+
+*/
+
+
+#const MAPSCALE_MODIFIER 1
+#include_drs includes/scaling.inc
+
+#const RESOURCE_SPACING_DEFAULT 8
+#const RESOURCE_RESTRICTION 2
+
+/* Map_theme */
+start_random
+		percent_chance 8 #define AFROTROPICAL_TROPICAL
+		percent_chance 8 #define NEOTROPICAL_TEMPERATE
+		percent_chance 7 #define NEOTROPICAL_TROPICAL
+		percent_chance 8 #define NEARCTIC_TEMPERATE
+		percent_chance 7 #define INDOMALAYAN_TROPICAL
+		percent_chance 7 #define PALAEARCTIC_ASIA_TEMPERATE
+		percent_chance 8 #define PALAEARCTIC_MIDDLE_EAST_DESERT
+		percent_chance 8 #define PALAEARCTIC_EUROPE_TAIGA
+		percent_chance 7 #define PALAEARCTIC_EUROPE_TEMPERATE
+		percent_chance 8 #define PALAEARCTIC_EUROPE_MEDITERRANEAN
+		percent_chance 8 #define AUSTRALASIAN_TEMPERATE
+		/* my own themes */
+		percent_chance 8 #define PALAEARCTIC_EASTASIA_BROADLEAF
+		percent_chance 8 #define INDOMALAYAN_SWAMP
+end_random
+
+start_random
+	percent_chance 20 #define RND_GLOBAL_CLIFFS_NONE
+	percent_chance 48 #define RND_GLOBAL_CLIFFS_FEW
+	percent_chance 30 #define RND_GLOBAL_CLIFFS_NORMAL
+	percent_chance 2 #define RND_GLOBAL_CLIFFS_MANY
+end_random
+
+/* Outside Clumps order: 56 34 52 28 38 68 22 26 15 42 47 18 31 */
+
+/* Terrain */
+#const SPAWN_PLACEHOLDER 24 /* Road */
+#const SNOW_LIGHT 73 /* Snow, Light */
+#const SNOW_LEAVES 72 /* Underbrush Snow */
+#const REEDS_FOREST 92 
+
+/* Objects */
+#const FORESTBUILDING 1639
+#const REEDS_TREE 1350
+#const KEG 2607
+#const LILY_PAD 2536
+#const YURT_8 1832
+#const YURT_9 1833
+#const YURT_10 1834
+#const WATER_TROUGH 2511
+#const BONFIRE 304
+#const BENCH 851 /* ES FLAG */
+#const DEAD_MONK 2605 /* Flag_U */
+#const LEATHER 2291
+
+/* Temps */
+#const INVISIBLE_BLOCKER 1776
+#const INVISIBLE 647
+#const ONGRID 1291
+#const PLACEHOLDER_GENERIC 1902
+#const PLACEHOLDER_GENERIC_TILE 1543
+#const PLACEHOLDER_LAND 1905
+#const PLACEHOLDER_LAND_TILE 1544
+#const PLACEHOLDER_AMPHIBIOUS 1909
+#const PLACEHOLDER_AMPHIBIOUS_TILE 1545
+#const PLACEHOLDER_HYBRID 1912
+#const PLACEHOLDER_HYBRID_TILE 1546
+#const PLACEHOLDER_WATER 1921
+#const PLACEHOLDER_WATER_TILE 1547
+
+
+
+if PALAEARCTIC_EASTASIA_BROADLEAF
+/* I place Reeds and then placing massive amount of asian trees on that forests, to be able to do that I need to not make these trees spawn */
+effect_amount GAIA_SET_ATTRIBUTE REEDS_TREE ATTR_TERRAIN_ID 3 /* only water and beach */
+elseif INDOMALAYAN_SWAMP
+effect_amount GAIA_SET_ATTRIBUTE REEDS_TREE ATTR_TERRAIN_ID 3 /* only water and beach */
+
+endif
+
+effect_amount GAIA_SET_ATTRIBUTE BENCH ATTR_STANDING_GRAPHIC 17032 /* give ES FLAG the Wooden Bench Graphics, because benches can't be build over, but allows units to pass through, kinda like ROCK1 except it's a unit */
+effect_amount GAIA_SET_ATTRIBUTE DEAD_MONK ATTR_STANDING_GRAPHIC 995
+
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_BLAST_LEVEL 0
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_MAX_RANGE 4
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_BLAST_RADIUS 4
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_HITPOINTS 40
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ADD_ATTACK_TYPE 6
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ADD_ARMOR_TYPE 6
+
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 1064 /* = base melee (4) * 256 = 1024 + 40 damage - therefore 40 melee damage */
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 3056 /* = all buildings (11) * 256 = 2816 + 240 damage - therefore 240 building damage */
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 1786 /* = KEG (6) * 256 = 1536 + 250 damage - therefore 250 KEG damage */
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ARMOR 772 /* 4 Pierce armor */
+
+
+
+
+
+
+
+/* default sizes */
+    if MAPSIZE_MINI           #const SIZE	#const MAPSIZE 80 /* */
+    elseif MAPSIZE_TINY       #const SIZE	#const MAPSIZE 120 /* 2 */
+    elseif MAPSIZE_SMALL      #const SIZE	#const MAPSIZE 144 /* 3 */
+    elseif MAPSIZE_MEDIUM     #const SIZE	#const MAPSIZE 168 /* 4 */
+    elseif MAPSIZE_NORMAL     #const SIZE	#const MAPSIZE 200 /* 6 */
+    elseif MAPSIZE_LARGE      #const SIZE	#const MAPSIZE 220 /* 8 */
+    elseif MAPSIZE_HUGE       #const SIZE	#const MAPSIZE 240 /* */
+    elseif MAPSIZE_GIANT      #const SIZE	#const MAPSIZE 252 /* */
+    elseif MAPSIZE_MASSIVE    #const SIZE 	#const MAPSIZE 276 /* */
+    elseif MAPSIZE_ENORMOUS   #const SIZE  	#const MAPSIZE 300 /* */
+    elseif MAPSIZE_COLOSSAL   #const SIZE   #const MAPSIZE 320 /* */
+    elseif MAPSIZE_INCREDIBLE #const SIZE	#const MAPSIZE 360 /* */
+    elseif MAPSIZE_MONSTROUS  #const SIZE 	#const MAPSIZE 400 
+    elseif MAPSIZE_LUDICROUS  #const SIZE	#const MAPSIZE 480 
+    else               		  #const SIZE	#const MAPSIZE 260 
+    endif
+
+/* for area scaling */
+ #const MAPAREA (MAPSIZE * MAPSIZE)
+  
+  
+ /* 
+	#const HOLLOW_PIT_A 83
+	#const HOLLOW_PIT_B 82
+	#const HOLLOW_PIT_C 77
+*/
+
+if AFROTROPICAL_TROPICAL
+
+	
+		#const STRAGGLER_SPAWN 1053 /* Bush B  - Straggler Trees next to TC */
+		#const STRAGGLER_NEUTRAL 1348 /* Italian Pine - Straggler Trees around the map */
+		
+		/* straggler trees along pit terrain, to make the edge less straight - uses Foundation Tree trick and doesn't work if gaia civ is set */
+		#const TREE_OF_FOREST_A 1051 /* Dragon Tree */
+		#const TREE_OF_FOREST_B 1051 /* Dragon Tree */
+		#const TREE_OF_FOREST_C 1051 /* Dragon Tree */
+
+		#const BEACH_TERRAIN 2 /* used for beach_terrain */
+		
+		#const SPAWN_TERRAIN 6 /* both unused cause forest.inc isnt used */
+		#const SPAWN_FOREST 89
+
+		#const BASE_FOREST 48 /* forest in the middle pit (and player forest) */
+		#const BASE_FOREST_EDGE 89 /* unused */
+		#const BASE_FOREST_VARIATION_A 50 /* Base Forest Forest mixing A */
+		#const BASE_FOREST_VARIATION_B 48 /* Base Forest Forest mixing B */
+		#const BASE_FOREST_BLEND 100  /* Base Forest (A and B) blending */
+		#const LEAF_UNDERBRUSH 49 /* 1 tile leaf terrain around outside forests */
+		
+		#const OUTSIDE_CLUMPS 56 /* amount of clumps of outside forest */
+
+		#const BASE_TERRAIN 6 /* biggest terrain mass that the map consists of */
+		
+
+		#const BASE_BLEND_A 118
+		start_random
+			percent_chance 50
+				#const BASE_BLEND_B 14
+				#const BASE_BLEND_C 46
+			percent_chance 50
+				#const BASE_BLEND_B 3
+				#const BASE_BLEND_C 11
+		end_random
+
+		#const BASE_BLEND_D 41
+		
+		
+		#const MOUNTAIN_BLEND_A 102 /* terrain blending around the two mountains */
+		#const MOUNTAIN_BLEND_B 45
+		
+		#const MOUNTAIN_TOP 3 /* self explainatory */
+		#const MOUNTAIN_SLOPE 41
+		#const MOUNTAIN_TOP_BLEND 3
+		#const MOUNTAIN_SLOPE_BLEND 41
+		
+		#const EDGE_FOREST_BLEND 100 /* additional blending of outside forests */
+		#const HOLLOW_PIT_A 102 /* main pit terrain */
+		#const HOLLOW_PIT_B 14	/* blendings */
+		#const HOLLOW_PIT_C 6
+
+		#const STRAGGLER_A 1250 /* straggler group, consist of 3 stragglers therefore each indivudual tree occours less than STRAGGLER_NEUTRAL */
+		#const STRAGGLER_B 404
+		#const STRAGGLER_C 407
+		
+		#const STRAGGLER_FOREST 49 /* replaces LEAF_UNDERBRUSH in small quantities to make edge forests that look kinda nice */
+		#const STRAGGLER_FOREST_VARIATION 49 
+
+		#const POND_TERRAIN 1 /* Water Terrain of pit pond */
+		#const POND_BLENDING 115 /* Water blending */
+
+		#const MARKET_TERRAIN 24 /* unused */
+
+		#const AESTHETIC_FLAT 1033 /* Grass Patch, Dry */
+		#const AESTHETIC_GROUPED 709 /* Cactus */
+		#const AESTHETIC_SCATTER 1091 /* Animal Skeleton */
+
+		#const SOLID_OBJECT 1049 /* Boulder B */
+		#const SOLID_UNDERBRUSH 1365 /* Dead Plant */
+		#const SOLID_SURROUND 1048 /* Boulder A */
+		
+		#const HOLLOW_EYECANDY 858 /* Broken Cart */
+		#const HOLLOW_SOLID 2515 /* Small desert Rock */
+
+	elseif NEOTROPICAL_TEMPERATE
+		#define RANDOM_SEASON
+		#const STRAGGLER_SPAWN 2570 /* Monkey Puzzle Tree */
+		#const STRAGGLER_NEUTRAL 2025 /* Monkey Puzzle Tree */
+		
+		#const TREE_OF_FOREST_A 1063
+        #const TREE_OF_FOREST_B 1053
+		#const TREE_OF_FOREST_C 2570
+		
+		#const BEACH_TERRAIN 108
+
+		#const SPAWN_TERRAIN 0
+		#const SPAWN_FOREST 128
+
+		#const BASE_FOREST 128
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 128
+		#const BASE_FOREST_VARIATION_B 128
+		#const BASE_FOREST_BLEND 77
+		#const LEAF_UNDERBRUSH 77
+		
+		#const OUTSIDE_CLUMPS 34
+
+		#const BASE_TERRAIN 0
+		#const BASE_BLEND_A 71
+		#const BASE_BLEND_B 60
+		#const BASE_BLEND_C 4
+		#const BASE_BLEND_D 5
+		
+		
+		#const MOUNTAIN_BLEND_A 82
+		#const MOUNTAIN_BLEND_B 75
+		#const MOUNTAIN_TOP 124
+		#const MOUNTAIN_SLOPE 81
+		#const MOUNTAIN_TOP_BLEND 81
+		#const MOUNTAIN_SLOPE_BLEND 60
+		
+		#const EDGE_FOREST_BLEND 77
+		#const HOLLOW_PIT_A 83
+		#const HOLLOW_PIT_B 81
+		#const HOLLOW_PIT_C 77
+
+		#const STRAGGLER_A 2580
+		#const STRAGGLER_B 2583
+		#const STRAGGLER_C 414
+		#const STRAGGLER_FOREST 17
+		#const STRAGGLER_FOREST_VARIATION 89
+
+		#const POND_TERRAIN 130
+		#const POND_BLENDING 130 /* Water blending */
+		#define WET
+
+		#const MARKET_TERRAIN 75
+
+		#const AESTHETIC_FLAT 1175 /* Fern Patch */
+		#const AESTHETIC_GROUPED 1366 /* Flower Plant */
+		#const AESTHETIC_SCATTER 1362 /* Shrub Plant */
+
+		#const SOLID_OBJECT 2585 /* Rock Jungle */
+		#const SOLID_UNDERBRUSH 859 /* Flower Bed */
+		#const SOLID_SURROUND 710 /* Skeleton */
+		
+		#const HOLLOW_EYECANDY 2611 /* Solid Andean Ruin */
+		#const HOLLOW_SOLID 2491 /* Water Pots */
+
+	elseif NEOTROPICAL_TROPICAL
+		#const STRAGGLER_SPAWN 414 /* Jungle Tree */
+		#const STRAGGLER_NEUTRAL 1146 /* Rainforest Tree */
+
+		#const BEACH_TERRAIN 52
+		
+		#const TREE_OF_FOREST_A 302
+        #const TREE_OF_FOREST_B 414
+		#const TREE_OF_FOREST_C 1144
+
+		#const SPAWN_TERRAIN 60
+		#const SPAWN_FOREST 17
+
+		#const BASE_FOREST 17
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 56
+		#const BASE_FOREST_VARIATION_B 112
+		#const BASE_FOREST_BLEND 76
+		#const LEAF_UNDERBRUSH 77
+		
+		#const OUTSIDE_CLUMPS 52
+
+		#const BASE_TERRAIN 60
+		#const BASE_BLEND_A 77
+		#const BASE_BLEND_B 100
+		#const BASE_BLEND_C 76
+		#const BASE_BLEND_D 9
+		
+		
+		#const MOUNTAIN_BLEND_A 27
+		#const MOUNTAIN_BLEND_B 40
+		#const MOUNTAIN_TOP 125
+		#const MOUNTAIN_TOP_BLEND 82
+		#const MOUNTAIN_SLOPE 117
+		#const MOUNTAIN_SLOPE_BLEND 0
+		
+		#const EDGE_FOREST_BLEND 3
+		#const HOLLOW_PIT_A 83
+		#const HOLLOW_PIT_B 82
+		#const HOLLOW_PIT_C 77
+
+		#const STRAGGLER_A 2580
+		#const STRAGGLER_B 408
+		#const STRAGGLER_C 414
+		#const STRAGGLER_FOREST 112
+		#const STRAGGLER_FOREST_VARIATION 89
+
+		#const POND_TERRAIN 130
+		#const POND_BLENDING 4
+		#define WET
+
+		#const MARKET_TERRAIN 75
+
+		#const AESTHETIC_FLAT 1364 /* Weeds Plant */
+		#const AESTHETIC_GROUPED 348 /* Bamboo Stump */
+		#const AESTHETIC_SCATTER 1362 /* Shrub Plant */
+
+		#const SOLID_OBJECT 1149 /* Rock Jungle */
+		#const SOLID_UNDERBRUSH 859 /* Flower Bed */
+		#const SOLID_SURROUND 2456 /* Impaled Corpse */
+		
+		#const HOLLOW_EYECANDY 2514 /* Puru Ruin */
+		#const HOLLOW_SOLID 2519 /* Amphorae */
+
+	elseif NEARCTIC_TEMPERATE
+		start_random
+			percent_chance 50 #define SEASON_WINTER
+			percent_chance 50 #define SEASON_SPRING
+		end_random
+
+		#const STRAGGLER_SPAWN 350 /* Pine Tree */
+		#const STRAGGLER_NEUTRAL 350 /* Pine Tree */
+		
+		#const BEACH_TERRAIN 108
+		
+		#const TREE_OF_FOREST_A 349
+        #const TREE_OF_FOREST_B 1717
+		#const TREE_OF_FOREST_C 1539
+
+		#const SPAWN_TERRAIN 3
+		#const SPAWN_FOREST 89
+
+		#const BASE_FOREST 19
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 10
+		#const BASE_FOREST_VARIATION_B 110
+		#const BASE_FOREST_BLEND 0
+		#const LEAF_UNDERBRUSH 5
+		
+		#const OUTSIDE_CLUMPS 28
+
+		#const BASE_TERRAIN 3
+		#const BASE_BLEND_A 0
+		#const BASE_BLEND_B 9
+		#const BASE_BLEND_C 12
+		#const BASE_BLEND_D 73
+		
+		
+		#const MOUNTAIN_BLEND_A 72
+		#const MOUNTAIN_BLEND_B 32
+		#const MOUNTAIN_TOP 126
+		#const MOUNTAIN_TOP_BLEND 40
+		#const MOUNTAIN_SLOPE 21
+		#const MOUNTAIN_SLOPE_BLEND 0
+		
+		#const EDGE_FOREST_BLEND 100
+		#const HOLLOW_PIT_A 70
+		#const HOLLOW_PIT_B 71
+		#const HOLLOW_PIT_C 11
+	
+		#const STRAGGLER_A 1053
+		#const STRAGGLER_B 1250
+		#const STRAGGLER_C 1248
+		#const STRAGGLER_FOREST 89
+		#const STRAGGLER_FOREST_VARIATION 110
+
+		#const POND_TERRAIN 1
+		#const POND_BLENDING 22
+
+		#const MARKET_TERRAIN 25
+
+		#const AESTHETIC_FLAT 301 /* Green Patch Green */
+		#const AESTHETIC_GROUPED 1359 /* Plant Bush, Dry */
+		#const AESTHETIC_SCATTER 1362 /* Shrub Plant */
+
+		#const SOLID_OBJECT 1323 /* Rock 2 */
+		#const SOLID_UNDERBRUSH 144 /* Flower Bed */
+		#const SOLID_SURROUND 820 /* Grave */
+		
+		#const HOLLOW_EYECANDY 819 /* Sign */
+		#const HOLLOW_SOLID 59 /* Forage Bush */
+
+	elseif INDOMALAYAN_TROPICAL
+		#define FLOWERS
+		#const STRAGGLER_SPAWN 348 /* Bamboo */
+		#const STRAGGLER_NEUTRAL 1984 /* Lush Bamboo */
+		
+		#const TREE_OF_FOREST_A 302
+        #const TREE_OF_FOREST_B 1540
+		#const TREE_OF_FOREST_C 1984
+		
+		#const BEACH_TERRAIN 2
+
+		#const SPAWN_TERRAIN 100
+		#const SPAWN_FOREST 89
+		
+		#const OUTSIDE_CLUMPS 38
+
+		#const BASE_FOREST 56
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 18
+		#const BASE_FOREST_VARIATION_B 113
+		#const BASE_FOREST_BLEND 9
+		#const LEAF_UNDERBRUSH 5
+
+		#const BASE_TERRAIN 100
+		#const BASE_BLEND_A 60
+		#const BASE_BLEND_B 12
+		#const BASE_BLEND_C 111
+		#const BASE_BLEND_D 9
+		
+		
+		#const MOUNTAIN_BLEND_A 77
+		#const MOUNTAIN_BLEND_B 75
+		#const MOUNTAIN_TOP 83
+		#const MOUNTAIN_TOP_BLEND 125
+		#const MOUNTAIN_SLOPE 125
+		#const MOUNTAIN_SLOPE_BLEND 0
+		
+		
+		#const EDGE_FOREST_BLEND 11
+		#const HOLLOW_PIT_A 3
+		#const HOLLOW_PIT_B 70
+		#const HOLLOW_PIT_C 123
+	
+		#const STRAGGLER_A 2017
+		#const STRAGGLER_B 2016
+		#const STRAGGLER_C 2027
+		#const STRAGGLER_FOREST 18
+		#const STRAGGLER_FOREST_VARIATION 113
+
+		#const POND_TERRAIN 95
+		#const POND_BLENDING 4
+		#define WET
+
+		#const MARKET_TERRAIN 75
+
+		#const AESTHETIC_FLAT 1538 /* Lush Bamboo Stump */
+		#const AESTHETIC_GROUPED 1360 /* Plant (Bush, Green) */
+		/* #const AESTHETIC_SCATTER 859  Handled as Object Group of Flowers 2-4 in object gen */
+
+		#const SOLID_OBJECT 2009 /* Limestone */
+		#const SOLID_UNDERBRUSH 2294 /* Sacred Tree */
+		#const SOLID_SURROUND 821 /* Head */
+		
+		#const HOLLOW_EYECANDY 1784 /* Indian Ruins */
+		#const HOLLOW_SOLID 711 /* Rugs */
+
+	elseif PALAEARCTIC_ASIA_TEMPERATE
+		#define SEASON_AUTUMN
+		#define YURTS
+
+		#const STRAGGLER_SPAWN 1053 /* Bush B */
+		#const STRAGGLER_NEUTRAL 1248 /* Autumn Tree */
+		
+		#const TREE_OF_FOREST_A 1248
+        #const TREE_OF_FOREST_B 350
+		#const TREE_OF_FOREST_C 1053
+		
+		#const BEACH_TERRAIN 2
+
+		#const SPAWN_TERRAIN 100
+		#const SPAWN_FOREST 89
+		
+		#const OUTSIDE_CLUMPS 68
+
+		#const BASE_FOREST 19
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 104
+		#const BASE_FOREST_VARIATION_B 105
+		#const BASE_FOREST_BLEND 32
+		#const LEAF_UNDERBRUSH 5
+
+		#const BASE_TERRAIN 6
+		#const BASE_BLEND_A 100
+		#const BASE_BLEND_B 118
+		#const BASE_BLEND_C 73
+		#const BASE_BLEND_D 119
+		
+		#const MOUNTAIN_BLEND_A 11
+		#const MOUNTAIN_BLEND_B 32
+		#const MOUNTAIN_TOP 74
+		#const MOUNTAIN_TOP_BLEND 125
+		#const MOUNTAIN_SLOPE 32
+		#const MOUNTAIN_SLOPE_BLEND 11
+
+		#const EDGE_FOREST_BLEND 9
+		#const HOLLOW_PIT_A 100
+		#const HOLLOW_PIT_B 6
+		#const HOLLOW_PIT_C 120
+	
+		#const STRAGGLER_A 2017
+		#const STRAGGLER_B 404
+		#const STRAGGLER_C 405
+		#const STRAGGLER_FOREST 18
+		#const STRAGGLER_FOREST_VARIATION 71
+
+		#const POND_TERRAIN 1
+		#const POND_BLENDING 23
+
+		#const MARKET_TERRAIN 78
+
+		#const AESTHETIC_FLAT 1033 /* Grass Patch, Dry */
+		#const AESTHETIC_GROUPED 1362 /* Shrub Plant */
+		#const AESTHETIC_SCATTER 1360 /* Bush Plant */
+
+		/* #const SOLID_OBJECT handled as Object Group of Yurts in object gen */
+		#const SOLID_UNDERBRUSH 710 /* Skeleton */
+		#const SOLID_SURROUND 1315 /* Impaled Corpse */
+		
+		#const HOLLOW_EYECANDY 857 /* Hay Stack */
+		#const HOLLOW_SOLID 723 /* Crater */
+
+	elseif PALAEARCTIC_MIDDLE_EAST_DESERT
+		#const STRAGGLER_SPAWN 351 /* Palm Tree */
+		#const STRAGGLER_NEUTRAL 351 /* Palm Tree */
+		
+		#const TREE_OF_FOREST_A 351
+        #const TREE_OF_FOREST_B 1717
+		#const TREE_OF_FOREST_C 1053
+		
+		#const BEACH_TERRAIN 2
+
+		#const SPAWN_TERRAIN 14
+		#const SPAWN_FOREST 13
+		
+		#const OUTSIDE_CLUMPS 22
+
+		#const BASE_FOREST 112
+		#const BASE_FOREST_EDGE 13
+		#const BASE_FOREST_VARIATION_A 13
+		#const BASE_FOREST_VARIATION_B 110
+		#const BASE_FOREST_BLEND 3
+		#const LEAF_UNDERBRUSH 6
+
+		#const BASE_TERRAIN 14
+
+		start_random
+			percent_chance 50
+				#const BASE_BLEND_A 11
+				#const BASE_BLEND_B 6
+			percent_chance 50
+				#const BASE_BLEND_A 6
+				#const BASE_BLEND_B 46
+		end_random
+		
+		#const BASE_BLEND_C 45
+		#const BASE_BLEND_D 2
+		
+		#const MOUNTAIN_BLEND_A 6
+		#const MOUNTAIN_BLEND_B 76
+		#const MOUNTAIN_TOP 9
+		#const MOUNTAIN_TOP_BLEND 100
+		#const MOUNTAIN_SLOPE 76
+		#const MOUNTAIN_SLOPE_BLEND 41
+
+		#const EDGE_FOREST_BLEND 11
+		#const HOLLOW_PIT_A 100
+		#const HOLLOW_PIT_B 42
+		#const HOLLOW_PIT_C 102
+	
+		#const STRAGGLER_A 1717
+		#const STRAGGLER_B 1063
+		#const STRAGGLER_C 1051
+		#const STRAGGLER_FOREST 41
+		#const STRAGGLER_FOREST_VARIATION 110
+
+		#const POND_TERRAIN 1
+		#const POND_BLENDING 58
+
+		#const MARKET_TERRAIN 78
+
+		#const AESTHETIC_FLAT 1365 /* Dead Plant */
+		#const AESTHETIC_GROUPED 709 /* Cactus */
+		#const AESTHETIC_SCATTER 241 /* Cracks */
+
+		#const SOLID_OBJECT 1049 /* Boulder B */
+		#const SOLID_UNDERBRUSH 1048 /* Rock Formation 1 */ 
+		#const SOLID_SURROUND 2515 /* desert rock */
+		
+		#const HOLLOW_EYECANDY 2501 /* Grain Storage */
+		#const HOLLOW_SOLID 2019 /* Weapon Stacks */
+
+	elseif PALAEARCTIC_EUROPE_TAIGA
+	
+		#const STRAGGLER_SPAWN 1250 /* Dead Tree */
+		#const STRAGGLER_NEUTRAL 1250 /* Dead Tree */
+		
+		#const TREE_OF_FOREST_A 1249
+        #const TREE_OF_FOREST_B 1250
+		#const TREE_OF_FOREST_C 1054
+		
+		#const BEACH_TERRAIN 37
+
+		#const SPAWN_TERRAIN 100
+		#const SPAWN_FOREST 89
+		
+		#const OUTSIDE_CLUMPS 26
+
+		#const BASE_FOREST 21
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 105
+		#const BASE_FOREST_VARIATION_B 106
+		#const BASE_FOREST_BLEND 127
+		#const LEAF_UNDERBRUSH 72
+
+		#const BASE_TERRAIN 0
+		#const BASE_BLEND_A 122
+		#const BASE_BLEND_B 76
+		#const BASE_BLEND_C 127
+		#const BASE_BLEND_D 126
+		
+		#const MOUNTAIN_BLEND_A 82
+		#const MOUNTAIN_BLEND_B 28
+		#const MOUNTAIN_TOP 35
+		#const MOUNTAIN_TOP_BLEND 32
+		#const MOUNTAIN_SLOPE 74
+		#const MOUNTAIN_SLOPE_BLEND 60
+
+		#const EDGE_FOREST_BLEND 11
+		#const HOLLOW_PIT_A 76
+		#const HOLLOW_PIT_B 72
+		#const HOLLOW_PIT_C 81
+	
+		#const STRAGGLER_A 1054
+		#const STRAGGLER_B 1248
+		#const STRAGGLER_C 2025
+		#const STRAGGLER_FOREST 19
+		#const STRAGGLER_FOREST_VARIATION 21
+
+		#const POND_TERRAIN 37
+		#const POND_BLENDING 37
+
+		#const MARKET_TERRAIN 78
+
+		#const AESTHETIC_FLAT 728 /* Ice */
+		#const AESTHETIC_GROUPED 809 /* Stump */
+		#const AESTHETIC_SCATTER 1958 /* Arctic Foxes */
+
+		#const SOLID_OBJECT 623 /* Rock A */
+		#const SOLID_UNDERBRUSH 301 /* Grass Patch, Green */
+		#const SOLID_SURROUND 1539 /* felled tree */
+		
+		#const HOLLOW_EYECANDY 1836 /* Chapel */
+		#const HOLLOW_SOLID 2605 /* Flag U */
+
+
+	elseif PALAEARCTIC_EUROPE_TEMPERATE
+		start_random
+			percent_chance 35 #define SEASON_SPRING
+			percent_chance 35 #define SEASON_SUMMER
+		end_random
+
+		#const STRAGGLER_SPAWN 302 /* Bush A */
+		#const STRAGGLER_NEUTRAL 349 /* Oak Tree */
+		
+		#const TREE_OF_FOREST_A 349
+        #const TREE_OF_FOREST_B 1717
+		#const TREE_OF_FOREST_C 350
+		
+		#const OUTSIDE_CLUMPS 15
+		
+		#const BEACH_TERRAIN 2
+
+		#const SPAWN_TERRAIN 12
+		#const SPAWN_FOREST 89
+
+		#const BASE_FOREST 20
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 10
+		#const BASE_FOREST_VARIATION_B 110
+		#const BASE_FOREST_BLEND 12
+		#const LEAF_UNDERBRUSH 71
+
+		#const BASE_TERRAIN 12
+		#const BASE_BLEND_A 117
+		#const BASE_BLEND_B 9
+		#const BASE_BLEND_C 4
+		#const BASE_BLEND_D 0
+		
+		#const MOUNTAIN_BLEND_A 70
+		#const MOUNTAIN_BLEND_B 19
+		#const MOUNTAIN_TOP 70
+		#const MOUNTAIN_TOP_BLEND 124
+		#const MOUNTAIN_SLOPE 123
+		#const MOUNTAIN_SLOPE_BLEND 125
+
+		#const EDGE_FOREST_BLEND 101
+		#const HOLLOW_PIT_A 11
+		#const HOLLOW_PIT_B 5
+		#const HOLLOW_PIT_C 108
+		
+		#const STRAGGLER_A 1250
+		#const STRAGGLER_B 1248
+		#const STRAGGLER_C 2025
+		#const STRAGGLER_FOREST 19
+		#const STRAGGLER_FOREST_VARIATION 71
+
+		#const POND_TERRAIN 1
+		#const POND_BLENDING 4
+
+		#const MARKET_TERRAIN 78
+
+		#const AESTHETIC_FLAT 818 /* Flowers */
+		#const AESTHETIC_GROUPED 809 /* Stump */
+		#const AESTHETIC_SCATTER 1366 /* Flowers */
+
+		#const SOLID_OBJECT 623 /* Rock A */
+		#const SOLID_UNDERBRUSH 859 /* Flower Bed */
+		#const SOLID_SURROUND 710 /* Skeleton */
+		
+		#const HOLLOW_EYECANDY 1319 /* Quarry - yeah at some point the SOLID and the Eyecandy where swapped, because I liked the distriubtion better that way */
+		#const HOLLOW_SOLID 820 /* Grave */
+
+
+	elseif PALAEARCTIC_EUROPE_MEDITERRANEAN
+		#const STRAGGLER_SPAWN 1349 /* Olive Tree */
+		#const STRAGGLER_NEUTRAL 1348 /* Italian Pine Tree */
+
+		#const TREE_OF_FOREST_A 1349
+        #const TREE_OF_FOREST_B 1348
+		#const TREE_OF_FOREST_C 1347
+		#const BEACH_TERRAIN 2
+
+		#const SPAWN_TERRAIN 9
+		#const SPAWN_FOREST 89
+		
+		#const OUTSIDE_CLUMPS 42
+
+		#const BASE_FOREST 88
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 104
+		#const BASE_FOREST_VARIATION_B 19
+		#const BASE_FOREST_BLEND 122
+		#const LEAF_UNDERBRUSH 5
+
+		#const BASE_TERRAIN 9
+		#const BASE_BLEND_A 100
+		#const BASE_BLEND_B 117
+		#const BASE_BLEND_C 78
+		#const BASE_BLEND_D 71
+		
+		#const MOUNTAIN_BLEND_A 70
+		#const MOUNTAIN_BLEND_B 19
+		#const MOUNTAIN_TOP 6
+		#const MOUNTAIN_TOP_BLEND 72
+		#const MOUNTAIN_SLOPE 76
+		#const MOUNTAIN_SLOPE_BLEND 73
+		
+		#const EDGE_FOREST_BLEND 119
+		#const HOLLOW_PIT_A 3
+		#const HOLLOW_PIT_B 5
+		#const HOLLOW_PIT_C 41
+		
+		#const STRAGGLER_A 1347
+		#const STRAGGLER_B 1248
+		#const STRAGGLER_C 2025
+		#const STRAGGLER_FOREST 20
+		#const STRAGGLER_FOREST_VARIATION 100
+
+		#const POND_TERRAIN 1
+		#const POND_BLENDING 107
+
+		#const MARKET_TERRAIN 78
+
+		#const AESTHETIC_FLAT 809 /* Stump */
+		#const AESTHETIC_GROUPED 1364 /* Weeds */
+		#const AESTHETIC_SCATTER 499 /* Torch A */
+
+		#const SOLID_OBJECT 2234 /* Mediterrianian Ruins */
+		#const SOLID_UNDERBRUSH 144 /* 2x2 rubble */
+		#const SOLID_SURROUND 1330 /* Barrels */
+		
+		#const HOLLOW_EYECANDY 2290 /* Grapevine */
+		#const HOLLOW_SOLID 2491 /* Water Pots */
+
+	elseif AUSTRALASIAN_TEMPERATE
+		#const STRAGGLER_SPAWN 1053 /* Bush B */
+		#const STRAGGLER_NEUTRAL 1717 /* Birch Tree */
+		
+		#const TREE_OF_FOREST_A 1717
+        #const TREE_OF_FOREST_B 1348
+		#const TREE_OF_FOREST_C 1250
+		#const BEACH_TERRAIN 2
+
+		#const SPAWN_TERRAIN 100
+		#const SPAWN_FOREST 89
+		
+		#const OUTSIDE_CLUMPS 47
+
+		#const BASE_FOREST 13
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 110
+		#const BASE_FOREST_VARIATION_B 48
+		#const BASE_FOREST_BLEND 100
+		#const LEAF_UNDERBRUSH 41
+
+		#const BASE_TERRAIN 100
+		#const BASE_BLEND_A 76
+		#const BASE_BLEND_B 3
+		#const BASE_BLEND_C 14
+		#const BASE_BLEND_D 102
+		
+		#const MOUNTAIN_BLEND_A 70
+		#const MOUNTAIN_BLEND_B 19
+		#const MOUNTAIN_TOP 6
+		#const MOUNTAIN_TOP_BLEND 0
+		#const MOUNTAIN_SLOPE 42
+		#const MOUNTAIN_SLOPE_BLEND 12
+		
+		#const EDGE_FOREST_BLEND 9
+		#const HOLLOW_PIT_A 14
+		#const HOLLOW_PIT_B 41
+		#const HOLLOW_PIT_C 80
+		
+		#const STRAGGLER_A 410
+		#const STRAGGLER_B 407
+		#const STRAGGLER_C 1349
+		#const STRAGGLER_FOREST 41
+		#const STRAGGLER_FOREST_VARIATION 89
+
+		#const POND_TERRAIN 1
+		#const POND_BLENDING 2
+
+		#const MARKET_TERRAIN 78
+
+		#const AESTHETIC_FLAT 1362 /* Shrub Plant */
+		#const AESTHETIC_GROUPED 1538 /* Bamboo stump */
+		#const AESTHETIC_SCATTER 1360 /* Bush Plant */
+
+		#const SOLID_OBJECT 623 /* Rock A */
+		#const SOLID_UNDERBRUSH 1033 /* Dry Grass Patch */
+		#const SOLID_SURROUND 723 /* Crater */
+		
+		/* #const HOLLOW_EYECANDY 1320 - different Paths, handled as object group down below */
+		#const HOLLOW_SOLID 858 /* Broken Cart */
+		
+	elseif PALAEARCTIC_EASTASIA_BROADLEAF
+		#const STRAGGLER_SPAWN 2017 /* Peach Plossom */
+		#const STRAGGLER_NEUTRAL 2017 /* Peach Plossom */
+
+		#const TREE_OF_FOREST_A 2027
+        #const TREE_OF_FOREST_B 2016
+		#const TREE_OF_FOREST_C 2028
+		#const BEACH_TERRAIN 107
+
+		#const SPAWN_TERRAIN 9
+		#const SPAWN_FOREST 89
+		
+		#const OUTSIDE_CLUMPS 18
+
+		#const BASE_FOREST 92
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 92
+		#const BASE_FOREST_VARIATION_B 92
+		#const BASE_FOREST_BLEND 60
+		#const LEAF_UNDERBRUSH 5
+
+		#const BASE_TERRAIN 60
+		#const BASE_BLEND_A 122
+		#const BASE_BLEND_B 123
+		#const BASE_BLEND_C 0
+		#const BASE_BLEND_D 77
+		
+		#const MOUNTAIN_BLEND_A 76
+		#const MOUNTAIN_BLEND_B 4
+		#const MOUNTAIN_TOP 56
+		#const MOUNTAIN_TOP_BLEND 23
+		#const MOUNTAIN_SLOPE 76
+		#const MOUNTAIN_SLOPE_BLEND 1
+		
+		#const EDGE_FOREST_BLEND 119
+		#const HOLLOW_PIT_A 77
+		#const HOLLOW_PIT_B 60
+		#const HOLLOW_PIT_C 114
+		
+		#const STRAGGLER_A 2016
+		#const STRAGGLER_B 2028
+		#const STRAGGLER_C 1542
+		#const STRAGGLER_FOREST 77
+		#const STRAGGLER_FOREST_VARIATION 113
+
+		#const POND_TERRAIN 114
+		#const POND_BLENDING 116
+
+		#const MARKET_TERRAIN 78
+
+		#const AESTHETIC_FLAT 2029 /* Maple Leaves */
+		#const AESTHETIC_GROUPED 2030 /* Blossom Leaves */
+		#const AESTHETIC_SCATTER 2031 /* Maple Leaves */
+
+		#const SOLID_OBJECT 2082 /* PANDA rock */
+		#const SOLID_UNDERBRUSH 1175 /* Fern Patch */
+		#const SOLID_SURROUND 1986 /* Paper Lantern */
+		
+		#const HOLLOW_EYECANDY 1987 /* Chinese Ruin */
+		#const HOLLOW_SOLID 2022 /* Asian Lantern */
+	elseif INDOMALAYAN_SWAMP
+		#const STRAGGLER_SPAWN 1146 /* Rainforest Tree */
+		#const STRAGGLER_NEUTRAL 1984 /* Lush Bamboo */
+		
+		#const TREE_OF_FOREST_A 1146
+        #const TREE_OF_FOREST_B 1144
+		#const TREE_OF_FOREST_C 2580
+		
+		#const BEACH_TERRAIN 52
+
+		#const SPAWN_TERRAIN 100
+		#const SPAWN_FOREST 89
+		
+		#const OUTSIDE_CLUMPS 31
+
+		#const BASE_FOREST 92
+		#const BASE_FOREST_EDGE 89
+		#const BASE_FOREST_VARIATION_A 92
+		#const BASE_FOREST_VARIATION_B 92
+		#const BASE_FOREST_BLEND 55
+		#const LEAF_UNDERBRUSH 5
+
+		#const BASE_TERRAIN 77
+		#const BASE_BLEND_A 63
+		#const BASE_BLEND_B 12
+		#const BASE_BLEND_C 58
+		#const BASE_BLEND_D 76
+		#const BASE_BLEND_E 83
+		
+		
+		#const MOUNTAIN_BLEND_A 111
+		#const MOUNTAIN_BLEND_B 81
+		#const MOUNTAIN_TOP 92
+		#const MOUNTAIN_TOP_BLEND 82
+		#const MOUNTAIN_SLOPE 83
+		#const MOUNTAIN_SLOPE_BLEND 82
+		
+		
+		#const EDGE_FOREST_BLEND 58
+		#const HOLLOW_PIT_A 60
+		#const HOLLOW_PIT_B 101
+		#const HOLLOW_PIT_C 95
+	
+		#const STRAGGLER_A 2025
+		#const STRAGGLER_B 1984
+		#const STRAGGLER_C 1144
+		#const STRAGGLER_FOREST 92
+		#const STRAGGLER_FOREST_VARIATION 113
+
+		#const POND_TERRAIN 95
+		#const POND_BLENDING 4
+		#define WET
+
+		#const MARKET_TERRAIN 75
+
+		#const AESTHETIC_FLAT 1358 /* Grass */
+		#const AESTHETIC_GROUPED 1360 /* Plant (Bush, Green) */
+		#const AESTHETIC_SCATTER 301 /* Grass Patch, Green */
+
+		#const SOLID_OBJECT 1149 /* Jungle Rock */
+		#const SOLID_UNDERBRUSH 855 /* Old Stonehead  */
+		#const SOLID_SURROUND 1538 /* Lush Bamboo Stump */
+		
+		#const HOLLOW_EYECANDY 2251 /* Mesopotamian Pillar */
+		#const HOLLOW_SOLID 1175 /* Fern Patch */
+endif
+
+
+
+effect_amount GAIA_SET_ATTRIBUTE SOLID_OBJECT ATTR_OCCLUSION_MODE 2
+effect_amount GAIA_SET_ATTRIBUTE SOLID_OBJECT ATTR_TERRAIN_ID 4
+effect_amount GAIA_SET_ATTRIBUTE HOLLOW_SOLID ATTR_OCCLUSION_MODE 2
+effect_amount GAIA_SET_ATTRIBUTE HOLLOW_SOLID ATTR_TERRAIN_ID 4
+effect_amount GAIA_SET_ATTRIBUTE HOLLOW_SOLID ATTR_STORAGE_VALUE 30000
+effect_amount GAIA_SET_ATTRIBUTE HOLLOW_EYECANDY ATTR_OCCLUSION_MODE 2
+effect_amount GAIA_SET_ATTRIBUTE SOLID_UNDERBRUSH ATTR_OCCLUSION_MODE 2
+effect_amount GAIA_SET_ATTRIBUTE SOLID_SURROUND ATTR_TERRAIN_ID 4
+
+if RANDOM_SEASON
+start_random
+	percent_chance 20 #define SEASON_SPRING
+	percent_chance 20 #define SEASON_SUMMER
+	percent_chance 20 #define SEASON_AUTUMN
+	percent_chance 20 #define SEASON_WINTER
+end_random
+endif
+
+/* default in case something goes wrong */
+#const MOUNTAIN_BLEND_A 101
+#const MOUNTAIN_BLEND_B 108
+#const MOUNTAIN_TOP 32 
+#const MOUNTAIN_SLOPE 40
+#const HOLLOW_PIT_A 11
+#const PLACEHOLDER_TERRAIN_A 29 /* Farm 0% */
+#const PLACEHOLDER_TERRAIN_B 30 /* Farm 33% */
+#const PLACEHOLDER_TERRAIN_C 31 /* Farm 66% */
+
+
+if PALAEARCTIC_EASTASIA_BROADLEAF
+	#define PALAEARCTIC_ASIA_TEMPERATE
+elseif INDOMALAYAN_SWAMP
+	#define INDOMALAYAN_TROPICAL
+endif
+
+#include_drs includes/themes.inc
+#include_drs includes/constants.inc
+
+
+
+
+<PLAYER_SETUP>
+	#include_drs includes/preliminaries.inc
+
+	#define WATER_POND
+	#include_drs includes/water_preset.inc
+	water_definition WATER_PRESET
+
+	random_placement
+	ai_info_map_type ARABIA 0 0
+	
+	/* the 3 bushes renamed to just Bush - from constants.inc */
+	effect_amount SET_ATTRIBUTE BUSH_A ATTR_NAME_ID 5650
+	effect_amount SET_ATTRIBUTE BUSH_B ATTR_NAME_ID 5650
+	effect_amount SET_ATTRIBUTE BUSH_SNOW ATTR_NAME_ID 5650
+	
+	if AFROTROPICAL_TROPICAL
+		effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 21074 /* renames Tree_F to just Tree (DEAD) */
+		effect_amount SET_ATTRIBUTE STRAGGLER_C ATTR_NAME_ID 5651
+		effect_amount SET_ATTRIBUTE STRAGGLER_A ATTR_NAME_ID 5651
+	elseif NEOTROPICAL_TROPICAL
+		effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 5651
+	elseif PALAEARCTIC_MIDDLE_EAST_DESERT
+		effect_amount GAIA_UPGRADE_UNIT TREE_BIRCH TREE_DEAD 0
+	elseif AUSTRALASIAN_TEMPERATE
+		effect_amount GAIA_UPGRADE_UNIT PALMTREE ITALIAN_PINETREE 0
+		effect_amount GAIA_UPGRADE_UNIT DLC_DRAGONTREE TREE_DEAD 0
+		effect_amount SET_ATTRIBUTE TREE_BIRCH ATTR_NAME_ID 5651 /* it's eucalyptus, not Birch */
+		effect_amount SET_ATTRIBUTE ITALIAN_PINETREE ATTR_NAME_ID 5399 /* it's australian pine, not italy */
+		effect_amount SET_ATTRIBUTE STRAGGLER_NEUTRAL ATTR_NAME_ID 5651
+	endif
+	
+	if YURTS
+		effect_amount GAIA_SET_ATTRIBUTE YURT2 ATTR_NAME_ID 5467
+		effect_amount GAIA_SET_ATTRIBUTE YURT3 ATTR_NAME_ID 5467
+		effect_amount GAIA_SET_ATTRIBUTE YURT4 ATTR_NAME_ID 5467
+		effect_amount GAIA_SET_ATTRIBUTE YURT5 ATTR_NAME_ID 5467
+		effect_amount GAIA_SET_ATTRIBUTE YURT6 ATTR_NAME_ID 5467
+		effect_amount GAIA_SET_ATTRIBUTE YURT7 ATTR_NAME_ID 5467
+		effect_amount GAIA_SET_ATTRIBUTE YURT_8 ATTR_NAME_ID 5467
+		effect_amount GAIA_SET_ATTRIBUTE YURT_9 ATTR_NAME_ID 5467
+		effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_NAME_ID 5467
+		effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 21074
+		effect_amount SET_ATTRIBUTE STRAGGLER_C ATTR_NAME_ID 5651
+	endif
+	
+	effect_percent SET_ATTRIBUTE FORESTBUILDING ATTR_RADIUS_1 50 /* make it a 1x1 object */
+	effect_percent SET_ATTRIBUTE FORESTBUILDING ATTR_RADIUS_2 50 /* make it a 1x1 object */
+	effect_amount SET_ATTRIBUTE FORESTBUILDING ATTR_FOUNDATION_TERRAIN BASE_FOREST /* Forest, so it's not a straggler */	
+
+behavior_version 1
+<LAND_GENERATION>
+base_terrain BASE_TERRAIN
+
+
+
+
+create_player_lands {
+	terrain_type SPAWN_PLACEHOLDER
+	land_percent 18
+	base_size 16
+	circle_radius 31 1
+	/* base_elevation 1 */
+	clumping_factor 15
+	base_elevation 3
+}
+
+
+create_land {
+	terrain_type BASE_FOREST
+	land_percent 100
+	land_position 50 50
+	left_border 28
+	right_border 28
+	bottom_border 28
+	top_border 28
+	land_id 1
+}
+
+create_player_lands {
+	terrain_type SPAWN_PLACEHOLDER
+	land_percent 2
+	base_size 4
+	clumping_factor 30
+	base_elevation 15
+	zone 50
+	land_id 99
+}
+
+
+
+
+
+<ELEVATION_GENERATION>
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 4 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 9320
+	number_of_clumps 99
+	enable_balanced_elevation
+}
+
+create_elevation 6 {
+	base_terrain BASE_TERRAIN
+	number_of_tiles rnd(800,1200)
+	number_of_clumps rnd(16,52)
+	enable_balanced_elevation
+} 
+
+
+
+
+<CLIFF_GENERATION>
+	#define CLIFF_ENABLE
+	
+	#const CLIFF_MINIMUM_DISTANCE 10
+
+	if RND_GLOBAL_CLIFFS_NONE
+		#const MIN_CLIFF_NUMBER 0
+		#const MAX_CLIFF_NUMBER 1
+	elseif RND_GLOBAL_CLIFFS_FEW
+		#const MIN_CLIFF_NUMBER 2
+		#const MAX_CLIFF_NUMBER 3
+	elseif RND_GLOBAL_CLIFFS_NORMAL
+		#const MIN_CLIFF_NUMBER 4
+		#const MAX_CLIFF_NUMBER 5
+	elseif RND_GLOBAL_CLIFFS_MANY
+		#const MIN_CLIFF_NUMBER 6
+		#const MAX_CLIFF_NUMBER 7
+	endif
+	
+	#const CLIFF_MINIMUM_LENGTH 2
+	#const CLIFF_MAXIMUM_LENGTH 4
+	
+	#include_drs includes/cliffs.inc
+	cliff_type CLIFF_TYPE
+
+
+<TERRAIN_GENERATION>
+if PALAEARCTIC_EUROPE_TAIGA
+	start_random
+	percent_chance 34 #const COLOUR_MOOD 16 /* Brumous */
+	percent_chance 33 #const COLOUR_MOOD 15 /* Murky */
+	percent_chance 33 #const COLOUR_MOOD 2 /* Winter */
+	end_random
+endif
+#include_drs includes/colour.inc
+color_correction COLOUR_MOOD
+
+create_terrain MOUNTAIN_TOP {
+	base_terrain SPAWN_PLACEHOLDER
+	land_percent 15
+	number_of_clumps 5320
+	height_limits 11 15
+}
+
+create_terrain MOUNTAIN_TOP {
+	base_terrain SPAWN_PLACEHOLDER
+	land_percent 15
+	number_of_clumps 5320
+	height_limits 11 15
+}
+
+create_terrain MOUNTAIN_TOP_BLEND {
+	base_terrain MOUNTAIN_TOP
+	if PALAEARCTIC_EASTASIA_BROADLEAF
+	number_of_tiles 10
+	number_of_clumps 5
+	else
+	land_percent 15
+	number_of_clumps 5320
+	endif
+	height_limits 11 15
+	terrain_mask 1
+}
+
+create_terrain MOUNTAIN_SLOPE {
+	base_terrain SPAWN_PLACEHOLDER
+	land_percent 15
+	number_of_clumps 9999
+	height_limits 7 15
+}
+create_terrain MOUNTAIN_SLOPE {
+	base_terrain SPAWN_PLACEHOLDER
+	land_percent 15
+	number_of_clumps 9999
+	height_limits 7 15
+}
+
+create_terrain MOUNTAIN_SLOPE_BLEND {
+	if PALAEARCTIC_EASTASIA_BROADLEAF
+	number_of_tiles 10
+	number_of_clumps 5
+	else
+	land_percent 15
+	number_of_clumps 9999
+	endif
+	height_limits 7 15
+	terrain_mask 1
+}
+
+create_terrain MOUNTAIN_SLOPE_BLEND {
+	if PALAEARCTIC_EASTASIA_BROADLEAF
+	number_of_tiles 10
+	number_of_clumps 5
+	else
+	land_percent 15
+	number_of_clumps 9999
+	endif
+	height_limits 7 15
+	terrain_mask 1
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain MOUNTAIN_SLOPE
+	number_of_tiles 70
+	number_of_clumps 14
+	height_limits 7 9
+}
+
+create_terrain MOUNTAIN_SLOPE_BLEND {
+	base_terrain BASE_TERRAIN
+	number_of_tiles 20
+	number_of_clumps 4
+	height_limits 7 9
+	terrain_mask 1
+}
+
+/* 1 Player forest */
+create_terrain PLACEHOLDER_TERRAIN_A {
+	base_terrain SPAWN_PLACEHOLDER
+	if AFROTROPICAL_TROPICAL
+	number_of_tiles (MAPAREA * 0.0016)
+	else
+	number_of_tiles (MAPAREA * 0.003)
+	endif
+	number_of_clumps 1
+	spacing_to_specific_terrain BASE_FOREST 13
+	set_avoid_player_start_areas rnd(13,19)
+}
+create_terrain PLACEHOLDER_TERRAIN_B {
+	base_terrain SPAWN_PLACEHOLDER
+	if AFROTROPICAL_TROPICAL
+	number_of_tiles (MAPAREA * 0.0016)
+	else
+	number_of_tiles (MAPAREA * 0.003)
+	endif
+	number_of_clumps 1
+	spacing_to_specific_terrain BASE_FOREST 13
+	spacing_to_specific_terrain PLACEHOLDER_TERRAIN_A 35
+	set_avoid_player_start_areas rnd(13,19)
+}
+
+create_terrain BASE_FOREST {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+create_terrain BASE_FOREST {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+create_terrain BASE_FOREST {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+
+create_terrain BASE_FOREST {
+	base_terrain PLACEHOLDER_TERRAIN_B
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+create_terrain BASE_FOREST {
+	base_terrain PLACEHOLDER_TERRAIN_B
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+create_terrain BASE_FOREST {
+	base_terrain PLACEHOLDER_TERRAIN_B
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+
+
+/* single pond roughly in the middle */
+/* here i used Beach Terrain and later transformed it into Water, to fix beach_terrain */
+create_terrain POND_TERRAIN {
+	
+	base_terrain BASE_FOREST
+	clumping_factor 100
+	if PALAEARCTIC_EUROPE_TAIGA
+	number_of_tiles (MAPAREA * 0.0025)
+	else
+	number_of_tiles (MAPAREA * 0.0015)
+	endif
+	number_of_clumps 1
+	spacing_to_other_terrain_types 7
+	beach_terrain BEACH_TERRAIN
+	set_flat_terrain_only 
+}
+
+create_terrain POND_BLENDING {
+	
+	base_terrain POND_TERRAIN
+	number_of_tiles (MAPAREA * 0.0008)
+	number_of_clumps 3
+	terrain_mask 1
+	beach_terrain BEACH_TERRAIN
+}
+
+/*
+create_terrain POND_TERRAIN {
+	base_terrain BEACH_TERRAIN
+	land_percent 15
+	number_of_clumps 9999
+	beach_terrain BEACH_TERRAIN
+}
+*/
+
+
+/* turn middle Forest into The Pit */
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST
+	land_percent 15
+	number_of_clumps 9999
+	beach_terrain BEACH_TERRAIN
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 8
+}
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST
+	land_percent 15
+	number_of_clumps 9999
+	beach_terrain BEACH_TERRAIN
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 8
+}
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST
+	land_percent 15
+	number_of_clumps 9999
+	beach_terrain BEACH_TERRAIN
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 8
+}
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST
+	land_percent 15
+	number_of_clumps 9999
+	beach_terrain BEACH_TERRAIN
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 8
+}
+
+/* fix lower levels of mountains being Pit Terrain */
+create_terrain BASE_TERRAIN {
+	base_terrain HOLLOW_PIT_A
+	land_percent 15
+	number_of_clumps 9999
+	height_limits 1 8
+}
+create_terrain BASE_TERRAIN {
+	base_terrain HOLLOW_PIT_A
+	land_percent 15
+	number_of_clumps 9999
+	height_limits 1 8
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain HOLLOW_PIT_A
+	land_percent 15
+	number_of_clumps 9999
+	height_limits 1 8
+}
+create_terrain BASE_TERRAIN {
+	base_terrain HOLLOW_PIT_A
+	land_percent 15
+	number_of_clumps 9999
+	height_limits 1 8
+}
+
+/* add a little bit of PIT terrain to the mountain for better transition */
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_TERRAIN 
+	land_percent 3
+	number_of_clumps 45
+	height_limits 0 3
+	terrain_mask 1
+	set_scale_by_groups
+}
+/* add Forest on top of Mountain in Indo_Swamp */
+if INDOMALAYAN_SWAMP
+	create_terrain BASE_FOREST {
+		base_terrain HOLLOW_PIT_A
+		land_percent 15
+		number_of_clumps 9999
+		height_limits 11 15
+	}
+	create_terrain BASE_FOREST {
+		base_terrain HOLLOW_PIT_A
+		land_percent 15
+		number_of_clumps 9999
+		height_limits 11 15
+	}
+	create_terrain BASE_FOREST {
+		base_terrain HOLLOW_PIT_A
+		land_percent 15
+		number_of_clumps 9999
+		height_limits 11 15
+	}	
+		
+	create_terrain MOUNTAIN_TOP_BLEND {
+		base_terrain BASE_FOREST
+		land_percent 15
+		number_of_clumps 5320
+		height_limits 11 15
+		terrain_mask 1
+	}
+endif
+
+/* forest mixing */
+
+create_terrain BASE_FOREST_VARIATION_A {
+	base_terrain BASE_FOREST
+	number_of_tiles (MAPAREA * 0.025)
+	number_of_clumps 24
+	set_scale_by_groups
+}
+
+create_terrain BASE_FOREST_VARIATION_B {
+	base_terrain BASE_FOREST
+	number_of_tiles (MAPAREA * 0.012)
+	number_of_clumps 14
+	set_scale_by_groups
+}
+
+/* if Desert map, then I need to max Forest Blending since grass and desert palm dont mix very well usually, atleast in the PIT forest */
+if PALAEARCTIC_MIDDLE_EAST_DESERT
+
+create_terrain DESERT {
+	base_terrain BASE_FOREST
+	land_percent 5
+	number_of_clumps 99
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain HOLLOW_PIT_A 4
+}	
+
+create_terrain GRASS2 {
+	base_terrain BASE_FOREST_VARIATION_A
+	land_percent 5
+	number_of_clumps 99
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain HOLLOW_PIT_A 4
+}	
+
+create_terrain DIRT2 {
+	base_terrain BASE_FOREST_VARIATION_B
+	land_percent 3
+	number_of_clumps 20
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain HOLLOW_PIT_A 4
+}
+
+endif
+
+/* give the forest next to PIT some Pit blending to make the transition seem more seemless */
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST
+	number_of_tiles (MAPAREA * 0.013)
+	number_of_clumps rnd(26,30)
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 5
+}	
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST_VARIATION_A
+	number_of_tiles (MAPAREA * 0.006)
+	number_of_clumps rnd(18,24)
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 5
+}	
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST_VARIATION_B
+	number_of_tiles (MAPAREA * 0.006)
+	number_of_clumps rnd(22,32)
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 5
+}	
+
+/* make everything placeholder except next to mountain where forests are */
+create_terrain PLACEHOLDER_TERRAIN_A {
+	base_terrain BASE_TERRAIN
+	land_percent 35
+	number_of_clumps 520
+	height_limits 2 7
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 14
+	set_scale_by_groups
+}
+create_terrain PLACEHOLDER_TERRAIN_A {
+	base_terrain BASE_TERRAIN
+	land_percent 35
+	number_of_clumps 520
+	height_limits 2 7
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 14
+	set_scale_by_groups
+}
+create_terrain PLACEHOLDER_TERRAIN_A {
+	base_terrain BASE_TERRAIN
+	land_percent 35
+	number_of_clumps 520
+	height_limits 2 7
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 14
+	set_scale_by_groups
+}
+create_terrain PLACEHOLDER_TERRAIN_A {
+	base_terrain BASE_TERRAIN
+	land_percent 35
+	number_of_clumps 520
+	height_limits 2 7
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 14
+	set_scale_by_groups
+}
+
+/* place said forests */
+
+create_terrain BASE_FOREST {
+	base_terrain BASE_TERRAIN
+	if NEARCTIC_TEMPERATE
+	number_of_tiles (MAPAREA * 0.013)
+	elseif PALAEARCTIC_EUROPE_TEMPERATE
+	number_of_tiles (MAPAREA * 0.008)
+	else
+	number_of_tiles (MAPAREA * 0.022)
+	endif
+	number_of_clumps (OUTSIDE_CLUMPS / 3)
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 7
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 4
+	height_limits 4 6
+	set_scale_by_groups
+}
+
+if PALAEARCTIC_MIDDLE_EAST_DESERT
+create_terrain POND_TERRAIN {
+	base_terrain BASE_FOREST
+	number_of_tiles (MAPAREA * 0.0008)
+	number_of_clumps rnd(6,10)
+	spacing_to_other_terrain_types 1
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 8
+	set_scale_by_groups
+}
+endif
+
+/* make use of the current state of the map and add some mountain blending */
+
+create_terrain MOUNTAIN_BLEND_A {
+	base_terrain BASE_TERRAIN
+	land_percent 3
+	number_of_clumps 10
+	set_scale_by_groups
+	
+	terrain_mask 1
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 4
+}
+if PALAEARCTIC_EUROPE_TAIGA
+create_terrain SNOW {
+	base_terrain BASE_TERRAIN
+	land_percent 15
+	number_of_clumps 5320
+	height_limits 5 7
+	terrain_mask 1
+}
+endif
+
+create_terrain MOUNTAIN_BLEND_B {
+	base_terrain BASE_TERRAIN
+	if PALAEARCTIC_EUROPE_TAIGA
+	number_of_tiles (MAPAREA * 0.0015)
+	set_flat_terrain_only
+	spacing_to_other_terrain_types 1
+	else
+	number_of_tiles (MAPAREA * 0.01)
+	endif
+	number_of_clumps 17
+	set_scale_by_groups
+	if NEOTROPICAL_TEMPERATE
+	terrain_mask 2
+	elseif FLOWERS
+	terrain_mask 2
+	elseif PALAEARCTIC_EUROPE_TEMPERATE
+	terrain_mask 2
+	else
+	terrain_mask 1
+	endif
+}
+
+
+/* amazing, now I add some tiny trees similar to Atacama */
+create_terrain BASE_FOREST_VARIATION_A {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	spacing_to_other_terrain_types 1
+	if AFROTROPICAL_TROPICAL
+	land_percent 3
+	elseif YURTS
+	land_percent 2
+	else
+	land_percent 4
+	endif
+	number_of_clumps OUTSIDE_CLUMPS
+	set_scale_by_groups
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 2
+	spacing_to_specific_terrain BASE_TERRAIN 2
+	
+	/* height_limits 4 4 */
+	clumping_factor 10
+}
+
+
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST
+	number_of_tiles (MAPAREA * 0.003)
+	number_of_clumps rnd(26,32)
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 12
+}	
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST_VARIATION_A
+	number_of_tiles (MAPAREA * 0.003)
+	number_of_clumps rnd(18,29)
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 12
+}	
+
+create_terrain HOLLOW_PIT_A {
+	base_terrain BASE_FOREST_VARIATION_B
+	number_of_tiles (MAPAREA * 0.003)
+	number_of_clumps rnd(32,57)
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain SPAWN_PLACEHOLDER 12
+}	
+
+
+/* create 1 tile around Atacama forests */
+create_terrain PLACEHOLDER_TERRAIN_B {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+	spacing_to_specific_terrain BASE_FOREST_VARIATION_A 1
+	clumping_factor 10
+}
+
+create_terrain PLACEHOLDER_TERRAIN_B {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+	spacing_to_specific_terrain BASE_FOREST_VARIATION_A 1
+	clumping_factor 10
+}
+/* make it leaf */
+create_terrain LEAF_UNDERBRUSH {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+
+create_terrain LEAF_UNDERBRUSH {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+
+create_terrain LEAF_UNDERBRUSH {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+
+create_terrain LEAF_UNDERBRUSH {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+
+create_terrain LEAF_UNDERBRUSH {
+	base_terrain PLACEHOLDER_TERRAIN_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+}
+/* some edge trees instead of just leaf */
+
+create_terrain STRAGGLER_FOREST {
+	base_terrain LEAF_UNDERBRUSH
+	number_of_tiles (MAPAREA * 0.015)
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+
+create_terrain STRAGGLER_FOREST_VARIATION {
+	base_terrain LEAF_UNDERBRUSH
+	number_of_tiles (MAPAREA * 0.005)
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+
+/* return everything to base terrain */
+create_terrain BASE_TERRAIN {
+	base_terrain PLACEHOLDER_TERRAIN_B
+	land_percent 99
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain PLACEHOLDER_TERRAIN_B
+	land_percent 99
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+create_terrain BASE_TERRAIN {
+	base_terrain PLACEHOLDER_TERRAIN_B
+	land_percent 99
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+create_terrain BASE_TERRAIN {
+	base_terrain PLACEHOLDER_TERRAIN_B
+	land_percent 99
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+
+
+/* Forest Blending */
+
+create_terrain BASE_FOREST_BLEND {
+	base_terrain BASE_FOREST
+	land_percent 1
+	number_of_clumps 46
+	set_scale_by_groups
+	terrain_mask 1
+}	
+
+create_terrain BASE_FOREST_BLEND {
+	base_terrain BASE_FOREST_VARIATION_A
+	number_of_tiles (MAPAREA * 0.01)
+	number_of_clumps 24
+	set_scale_by_groups
+	terrain_mask 1
+}	
+
+create_terrain BASE_FOREST_BLEND {
+	base_terrain BASE_FOREST_VARIATION_B
+	number_of_tiles (MAPAREA * 0.003)
+	number_of_clumps 14
+	set_scale_by_groups
+	terrain_mask 1
+}	
+
+
+create_terrain EDGE_FOREST_BLEND {
+	base_terrain BASE_FOREST
+	number_of_tiles (MAPAREA * 0.004)
+	number_of_clumps 42
+	set_scale_by_groups
+	terrain_mask 1
+}	
+
+create_terrain EDGE_FOREST_BLEND {
+	base_terrain BASE_FOREST_VARIATION_A
+	number_of_tiles (MAPAREA * 0.004)
+	number_of_clumps 78
+	set_scale_by_groups
+	terrain_mask 1
+}	
+
+create_terrain EDGE_FOREST_BLEND {
+	base_terrain BASE_FOREST_VARIATION_B
+	number_of_tiles (MAPAREA * 0.004)
+	number_of_clumps 58
+	set_scale_by_groups
+	terrain_mask 1
+}	
+
+/* return Player Land to base terrain */
+create_terrain BASE_TERRAIN {
+	base_terrain SPAWN_PLACEHOLDER
+	land_percent 99
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain SPAWN_PLACEHOLDER
+	land_percent 99
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain SPAWN_PLACEHOLDER
+	land_percent 99
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain SPAWN_PLACEHOLDER
+	land_percent 99
+	number_of_clumps 9999
+	set_scale_by_groups
+}
+
+
+
+/* Using Terrain Blending */
+create_terrain BASE_BLEND_A {
+	base_terrain BASE_TERRAIN
+	land_percent 3
+	number_of_clumps 48
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 12
+}
+
+create_terrain BASE_BLEND_B {
+	base_terrain BASE_TERRAIN
+	land_percent 8
+	number_of_clumps 25
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 12
+}
+
+create_terrain BASE_BLEND_C {
+	base_terrain BASE_TERRAIN
+	if INDOMALAYAN_SWAMP
+	number_of_tiles (MAPAREA * 0.005)
+	number_of_clumps 12
+	else
+	land_percent 1
+	number_of_clumps 8
+	endif
+	set_scale_by_groups
+	set_flat_terrain_only
+	if PALAEARCTIC_EUROPE_MEDITERRANEAN
+	terrain_mask 2
+	else
+	terrain_mask 1
+	endif
+	spacing_to_other_terrain_types 1
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 12
+}
+
+create_terrain BASE_BLEND_D {
+	base_terrain BASE_TERRAIN
+	land_percent 5
+	number_of_clumps 17
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 12
+}
+
+if INDOMALAYAN_SWAMP
+
+create_terrain BASE_BLEND_E {
+	base_terrain BASE_TERRAIN
+	land_percent 18
+	number_of_clumps 52
+	set_scale_by_groups
+	terrain_mask 1
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 6
+}
+endif
+
+if AUSTRALASIAN_TEMPERATE
+
+create_terrain BASE_TERRAIN {
+	base_terrain LEAF_UNDERBRUSH
+	land_percent 99
+	number_of_clumps 99999
+	set_scale_by_groups
+	terrain_mask 2
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain LEAF_UNDERBRUSH
+	land_percent 99
+	number_of_clumps 99999
+	set_scale_by_groups
+	terrain_mask 2
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain LEAF_UNDERBRUSH
+	land_percent 99
+	number_of_clumps 99999
+	set_scale_by_groups
+	terrain_mask 2
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain LEAF_UNDERBRUSH
+	land_percent 99
+	number_of_clumps 99999
+	set_scale_by_groups
+	terrain_mask 2
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain LEAF_UNDERBRUSH
+	land_percent 99
+	number_of_clumps 99999
+	set_scale_by_groups
+	terrain_mask 2
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain LEAF_UNDERBRUSH
+	land_percent 99
+	number_of_clumps 99999
+	set_scale_by_groups
+	terrain_mask 2
+}
+
+create_terrain BASE_TERRAIN {
+	base_terrain LEAF_UNDERBRUSH
+	land_percent 99
+	number_of_clumps 99999
+	set_scale_by_groups
+	terrain_mask 2
+}
+
+create_terrain HOLLOW_PIT_B {
+	base_terrain BASE_FOREST
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+	terrain_mask 1
+}
+
+create_terrain DESERT {
+	base_terrain BASE_FOREST_VARIATION_A
+	land_percent 99
+	number_of_clumps 999
+	set_scale_by_groups
+	terrain_mask 1
+}
+
+create_terrain LEAVES {
+	base_terrain BASE_FOREST_VARIATION_B
+	land_percent 99
+	number_of_clumps 99
+	set_scale_by_groups
+	terrain_mask 1
+}
+
+endif
+
+if PALAEARCTIC_EUROPE_TAIGA
+
+create_terrain SNOW_LEAVES {
+	base_terrain BASE_TERRAIN
+	land_percent 6
+	number_of_clumps 32
+	set_scale_by_groups
+	terrain_mask 2
+	spacing_to_specific_terrain MOUNTAIN_SLOPE 12
+}
+
+	create_terrain SNOW {
+	base_terrain BASE_TERRAIN
+	land_percent 14
+	number_of_clumps 53
+	terrain_mask 2
+	set_scale_by_groups
+	}
+
+
+	create_terrain SNOW_LIGHT {
+	base_terrain BASE_TERRAIN
+	land_percent 14
+	number_of_clumps 53
+	terrain_mask 2
+	set_scale_by_groups
+	}
+	
+	create_terrain WATER {
+	base_terrain POND_TERRAIN
+	number_of_tiles 5
+	number_of_clumps 3
+	set_scale_by_groups
+	}
+
+
+
+/* Water Blending
+else
+
+create_terrain MOUNTAIN_TOP {
+	base_terrain POND_TERRAIN
+	number_of_tiles 6
+	number_of_clumps 2
+	set_scale_by_groups
+	terrain_mask 2
+}
+*/
+endif
+
+/* Pit Blending */
+
+create_terrain HOLLOW_PIT_B {
+	base_terrain HOLLOW_PIT_A
+	land_percent 2 
+	number_of_clumps 20
+	set_scale_by_groups
+	beach_terrain BEACH_TERRAIN
+	spacing_to_other_terrain_types 1
+	if PALAEARCTIC_EUROPE_TAIGA
+	terrain_mask 2
+	else
+	terrain_mask 1
+	endif
+}	
+
+create_terrain HOLLOW_PIT_C {
+	base_terrain HOLLOW_PIT_A
+	number_of_tiles (MAPAREA * 0.005)
+	number_of_clumps 4
+	set_scale_by_groups
+	beach_terrain BEACH_TERRAIN
+	spacing_to_other_terrain_types 1
+	if INDOMALAYAN_SWAMP
+		spacing_to_specific_terrain POND_TERRAIN 3
+	elseif PALAEARCTIC_EASTASIA_BROADLEAF
+		spacing_to_specific_terrain POND_TERRAIN 3
+	elseif PALAEARCTIC_EUROPE_TEMPERATE
+		spacing_to_specific_terrain POND_TERRAIN 3
+	endif
+	terrain_mask 1
+}
+
+
+	
+<OBJECTS_GENERATION>
+
+		#include_drs includes/villagers.inc
+		#include_drs includes/scouts.inc
+		#include_drs includes/defend_wonder.inc
+		#include_drs includes/regicide.inc
+		#include_drs includes/capture_relic.inc
+		
+		#define PRELIMINARIES
+		if PRELIMINARIES
+			#const RESOURCE_SPACING_DEFAULT 12
+			#const RESOURCE_SPACING_FAR 18
+			#const RESOURCE_RESTRICTION 1
+
+			#include_drs includes/object_setup.inc
+		endif
+		
+create_object TOWN_CENTER
+{
+	set_place_for_every_player
+	min_distance_to_players 0
+	max_distance_to_players 0
+	actor_area 1
+	actor_area_radius 40
+}
+
+if AFROTROPICAL_TROPICAL
+	create_object DLC_AFRICANBUSH
+	{	
+		set_gaia_object_only
+		number_of_groups 99999
+		temp_min_distance_group_placement 2
+		terrain_to_place_on DLC_ACACIAFOREST
+	}	
+	create_object DLC_DRAGONTREE
+	{	
+		set_gaia_object_only
+		number_of_groups 99999
+		terrain_to_place_on DLC_ACACIAFOREST
+	}
+elseif PALAEARCTIC_EASTASIA_BROADLEAF
+
+	create_object_group CUSTOM_FOREST {
+		add_object TREE_OF_FOREST_A 33
+		add_object TREE_OF_FOREST_B 33
+		add_object TREE_OF_FOREST_C 33
+	}
+	create_object CUSTOM_FOREST
+	{	
+		set_gaia_object_only
+		number_of_groups 99999
+		terrain_to_place_on REEDS_FOREST
+	}	
+	create_object CUSTOM_FOREST
+	{	
+		set_gaia_object_only
+		number_of_groups 99999
+		terrain_to_place_on REEDS_FOREST
+	}
+	
+elseif INDOMALAYAN_SWAMP
+
+	create_object_group CUSTOM_FOREST {
+		add_object TREE_OF_FOREST_A 25
+		add_object TREE_OF_FOREST_B 25
+		add_object TREE_OF_FOREST_C 25
+		add_object WILLOW_TREE 25
+	}
+	create_object CUSTOM_FOREST
+	{	
+		set_gaia_object_only
+		number_of_groups 99999
+		terrain_to_place_on REEDS_FOREST
+	}	
+	create_object CUSTOM_FOREST
+	{	
+		set_gaia_object_only
+		number_of_groups 99999
+		terrain_to_place_on REEDS_FOREST
+	}
+endif
+/*
+create_object FLAG_C
+{
+	set_place_for_every_player
+	number_of_groups 9999
+	temp_min_distance_group_placement 3
+	set_circular_placement 
+	min_distance_to_players 30
+	max_distance_to_players 31
+	place_on_specific_land_id 99
+	actor_area 2
+	actor_area_radius 7
+}	
+create_object FLAG_C
+{
+	set_place_for_every_player
+	number_of_groups 9999
+	temp_min_distance_group_placement 3
+	set_circular_placement 
+	min_distance_to_players 30
+	max_distance_to_players 31
+	actor_area 2
+	actor_area_radius 7
+}	
+*/
+
+
+create_object ONGRID {
+	number_of_objects 1
+	set_gaia_object_only
+	set_place_for_every_player
+	find_closest_to_map_center
+	place_on_forest_zone
+	avoid_other_land_zones
+	actor_area 100
+	actor_area_radius 6
+}
+
+create_object KEG {
+	number_of_objects 1
+	set_gaia_object_only
+	set_place_for_every_player
+	find_closest_to_map_center
+	place_on_forest_zone
+	avoid_other_land_zones
+	actor_area 101
+	actor_area_radius 3
+}
+
+create_object PLACEHOLDER_LAND_TILE {
+	number_of_objects 1
+	set_gaia_object_only
+	set_place_for_every_player
+	actor_area_to_place_in 101
+	find_closest_to_map_center
+	place_on_forest_zone
+	second_object KEG
+	actor_area 102
+	actor_area_radius 3
+	avoid_actor_area 102
+}
+create_object PLACEHOLDER_LAND_TILE {
+	number_of_objects 1
+	set_gaia_object_only
+	set_place_for_every_player
+	actor_area_to_place_in 102
+	find_closest_to_map_center
+	place_on_forest_zone
+	second_object KEG
+	actor_area 103
+	actor_area_radius 3
+	avoid_actor_area 103
+}
+create_object KEG {
+	number_of_objects 1
+	set_gaia_object_only
+	set_place_for_every_player
+	actor_area_to_place_in 103
+	find_closest_to_map_center
+	place_on_forest_zone
+	actor_area 104
+	actor_area_radius 2
+	avoid_actor_area 104
+}
+
+create_object ONGRID {
+	number_of_objects 999
+	set_gaia_object_only
+	min_distance_to_players 15
+	temp_min_distance_group_placement 3
+	max_distance_to_players 18
+	place_on_specific_land_id 99
+	actor_area 5000
+	actor_area_radius 4
+}
+
+create_object ONGRID {
+	number_of_objects 8
+	temp_min_distance_group_placement 4
+	set_gaia_object_only
+	place_on_specific_land_id 99
+	actor_area 5001
+	actor_area_radius rnd(6,12)
+	min_distance_to_players 4
+	max_distance_to_players 8
+}
+
+if PALAEARCTIC_MIDDLE_EAST_DESERT
+create_object HUNTABLE_A {
+	number_of_objects 1
+	set_gaia_object_only
+	place_on_specific_land_id 99
+	find_closest_to_map_center
+	terrain_to_place_on BEACH
+	avoid_actor_area 104
+	actor_area 105
+	actor_area_radius 5
+}
+endif
+if NOMAD_START
+		else
+			#include_drs includes/stragglers.inc
+
+			#define FORAGE_BUSH_PRIMARY
+			#define GOLD_PRIMARY
+			#define GOLD_SECONDARY
+			#define GOLD_TERTIARY
+			#define STONE_PRIMARY
+			#define STONE_SECONDARY
+		
+			#const STONE_PRIMARY_SIZE 4
+			#const STONE_PRIMARY_FOREST_DISTANCE 3
+			#const STONE_SECONDARY_SIZE 3
+			#const GOLD_PRIMARY_SIZE 6
+			#const GOLD_SECONDARY_SIZE 3
+			#const GOLD_TERTIARY_SIZE 3
+			#const GOLD_TERTIARY_CAA_A 3
+			
+			#const GOLD_SECONDARY_TERRAIN BASE_TERRAIN
+			#const GOLD_TERTIARY_TERRAIN BASE_TERRAIN
+			
+			#const GOLD_SECONDARY_CLIFF_DISTANCE 3
+			#const GOLD_TERTIARY_CLIFF_DISTANCE 3
+			#const STONE_SECONDARY_CLIFF_DISTANCE 3
+			
+			#define FORAGE_BUSH_SECONDARY
+			#const FORAGE_BUSH_SECONDARY_SIZE rnd(2,5)
+			#const FORAGE_BUSH_SECONDARY_DISTANCE rnd(40,46)
+			#const FORAGE_BUSH_SECONDARY_EDGE_DISTANCE 2
+			#include_drs includes/starting_resources.inc
+
+			if DEATH_MATCH
+			elseif INFINITE_RESOURCES
+			else
+				#define HERDABLE_STARTING_COUNT_FOUR
+
+				#include_drs includes/herdable_starting.inc
+				#include_drs includes/herdable.inc
+
+				start_random
+					percent_chance 50 #define GAME_HUNTABLE
+					percent_chance 50 #define GAME_CHICKEN
+				end_random
+
+				if GAME_HUNTABLE
+					start_random
+						percent_chance 20
+							#const HUNTABLE_COUNT 2
+						percent_chance 45
+							#const HUNTABLE_COUNT 3
+						percent_chance 35
+							#const HUNTABLE_COUNT 4
+					end_random
+
+					#const HUNTABLE_GROUPS 1
+					#const HUNTABLE_DISTANCE rnd(20,28)
+					#const HUNTABLE_CAA_A 100
+					#const HUNTABLE_TERRAIN BASE_TERRAIN
+					#define HUNTABLE_TIGHT_GROUPING
+
+					start_random
+						percent_chance 20
+							#const HUNTABLE_ADDITIONAL_COUNT 2
+						percent_chance 45
+							#const HUNTABLE_ADDITIONAL_COUNT 3
+						percent_chance 35
+							#const HUNTABLE_ADDITIONAL_COUNT 4
+					end_random
+
+					#const HUNTABLE_ADDITIONAL_GROUPS 1
+					#const HUNTABLE_ADDITIONAL_DISTANCE rnd(36,40)
+					#const HUNTABLE_ADDITIONAL_TERRAIN BASE_TERRAIN
+					
+					
+				endif
+
+				if GAME_CHICKEN
+					start_random
+						percent_chance 20
+							#const HUNTABLE_SMALL_COUNT 6
+						percent_chance 45
+							#const HUNTABLE_SMALL_COUNT 7
+						percent_chance 35
+							#const HUNTABLE_SMALL_COUNT 8
+					end_random
+
+					#const HUNTABLE_SMALL_GROUPS 1
+					#const HUNTABLE_SMALL_DISTANCE 18
+					#const HUNTABLE_SMALL_CAA_A 100
+					#define HUNTABLE_SMALL_TIGHT_GROUPING
+					#const HUNTABLE_SMALL_TERRAIN BASE_TERRAIN
+
+					start_random
+						percent_chance 20
+							#const HUNTABLE_SMALL_ADDITIONAL_COUNT 6
+						percent_chance 45
+							#const HUNTABLE_SMALL_ADDITIONAL_COUNT 7
+						percent_chance 35
+							#const HUNTABLE_SMALL_ADDITIONAL_COUNT 8
+					end_random
+
+					#const HUNTABLE_SMALL_ADDITIONAL_GROUPS 1
+					#const HUNTABLE_SMALL_ADDITIONAL_DISTANCE rnd(36,40)
+					#const HUNTABLE_SMALL_ADDITIONAL_FOREST_DISTANCE 0
+					#const HUNTABLE_SMALL_ADDITIONAL_RADIUS 4
+					#const HUNTABLE_SMALL_ADDITIONAL_TERRAIN BASE_TERRAIN
+				endif
+				
+				
+				
+				
+				
+				
+				#include_drs includes/huntable.inc
+				#include_drs includes/lureable.inc
+				#include_drs includes/furbearers.inc
+			endif
+		endif
+
+create_object_group TREE_OF_FOREST {
+	add_object TREE_OF_FOREST_A 33 
+	add_object TREE_OF_FOREST_B 33
+	add_object TREE_OF_FOREST_C 33
+}
+
+create_object FORESTBUILDING
+{
+	number_of_objects 3
+	set_gaia_object_only
+	set_gaia_unconvertible
+	group_variance 2
+	number_of_groups 9999
+	group_placement_radius 3
+	place_on_forest_zone
+	second_object TREE_OF_FOREST
+	temp_min_distance_group_placement 10
+	terrain_to_place_on HOLLOW_PIT_A
+	avoid_actor_area 104
+}
+
+		if DEATH_MATCH
+		else
+		#const PREDATOR_GROUPS 6
+		#const PREDATOR_SPACING 24
+		#const PREDATOR_CAA_A 10610
+		#const PREDATOR_CAA_B 10660
+		#const PREDATOR_CAA_C 105
+		#const PREDATOR_ACTOR_AREA_RADIUS 6
+			#include_drs includes/predators.inc
+			#include_drs includes/riparian.inc
+			#include_drs includes/reeds.inc
+		endif
+
+if WET
+create_object PLACEHOLDER_WATER_TILE {
+	number_of_objects rnd(3,6)
+	set_tight_grouping
+	set_gaia_object_only
+	terrain_to_place_on POND_TERRAIN
+	second_object LILY_PAD
+}	
+
+endif
+create_object RELIC {
+	set_gaia_object_only
+	set_place_for_every_player
+	max_distance_to_other_zones 2
+	avoid_cliff_zone 2
+	min_distance_group_placement 1
+	avoid_forest_zone 1
+	min_distance_to_map_edge 3
+	min_distance_to_players 32
+	terrain_to_place_on BASE_TERRAIN
+	find_closest
+	set_tight_grouping
+	enable_tile_shuffling
+	set_circular_placement
+	
+}	
+
+
+}
+
+create_object RELIC {
+	number_of_objects 999
+	set_gaia_object_only
+	temp_min_distance_group_placement 8
+	max_distance_to_other_zones 2
+	avoid_other_land_zones 9
+	place_on_specific_land_id 1
+	min_distance_group_placement 1
+	avoid_forest_zone 2
+	terrain_to_place_on HOLLOW_PIT_A
+	find_closest
+	enable_tile_shuffling
+	set_circular_placement
+	
+}
+
+create_object STONE {
+	if PALAEARCTIC_EUROPE_TEMPERATE
+	number_of_objects 2
+	else
+	number_of_objects 3
+	endif
+	set_gaia_object_only
+	max_distance_to_other_zones 2
+	actor_area_to_place_in 5001
+	min_distance_group_placement 2
+	group_placement_radius 1
+	set_tight_grouping
+	enable_tile_shuffling
+	set_circular_placement
+	avoid_forest_zone 2
+	avoid_cliff_zone 3
+	place_on_specific_land_id 99
+	start_random
+	percent_chance 50 find_closest_to_map_center
+	percent_chance 50 find_closest_to_map_edge
+	end_random
+	min_distance_to_map_edge 2
+	avoid_actor_area 1
+	actor_area 5
+	actor_area_radius 5
+}
+
+create_object GOLD {
+	number_of_groups 2
+	min_distance_to_players rnd(20,28)
+	number_of_objects 2
+	set_gaia_object_only
+	max_distance_to_other_zones 2
+	min_distance_group_placement 2
+	temp_min_distance_group_placement 25
+	place_on_specific_land_id 99
+	find_closest
+	avoid_forest_zone 2
+	avoid_cliff_zone 3
+	terrain_to_place_on BASE_TERRAIN
+	min_distance_to_map_edge 2
+	set_tight_grouping
+	enable_tile_shuffling
+	set_circular_placement
+	actor_area 4
+	actor_area_radius 18
+	avoid_actor_area 5	
+	avoid_actor_area 4	
+	avoid_actor_area 2
+	avoid_actor_area 1
+}
+
+if PALAEARCTIC_EUROPE_TEMPERATE
+
+create_object STONE {
+	number_of_objects 2
+	number_of_groups 2
+	set_gaia_object_only
+	temp_min_distance_group_placement 8
+	max_distance_to_other_zones 2
+	min_distance_to_players rnd(9,15)
+	set_place_for_every_player
+	min_distance_group_placement 2
+	terrain_to_place_on HOLLOW_PIT_A
+	set_tight_grouping
+	enable_tile_shuffling
+	set_circular_placement
+	avoid_forest_zone 2
+	avoid_cliff_zone 2
+	place_on_specific_land_id 1
+	find_closest
+}
+endif
+
+create_object PREDATOR_B {
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_group_placement 2
+	number_of_objects 1
+	actor_area_to_place_in 3
+	terrain_to_place_on BASE_TERRAIN
+	avoid_forest_zone 1
+	set_tight_grouping
+}
+
+create_object STRAGGLER_NEUTRAL
+{
+	number_of_objects 4096
+	min_distance_to_players 16
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 26
+	max_distance_to_other_zones 2
+	avoid_forest_zone 3
+	avoid_cliff_zone 1
+	min_distance_to_map_edge 1
+	if PALAEARCTIC_EASTASIA_BROADLEAF
+		second_object AESTHETIC_FLAT
+	endif
+}
+
+create_object_group STRAGGLER_NEUTRAL_B {
+	add_object STRAGGLER_A 33 
+	add_object STRAGGLER_B 33
+	add_object STRAGGLER_C 33
+}
+
+
+create_object STRAGGLER_NEUTRAL_B
+{
+	number_of_objects 4096
+	min_distance_to_players 16
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 26
+	max_distance_to_other_zones 2
+	avoid_forest_zone 3
+	avoid_cliff_zone 1
+	min_distance_to_map_edge 1
+}
+
+
+
+
+#define EXTRA_STUFF
+if EXTRA_STUFF
+	if EMPIRE_WARS_MODE
+		#define EMPIRE_WARS_FORAGERS
+
+		#include_drs includes/empire_wars.inc
+		#include_drs includes/empire_food.inc
+		#include_drs includes/empire_gold.inc
+		#include_drs includes/empire_wood.inc
+		#include_drs includes/empire_buildings.inc
+	elseif ESCALATION_MODE
+		#include_drs includes/escalation_mode.inc
+	endif
+
+	#define AESTHETICS
+	if AESTHETICS
+		#include_drs includes/birds.inc
+
+		create_object WILD_ANIMAL
+		{
+			number_of_objects rnd(1,3)
+			number_of_groups rnd(2,3)
+			group_variance 1
+			set_loose_grouping
+			min_distance_to_players 36
+			set_scaling_to_map_size
+			temp_min_distance_group_placement 34
+			min_distance_group_placement 1
+
+			max_distance_to_other_zones 4
+			avoid_forest_zone 2
+			avoid_cliff_zone 4
+			min_distance_to_map_edge 4
+
+			actor_area 8000
+			avoid_actor_area 1100 /* avoid predators */
+			actor_area_radius 4
+		}
+
+		create_object AESTHETIC_FLAT
+		{
+			number_of_objects 2
+			number_of_groups 1024
+			set_loose_grouping
+			group_placement_radius 4
+			group_variance 2
+			temp_min_distance_group_placement 22
+			min_distance_group_placement 1
+			min_distance_to_players 28
+			terrain_to_place_on BASE_TERRAIN
+
+			max_distance_to_other_zones 4
+			avoid_forest_zone 2
+			avoid_cliff_zone 4
+			min_distance_to_map_edge 3
+
+			actor_area 8001
+			actor_area_radius 4
+			
+			avoid_actor_area 610
+			avoid_actor_area 660
+			avoid_actor_area 8001 /* Aesthetic Objects A */
+			avoid_actor_area 8002 /* Aesthetic Objects B */
+			avoid_actor_area 8003 /* Aesthetic Objects C */
+		}
+
+		create_object AESTHETIC_GROUPED
+		{
+			number_of_objects 2
+			number_of_groups 1024
+			set_loose_grouping
+			group_placement_radius 3
+			temp_min_distance_group_placement 28
+			min_distance_group_placement 1
+			min_distance_to_players 16
+			terrain_to_place_on BASE_TERRAIN
+
+			max_distance_to_other_zones 4
+			avoid_forest_zone 2
+			avoid_cliff_zone 4
+			min_distance_to_map_edge 2
+
+			actor_area 8002
+			actor_area_radius 4
+
+			avoid_actor_area 610
+			avoid_actor_area 660
+			avoid_actor_area 8000 /* Wildlife */
+			avoid_actor_area 8001 /* Aesthetic Objects A */
+			avoid_actor_area 8002 /* Aesthetic Objects B */
+			avoid_actor_area 8003 /* Aesthetic Objects C */
+
+		
+		}
+if FLOWERS
+create_object_group AESTHETIC_SCATTER {
+	add_object FLOWERS_2 33
+	add_object FLOWERS_3 33
+	add_object FLOWERS_4 33
+}
+endif
+		create_object AESTHETIC_SCATTER
+		{
+			number_of_objects 1024
+			
+			min_distance_group_placement 1
+			if PALAEARCTIC_EUROPE_MEDITERRANEAN
+			layer_to_place_on MOUNTAIN_BLEND_A /* place on little Street terrain */
+			temp_min_distance_group_placement 16
+			else
+			terrain_to_place_on BASE_TERRAIN
+			min_distance_to_players 24
+			temp_min_distance_group_placement 42
+			endif
+			max_distance_to_other_zones 4
+			avoid_forest_zone 3
+			avoid_cliff_zone 4
+			if FLOWERS
+			min_distance_to_map_edge 3
+			else
+			min_distance_to_map_edge 2
+			endif
+			actor_area 8003
+			actor_area_radius 4
+
+			avoid_actor_area 610
+			avoid_actor_area 660
+			avoid_actor_area 8000 /* Wildlife */
+			avoid_actor_area 8001 /* Aesthetic Objects A */
+			avoid_actor_area 8002 /* Aesthetic Objects B */
+			avoid_actor_area 8003 /* Aesthetic Objects C */
+
+		}
+if YURTS
+create_object_group SOLID_OBJECT {
+	add_object YURT2 11
+	add_object YURT3 11
+	add_object YURT4 11
+	add_object YURT5 11
+	add_object YURT6 11
+	add_object YURT7 11
+	add_object YURT_8 11
+	add_object YURT_9 11
+	add_object YURT_10 11
+}
+create_object_group YURT_ASTHETIC {
+	add_object WATER_TROUGH 25
+	add_object BONFIRE  	25
+	add_object BENCH   		25
+	add_object LEATHER		25
+}
+endif
+		
+if AUSTRALASIAN_TEMPERATE
+create_object_group HOLLOW_EYECANDY {
+	add_object PATH_1 25
+	add_object PATH_2 25
+	add_object PATH_3 25
+	add_object PATH_4 25
+}
+endif
+
+		create_object SOLID_OBJECT
+		{
+			second_object SOLID_UNDERBRUSH
+			number_of_objects rnd(2,3)
+			min_distance_to_players 32
+			terrain_to_place_on BASE_TERRAIN
+			set_circular_placement
+			set_gaia_object_only
+			set_scaling_to_map_size
+			temp_min_distance_group_placement 26
+			min_distance_group_placement 1
+			max_distance_to_other_zones 3
+			avoid_forest_zone 2
+			avoid_cliff_zone 2
+			min_distance_to_map_edge 6
+			max_distance_to_other_zones 2
+			if YURTS
+				set_gaia_unconvertible
+				avoid_actor_area 1100
+			endif
+
+			actor_area 8010
+			actor_area_radius 3
+
+			avoid_actor_area 610
+			avoid_actor_area 220
+			avoid_actor_area 660
+			avoid_actor_area 8000 /* Wildlife */
+			avoid_actor_area 8001 /* Aesthetic Objects A */
+			avoid_actor_area 8002 /* Aesthetic Objects B */
+			avoid_actor_area 8003 /* Aesthetic Objects C */
+		}
+if YURTS
+		create_object YURT_ASTHETIC {
+			number_of_objects 32
+			min_distance_to_players 32
+			
+			set_circular_placement
+			actor_area_to_place_in 8010
+			set_scaling_to_map_size
+			temp_min_distance_group_placement 12
+			min_distance_group_placement 1
+
+			max_distance_to_other_zones 2
+			avoid_forest_zone 1
+			avoid_cliff_zone 1
+			min_distance_to_map_edge 1
+		}
+endif		
+		create_object SOLID_SURROUND
+		{
+			number_of_objects 32
+			min_distance_to_players 32
+			set_gaia_object_only
+			set_circular_placement
+			set_scaling_to_map_size
+			temp_min_distance_group_placement 24
+			min_distance_group_placement 1
+			terrain_to_place_on BASE_TERRAIN
+
+			max_distance_to_other_zones 2
+			avoid_forest_zone 1
+			avoid_cliff_zone 1
+			min_distance_to_map_edge 1
+
+			actor_area 8011
+			actor_area_radius 2
+			
+			avoid_actor_area 610
+			avoid_actor_area 660
+			avoid_actor_area 8001 /* Aesthetic Objects A */
+			avoid_actor_area 8002 /* Aesthetic Objects B */
+			avoid_actor_area 8003 /* Aesthetic Objects C */
+			avoid_actor_area 8010 /* Solid Object */
+		}
+		
+		
+				
+		create_object HOLLOW_SOLID
+		{
+			number_of_objects 32
+			terrain_to_place_on HOLLOW_PIT_A
+			set_scaling_to_map_size
+			temp_min_distance_group_placement 20
+			min_distance_group_placement 1
+
+			max_distance_to_other_zones 2
+			avoid_forest_zone 2
+			avoid_cliff_zone 1
+			min_distance_to_map_edge 1
+		}
+		
+		create_object HOLLOW_EYECANDY
+		{
+			number_of_objects 32
+			terrain_to_place_on HOLLOW_PIT_A
+			set_scaling_to_map_size
+			temp_min_distance_group_placement 30
+			min_distance_group_placement 1
+
+			max_distance_to_other_zones 2
+			avoid_forest_zone 2
+			avoid_cliff_zone 1
+			min_distance_to_map_edge 1
+		}
+	endif
+endif
+
+

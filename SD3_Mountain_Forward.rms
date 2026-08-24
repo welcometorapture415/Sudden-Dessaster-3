@@ -1,0 +1,1616 @@
+/* Based on my map Lamar River Valley (Yellowstone), previously submitted to the 2026 USA Cup map contest */
+
+
+<PLAYER_SETUP>
+
+    direct_placement
+
+<LAND_GENERATION>
+
+	#const GRAVEL 70
+	#const SWAMP 111
+	#const PASTURE1 117
+	#const PASTURE2 118
+	#const PASTURE3 119
+	#const PASTURE4 120
+	#const PASTURE5 121
+	#const HARE 2098
+	#const FOX 1955
+	#const DIRT_MUD 76
+	#const FLOWERGRASS_A 122
+	#const FLOWERGRASS_B 123
+	#const WILLOW 2025
+	#const FORTIFIED_PALISADE 119
+	#const SETTLEMENT 2556
+	#const YURT_A 713
+	#const YURT_B 714
+	#const FLOWERS_A 334
+	#const FLOWERS_B 335
+	#const FLOWERS_C 336
+	#const FLOWERS_D 337
+	#const PLANT_FLOWERS 1366
+	#const PLANT_UNDERBRUSH_FLOWER 1352
+	#const SEA_ROCK_A 389
+	#const SEA_ROCK_B 396
+	#const PLANT_SHRUB_DRY 1363
+	#const OWL 2490
+	#const TREE_STUMP 415
+	#const FELLED_TREE 1539
+	#const FORT_WALL 2678
+	#const WOODEN_FORT 2600
+
+    base_terrain GRASS
+
+    start_random
+
+        percent_chance 12
+		#define OPTIONA
+		if OPTIONA
+			
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                left_border 66
+                land_position 83 83
+                assign_to_player 1
+            }
+
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+				right_border 66
+                land_position 17 17
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type WATER
+                land_percent 100
+                left_border 35
+                right_border 35
+            }
+
+            /* START: meandres */
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 10 50
+				base_elevation 5
+				assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 90 50
+				base_elevation 5
+				assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 13
+                bottom_border 82
+                left_border 20
+                right_border 45
+                land_position 40 14
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 30
+                bottom_border 65
+                left_border 45
+                right_border 20
+                land_position 60 31
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 47
+                bottom_border 48
+                left_border 20
+                right_border 45
+                land_position 40 50
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 64
+                bottom_border 31
+                left_border 45
+                right_border 20
+                land_position 60 65
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 81
+                bottom_border 14
+                left_border 20
+                right_border 45
+                land_position 40 82
+                base_elevation 1
+            }
+endif
+
+            /* END: meandres */
+		#define OPTIONB
+		if OPTIONB            
+        percent_chance 13
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                top_border 66
+                land_position 17 83
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                bottom_border 66
+                land_position 83 17
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type WATER
+                land_percent 100
+                top_border 35
+                bottom_border 35
+            }
+
+            /* START: meandres */
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 50 10
+				base_elevation 5
+				assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 50 90
+				base_elevation 5
+				assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 13
+                left_border 82
+                top_border 20
+                bottom_border 45
+                land_position 84 40
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 30
+                left_border 65
+                top_border 45
+                bottom_border 20
+                land_position 67 60
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 47
+                left_border 48
+                top_border 20
+                bottom_border 45
+                land_position 50 40
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 64
+                left_border 31
+                top_border 45
+                bottom_border 20
+                land_position 33 60
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 81
+                left_border 14
+                top_border 20
+                bottom_border 45
+                land_position 16 40
+                base_elevation 1
+            }
+
+            /* END: meandres */
+endif
+
+		#define OPTIONC
+		if OPTIONC
+        percent_chance 12
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                left_border 66
+                land_position 83 17
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                right_border 66
+                land_position 17 83
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type WATER
+                land_percent 100
+                left_border 35
+                right_border 35
+            }
+
+            /* START: meandres */
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 10 50
+				base_elevation 5
+				assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 90 50
+				base_elevation 5
+				assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 13
+                bottom_border 82
+                left_border 20
+                right_border 45
+                land_position 40 14
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 30
+                bottom_border 65
+                left_border 45
+                right_border 20
+                land_position 60 31
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 47
+                bottom_border 48
+                left_border 20
+                right_border 45
+                land_position 40 50
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 64
+                bottom_border 31
+                left_border 45
+                right_border 20
+                land_position 60 65
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 81
+                bottom_border 14
+                left_border 20
+                right_border 45
+                land_position 40 82
+                base_elevation 1
+            }
+
+            /* END: meandres */
+endif
+
+		#define OPTIOND
+		if OPTIOND           
+        percent_chance 13
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                top_border 66
+                land_position 83 83
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                bottom_border 66
+                land_position 17 17
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type WATER
+                land_percent 100
+                top_border 35
+                bottom_border 35
+            }
+
+            /* START: meandres */
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 50 10
+				base_elevation 5
+				assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 50 90
+				base_elevation 5
+				assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 13
+                left_border 82
+                top_border 20
+                bottom_border 45
+                land_position 84 40
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 30
+                left_border 65
+                top_border 45
+                bottom_border 20
+                land_position 67 60
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 47
+                left_border 48
+                top_border 20
+                bottom_border 45
+                land_position 50 40
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 64
+                left_border 31
+                top_border 45
+                bottom_border 20
+                land_position 33 60
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 81
+                left_border 14
+                top_border 20
+                bottom_border 45
+                land_position 16 40
+                base_elevation 1
+            }
+
+            /* END: meandres */
+endif
+		
+#define OPTIONE
+if OPTIONE
+        percent_chance 12
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                left_border 66
+                land_position 83 83
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                right_border 66
+                land_position 17 17
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type WATER
+                land_percent 100
+                left_border 35
+                right_border 35
+            }
+
+            /* START: meandres */
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 10 50
+				base_elevation 5
+				assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 90 50
+				base_elevation 5
+				assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 13
+                bottom_border 82
+                left_border 20
+                right_border 45
+                land_position 40 14
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 30
+                bottom_border 65
+                left_border 45
+                right_border 20
+                land_position 60 31
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 47
+                bottom_border 48
+                left_border 20
+                right_border 45
+                land_position 40 50
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 64
+                bottom_border 31
+                left_border 45
+                right_border 20
+                land_position 60 65
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 81
+                bottom_border 14
+                left_border 20
+                right_border 45
+                land_position 40 82
+                base_elevation 1
+            }
+
+            /* END: meandres */
+endif
+
+		#define OPTIONF
+		if OPTIONF            
+        percent_chance 13
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                top_border 66
+                land_position 17 83
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                bottom_border 66
+                land_position 83 17
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type WATER
+                land_percent 100
+                top_border 35
+                bottom_border 35
+            }
+
+            /* START: meandres */
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 50 10
+				base_elevation 5
+				assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 50 90
+				base_elevation 5
+				assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 13
+                left_border 82
+                top_border 20
+                bottom_border 45
+                land_position 84 40
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 30
+                left_border 65
+                top_border 45
+                bottom_border 20
+                land_position 67 60
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 47
+                left_border 48
+                top_border 20
+                bottom_border 45
+                land_position 50 40
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 64
+                left_border 31
+                top_border 45
+                bottom_border 20
+                land_position 33 60
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 81
+                left_border 14
+                top_border 20
+                bottom_border 45
+                land_position 16 40
+                base_elevation 1
+            }
+
+            /* END: meandres */
+endif
+
+		#define OPTIONG
+		if OPTIONG
+        percent_chance 12
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                left_border 66
+                land_position 83 17
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                right_border 66
+                land_position 17 83
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type WATER
+                land_percent 100
+                left_border 35
+                right_border 35
+            }
+
+            /* START: meandres */
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 10 50
+				base_elevation 5
+				assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 90 50
+				base_elevation 5
+				assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 13
+                bottom_border 82
+                left_border 20
+                right_border 45
+                land_position 40 14
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 30
+                bottom_border 65
+                left_border 45
+                right_border 20
+                land_position 60 31
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 47
+                bottom_border 48
+                left_border 20
+                right_border 45
+                land_position 40 50
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 64
+                bottom_border 31
+                left_border 45
+                right_border 20
+                land_position 60 65
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                top_border 81
+                bottom_border 14
+                left_border 20
+                right_border 45
+                land_position 40 82
+                base_elevation 1
+            }
+
+            /* END: meandres */
+			endif
+
+		#define OPTIONH
+		if OPTIONH
+            
+        percent_chance 13
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                top_border 66
+                land_position 83 83
+                assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRASS
+                land_percent 100
+                bottom_border 66
+                land_position 17 17
+                assign_to_player 1
+            }
+
+            create_land {
+                terrain_type WATER
+                land_percent 100
+                top_border 35
+                bottom_border 35
+            }
+
+            /* START: meandres */
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 50 10
+				base_elevation 5
+				assign_to_player 2
+            }
+
+            create_land {
+                terrain_type GRAVEL
+                land_percent 3
+                land_position 50 90
+				base_elevation 5
+				assign_to_player 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 13
+                left_border 82
+                top_border 20
+                bottom_border 45
+                land_position 84 40
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 30
+                left_border 65
+                top_border 45
+                bottom_border 20
+                land_position 67 60
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 47
+                left_border 48
+                top_border 20
+                bottom_border 45
+                land_position 50 40
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 64
+                left_border 31
+                top_border 45
+                bottom_border 20
+                land_position 33 60
+                base_elevation 1
+            }
+
+            create_land {
+                terrain_type GRASS2
+                land_percent 100
+                right_border 81
+                left_border 14
+                top_border 20
+                bottom_border 45
+                land_position 16 40
+                base_elevation 1
+            }
+
+            /* END: meandres */
+endif
+
+    end_random
+/*
+ create_land {
+                terrain_type PINE_FOREST
+                land_percent 1
+                land_position 1 1
+                base_elevation 2
+				base_size 1
+            }
+			
+ create_land {
+                terrain_type PINE_FOREST
+                land_percent 1
+                land_position 1 99
+                base_elevation 2
+				base_size 1
+            }
+			
+ create_land {
+                terrain_type PINE_FOREST
+                land_percent 1
+                land_position 99 1
+                base_elevation 2
+				base_size 1
+            }
+			
+ create_land {
+                terrain_type PINE_FOREST
+                land_percent 1
+                land_position 99 99
+                base_elevation 2
+				base_size 1
+            }
+*/
+<ELEVATION_GENERATION>
+
+<TERRAIN_GENERATION>
+
+	create_terrain ICE {
+        base_terrain WATER
+		number_of_clumps 9999
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+
+    create_terrain LEAVES {
+        base_terrain GRASS2
+        land_percent 12
+        number_of_clumps 20
+        spacing_to_other_terrain_types 1
+        set_avoid_player_start_areas
+    }
+
+    create_terrain PINE_FOREST {
+        base_terrain GRASS
+        land_percent 15
+        number_of_clumps 16
+        set_avoid_player_start_areas 16
+		spacing_to_other_terrain_types 2
+    }
+	    create_terrain DLC_GRAVELBEACH {
+        base_terrain WATER
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+	
+	    create_terrain WATER {
+        base_terrain DLC_GRAVELBEACH
+        land_percent 100
+        spacing_to_other_terrain_types 1
+		terrain_mask 0
+    }
+	    create_terrain WATER {
+        base_terrain DLC_GRAVELBEACH
+        land_percent 100
+        spacing_to_other_terrain_types 1
+		terrain_mask 0
+    }
+    create_terrain MED_WATER {
+        base_terrain WATER
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain MED_WATER {
+        base_terrain WATER
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain MED_WATER {
+        base_terrain WATER
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain MED_WATER {
+        base_terrain WATER
+        land_percent 100
+        spacing_to_other_terrain_types 2
+    }
+
+    create_terrain MED_WATER {
+        base_terrain WATER
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+    }
+	
+	    create_terrain GRASS {
+        base_terrain GRAVEL
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 2
+    }
+	create_terrain GRASS {
+        base_terrain GRAVEL
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 2
+    }
+	
+	create_terrain SHALLOW {
+        base_terrain MED_WATER
+		number_of_clumps 9999
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+    }
+	create_terrain SWAMP {
+        base_terrain MED_WATER
+		number_of_clumps 32
+        land_percent 1
+        spacing_to_other_terrain_types 0
+		terrain_mask 2
+    }
+
+	create_terrain SHALLOW {
+        base_terrain MED_WATER
+		number_of_clumps 32
+        land_percent 1
+        spacing_to_other_terrain_types 0
+		terrain_mask 2
+    }
+
+	create_terrain DIRT {
+        base_terrain LEAVES
+		number_of_clumps 3200
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+		set_avoid_player_start_areas 32
+    }
+	
+	create_terrain PASTURE1 {
+        base_terrain DIRT
+		number_of_clumps 3200
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+		set_avoid_player_start_areas 0
+    }
+	create_terrain PASTURE1 {
+        base_terrain LEAVES
+		number_of_clumps 3200
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+		set_avoid_player_start_areas 0
+    }
+	
+	create_terrain PASTURE1 {
+        base_terrain GRASS
+		number_of_clumps 3200
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+	
+	create_terrain PASTURE3 {
+        base_terrain PASTURE1
+		number_of_clumps 12
+        land_percent 5
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+    }
+	create_terrain PASTURE4 {
+        base_terrain PASTURE1
+		number_of_clumps 12
+        land_percent 5
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+    }
+	create_terrain PASTURE5 {
+        base_terrain PASTURE1
+		number_of_clumps 12
+        land_percent 5
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+    }
+	
+	create_terrain LEAVES {
+        base_terrain GRASS
+		number_of_clumps 3200
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+	create_terrain LEAVES {
+        base_terrain GRASS
+		number_of_clumps 3200
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+	create_terrain LEAVES {
+        base_terrain GRASS2
+		number_of_clumps 3200
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+	
+	create_terrain GRAVEL {
+        base_terrain PASTURE1
+		number_of_clumps 1200
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+		height_limits 2 9
+    }
+	
+	create_terrain DIRT_MUD {
+        base_terrain PASTURE1
+		number_of_clumps 16
+        land_percent 5
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+    }
+	create_terrain FLOWERGRASS_A {
+        base_terrain PASTURE1
+		number_of_clumps 16
+        land_percent 3
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+    }
+	create_terrain FLOWERGRASS_B {
+        base_terrain PASTURE1
+		number_of_clumps 16
+        land_percent 3
+        spacing_to_other_terrain_types 0
+		terrain_mask 1
+    }
+	
+	create_terrain ICE {
+        base_terrain WATER
+		number_of_clumps 9999
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+		create_terrain ICE {
+        base_terrain MED_WATER
+		number_of_clumps 9999
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+		create_terrain ICE {
+        base_terrain SHALLOW
+		number_of_clumps 9999
+        land_percent 100
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+	
+		create_terrain SNOW {
+        base_terrain ICE
+		number_of_clumps 9999
+        land_percent 100
+        spacing_to_other_terrain_types 1
+		terrain_mask 0
+    }
+		create_terrain SNOW_FOREST {
+        base_terrain SNOW
+		number_of_clumps 15
+        land_percent 5
+        spacing_to_other_terrain_types 0
+		terrain_mask 0
+    }
+
+<OBJECTS_GENERATION>
+
+#const FORTIFIED_PALISADE_WALL 119
+
+    create_actor_area 60 60 1 50
+	create_actor_area 60 60 2 10
+
+    create_object FORTIFIED_PALISADE_WALL {
+        number_of_objects 1
+        number_of_groups 9999
+        set_tight_grouping
+		temp_min_distance_group_placement 0
+        set_gaia_object_only
+		set_gaia_unconvertible
+		terrain_to_place_on SNOW
+    }
+
+	
+    create_object DLC_BEAR {
+        number_of_objects 1
+        number_of_groups 99
+        set_tight_grouping
+		temp_min_distance_group_placement 5
+        actor_area_to_place_in 2
+    }
+
+    create_object TOWN_CENTER {
+        set_place_for_every_player
+        max_distance_to_players 0
+        actor_area 10
+        actor_area_radius 20
+		terrain_to_place_on PASTURE1
+    }
+    create_object TOWN_CENTER {
+        set_place_for_every_player
+        actor_area 202
+        actor_area_radius 15
+		layer_to_place_on GRAVEL
+		min_distance_to_players 45
+    }
+create_object FORT_WALL
+{
+	number_of_objects 9999
+	set_place_for_every_player
+	min_distance_to_players 20
+	max_distance_to_players 20
+}
+
+    create_object VILLAGER {
+        number_of_objects 3
+        set_tight_grouping
+        set_place_for_every_player
+        min_distance_to_players 6
+        max_distance_to_players 8
+    }
+
+    create_object SCOUT {
+        set_place_for_every_player
+        min_distance_to_players 7
+        max_distance_to_players 9
+    }
+    create_object KING {
+        set_place_for_every_player
+        min_distance_to_players 7
+        max_distance_to_players 9
+    }
+	
+	create_object RELIC {
+        number_of_objects 5
+		temp_min_distance_group_placement 45
+		min_distance_to_players 30
+        min_distance_to_map_edge 2
+    }
+
+    create_object TURKEY {
+        number_of_objects 4
+        set_loose_grouping
+        group_placement_radius 2
+        set_place_for_every_player
+		avoid_forest_zone 3
+        min_distance_to_players 6
+        max_distance_to_players 7
+		avoid_forest_zone 2
+    }
+
+    create_object DLC_GOAT {
+        number_of_objects 3
+        set_loose_grouping
+        set_gaia_object_only
+        set_place_for_every_player
+		avoid_forest_zone 3
+        min_distance_to_players 23
+        max_distance_to_players 25
+        min_distance_to_map_edge 6
+		avoid_forest_zone 2
+    }
+
+    create_object PINETREE {
+        number_of_objects 5
+        set_gaia_object_only
+        set_place_for_every_player
+        min_distance_to_players 5
+        max_distance_to_players 6
+        temp_min_distance_group_placement 4
+    }
+
+    create_object FORAGE {
+        number_of_objects 6
+        set_tight_grouping
+		group_placement_radius 1
+        set_gaia_object_only
+        set_place_for_every_player
+        temp_min_distance_group_placement 6
+        min_distance_to_players 12
+        max_distance_to_players 14
+		find_closest
+        avoid_forest_zone 4
+		actor_area 101
+		actor_area_radius 1
+		terrain_to_place_on PASTURE1
+min_distance_group_placement 5
+    }
+   create_object SETTLEMENT {
+        set_place_for_every_player
+        actor_area_to_place_in 101
+		actor_area 102
+		actor_area_radius 7
+		avoid_forest_zone 4
+		layer_to_place_on PASTURE1
+    }
+   create_object WOODEN_FORT {
+        set_place_for_every_player
+		min_distance_to_players 10
+		max_distance_to_players 11
+		find_closest_to_map_center
+		avoid_forest_zone 4
+		layer_to_place_on GRAVEL
+    }
+
+    create_object FORAGE {
+        number_of_objects 4
+        number_of_groups 99999
+        set_tight_grouping
+        min_distance_to_players 15
+        temp_min_distance_group_placement 30
+        min_distance_to_map_edge 6
+        terrain_to_place_on GRASS
+        avoid_forest_zone 4
+		min_distance_group_placement 5
+    }
+
+    create_object BOAR {
+        number_of_objects 1
+        number_of_groups 3
+        set_loose_grouping
+        set_gaia_object_only
+        set_place_for_every_player
+        min_distance_to_players 43
+        max_distance_to_players 47
+        temp_min_distance_group_placement 10
+		avoid_forest_zone 3
+    }
+
+    create_object DEER {
+        number_of_objects 3
+        number_of_groups 2
+        set_loose_grouping
+        set_place_for_every_player
+        set_gaia_object_only
+        min_distance_to_players 28
+        max_distance_to_players 30
+        temp_min_distance_group_placement 15
+        min_distance_to_map_edge 6
+		avoid_forest_zone 2
+    }
+
+    create_object GOLD {
+        number_of_objects 7
+        set_place_for_every_player
+        set_gaia_object_only
+        set_tight_grouping
+        min_distance_to_players 8
+        max_distance_to_players 14
+        min_distance_group_placement 6
+        min_distance_to_map_edge 4
+		find_closest_to_map_center
+		avoid_forest_zone 2
+		avoid_actor_area 102
+    }
+
+    create_object STONE {
+        number_of_objects 5
+        set_place_for_every_player
+        set_gaia_object_only
+        set_tight_grouping
+		min_distance_group_placement 6
+        min_distance_to_players 10
+        max_distance_to_players 15
+        min_distance_to_map_edge 4
+		find_closest_to_map_center
+		avoid_forest_zone 2
+		avoid_actor_area 102
+    }
+	
+
+   create_object YURT_A {
+        set_place_for_every_player
+		min_distance_to_players 8
+		max_distance_to_players 10
+	min_distance_group_placement 4
+		avoid_forest_zone 3
+    }
+   create_object YURT_B {
+        set_place_for_every_player
+		min_distance_to_players 8
+		max_distance_to_players 10
+	min_distance_group_placement 4
+		avoid_forest_zone 3
+    }
+
+    create_object PINETREE {
+        number_of_objects 22
+        set_gaia_object_only
+        min_distance_to_players 20
+        temp_min_distance_group_placement 7
+    }
+    create_object DLC_AFRICANBUSH {
+		number_of_groups 22
+        number_of_objects 4
+        set_gaia_object_only
+        min_distance_to_players 20
+        temp_min_distance_group_placement 7
+    }
+	#const PHH 278
+    create_object PHH {
+		number_of_groups 22
+        number_of_objects 3
+		group_variance 1
+        set_gaia_object_only
+        min_distance_to_players 20
+        temp_min_distance_group_placement 14
+		terrain_to_place_on DLC_GRAVELBEACH
+		ignore_terrain_restrictions
+		second_object WILLOW
+		avoid_actor_area 2
+    }
+
+    create_object STONE {
+        number_of_objects 3
+        number_of_groups 4
+        set_tight_grouping
+        min_distance_to_players 30
+		temp_min_distance_group_placement 15
+        min_distance_to_map_edge 8
+		avoid_forest_zone 2
+    }
+#const BLACK_BEAR 2089
+    create_object BLACK_BEAR {
+        number_of_objects 8
+        min_distance_to_players 30
+		temp_min_distance_group_placement 35
+    }
+	
+    create_object FOX {
+        number_of_groups 8
+		number_of_objects 4
+        min_distance_to_players 30
+		group_placement_radius 4
+		temp_min_distance_group_placement 35
+		terrain_to_place_on PASTURE1
+		actor_area 27
+		actor_area_radius 8
+    }
+	
+    create_object HARE {
+        number_of_groups 8
+		number_of_objects 8
+		group_placement_radius 5
+        min_distance_to_players 30
+		temp_min_distance_group_placement 35
+		terrain_to_place_on PASTURE1
+		avoid_actor_area 27
+    }
+
+
+    create_object SHORE_FISH {
+        number_of_objects 999
+        set_gaia_object_only
+        temp_min_distance_group_placement 6
+    }
+
+    create_object SALMON {
+        number_of_objects 999
+        terrain_to_place_on WATER
+        temp_min_distance_group_placement 9
+    }
+
+    create_object SALMON {
+        number_of_objects 999
+        terrain_to_place_on MED_WATER
+        temp_min_distance_group_placement 9
+    }
+	
+	
+    create_object GOLD {
+		number_of_groups 4
+        number_of_objects 7
+        set_gaia_object_only
+        set_tight_grouping
+        min_distance_to_players 44
+        temp_min_distance_group_placement 32
+		min_distance_group_placement 4
+        min_distance_to_map_edge 8
+		avoid_forest_zone 2
+    }
+
+    create_object STONE {
+        number_of_groups 6
+		number_of_objects 5
+        set_gaia_object_only
+        set_tight_grouping
+		temp_min_distance_group_placement 32
+        min_distance_to_players 46
+        min_distance_to_map_edge 8
+		min_distance_group_placement 4
+		avoid_forest_zone 2
+    }
+
+	create_object HAWK {
+        number_of_objects 6
+		temp_min_distance_group_placement 60
+    }	
+	create_object OWL {
+        number_of_objects 6
+		temp_min_distance_group_placement 60
+    }
+	
+	
+	create_object PLANT_FLOWERS {
+        number_of_objects 24
+		temp_min_distance_group_placement 16
+    }	
+	
+	create_object PLANT_SHRUB_DRY {
+        number_of_objects 24
+		temp_min_distance_group_placement 16
+    }
+
+	create_object TREE_STUMP {
+        number_of_objects 44
+		temp_min_distance_group_placement 16
+		place_on_forest_zone
+		terrain_to_place_on PASTURE1
+    }
+
+	create_object FELLED_TREE {
+        number_of_objects 24
+		temp_min_distance_group_placement 16
+		place_on_forest_zone
+    }	
+
+	create_object SEA_ROCK_A {
+        number_of_objects 24
+		temp_min_distance_group_placement 16
+		terrain_to_place_on WATER
+    }	
+	create_object SEA_ROCK_B {
+        number_of_objects 24
+		temp_min_distance_group_placement 16
+		terrain_to_place_on WATER
+    }	
+
+
+<CONNECTION_GENERATION>
+
+create_connect_all_lands
+{
+	replace_terrain WATER SWAMP
+	replace_terrain MED_WATER SWAMP
+	terrain_cost WATER 3
+  	terrain_cost MED_WATER 3
+	terrain_cost BEACH 3
+	terrain_cost DLC_GRAVELBEACH 2
+  	terrain_size WATER 2 1
+  	terrain_size MED_WATER 2 1
+  terrain_size GRASS 0 0
+  terrain_size DIRT2 0 0
+  terrain_size LEAVES 0 0
+  terrain_size UNDERBRUSH 0 0
+  terrain_size DLC_JUNGLEGRASS 0 0
+  terrain_size DLC_DRYGRASS 0 0
+  terrain_size FOREST 0 0
+  terrain_size PINE_FOREST 0 0
+}
+create_connect_all_lands
+{
+	replace_terrain WATER SWAMP
+	replace_terrain MED_WATER SWAMP
+	terrain_cost WATER 4
+  	terrain_cost MED_WATER 4
+	terrain_cost BEACH 3
+	terrain_cost DLC_GRAVELBEACH 2
+  	terrain_size WATER 2 1
+  	terrain_size MED_WATER 2 1
+  terrain_size GRASS 0 0
+  terrain_size DIRT2 0 0
+  terrain_size LEAVES 0 0
+  terrain_size UNDERBRUSH 0 0
+  terrain_size DLC_JUNGLEGRASS 0 0
+  terrain_size DLC_DRYGRASS 0 0
+  terrain_size FOREST 0 0
+  terrain_size PINE_FOREST 0 0
+}
+
+
+/*
+create_connect_all_players_land
+{
+	replace_terrain WATER SHALLOW
+	replace_terrain MED_WATER SHALLOW
+	terrain_cost WATER 4
+  	terrain_cost MED_WATER 4
+	terrain_cost BEACH 3
+  	terrain_size WATER 2 1
+  	terrain_size MED_WATER 2 1
+  terrain_size GRASS 0 0
+  terrain_size DIRT2 0 0
+  terrain_size LEAVES 0 0
+  terrain_size UNDERBRUSH 0 0
+  terrain_size DLC_JUNGLEGRASS 0 0
+  terrain_size DLC_DRYGRASS 0 0
+  terrain_size FOREST 0 0
+  terrain_size PINE_FOREST 0 0
+}
+create_connect_all_players_land
+{
+	replace_terrain WATER SHALLOW
+	replace_terrain MED_WATER SHALLOW
+	terrain_cost WATER 3
+  	terrain_cost MED_WATER 3
+	terrain_cost BEACH 3
+  	terrain_size WATER 2 1
+  	terrain_size MED_WATER 2 1
+  terrain_size GRASS 0 0
+  terrain_size DIRT2 0 0
+  terrain_size LEAVES 0 0
+  terrain_size UNDERBRUSH 0 0
+  terrain_size DLC_JUNGLEGRASS 0 0
+  terrain_size DLC_DRYGRASS 0 0
+  terrain_size FOREST 0 0
+  terrain_size PINE_FOREST 0 0
+}
+*/

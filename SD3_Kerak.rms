@@ -1,0 +1,553 @@
+#const GATE 64
+#const MUD 76
+#const GATE_D 88
+#const PLACEHOLDER_A 1543
+#const BUILDING 1639
+#define P1_HILL
+#define P2_HILL
+<PLAYER_SETUP>
+direct_placement
+behavior_version 1
+override_map_size 144
+effect_percent SET_ATTRIBUTE BUILDING ATTR_RADIUS_1 50 /* make it a 1x1 object */
+effect_percent SET_ATTRIBUTE BUILDING ATTR_RADIUS_2 50 /* make it a 1x1 object */
+effect_amount SET_ATTRIBUTE BUILDING ATTR_FOUNDATION_TERRAIN 10 /* forest */
+start_random
+	percent_chance 50
+		#const X3 60 #const Y3 20 #const X4 20 #const Y4 20 #const X5 80 #const Y5 80 #const X6 40 #const Y6 80
+	percent_chance 50
+		#const X3 80 #const Y3 20 #const X4 40 #const Y4 20 #const X5 60 #const Y5 80 #const X6 20 #const Y6 80
+end_random
+<LAND_GENERATION>
+base_terrain SNOW
+if P1_HILL
+create_land { base_size 1 land_position 39 50 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 51 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 52 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 53 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 54 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 55 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 56 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 57 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 58 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 59 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 60 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 61 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 34 61 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 33 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 33 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 32 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 31 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 30 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 29 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 28 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 27 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 26 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 25 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 25 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 24 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 23 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 22 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 21 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 20 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 19 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 18 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 17 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 17 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 16 61 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 15 61 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 15 60 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 14 59 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 14 58 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 13 57 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 13 56 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 55 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 54 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 53 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 52 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 51 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 50 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 49 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 48 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 47 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 46 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 12 45 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 13 44 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 13 43 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 14 42 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 14 41 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 15 40 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 15 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 16 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 17 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 17 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 18 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 19 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 20 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 21 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 22 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 23 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 24 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 25 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 25 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 26 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 27 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 28 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 29 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 30 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 31 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 32 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 33 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 33 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 34 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 40 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 41 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 42 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 43 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 44 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 45 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 46 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 47 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 48 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 49 number_of_tiles 0 terrain_type DLC_ROCK }
+
+endif
+if P2_HILL
+create_land { base_size 1 land_position 62 50 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 49 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 48 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 47 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 46 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 45 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 44 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 43 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 42 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 41 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 40 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 66 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 67 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 67 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 68 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 69 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 70 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 71 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 72 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 73 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 74 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 75 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 75 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 76 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 77 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 78 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 79 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 80 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 81 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 82 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 83 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 83 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 84 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 85 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 85 40 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 86 41 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 86 42 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 87 43 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 87 44 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 45 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 46 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 47 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 48 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 49 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 89 50 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 51 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 52 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 53 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 54 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 88 55 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 87 56 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 87 57 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 86 58 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 86 59 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 85 60 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 85 61 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 84 61 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 83 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 83 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 82 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 81 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 80 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 79 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 78 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 77 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 76 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 75 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 75 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 74 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 73 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 72 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 71 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 70 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 69 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 68 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 67 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 67 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 66 61 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 61 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 60 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 59 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 58 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 57 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 56 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 55 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 54 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 53 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 52 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 51 number_of_tiles 0 terrain_type DLC_ROCK }
+
+endif
+/* hill bases */
+create_land
+{
+	terrain_type DLC_DRYROAD
+	land_percent 100
+	land_position 75 50
+	assign_to_player 2
+	base_elevation 5
+	land_id 1
+}
+create_land
+{
+	terrain_type ROAD2
+	land_percent 100
+	land_position 25 50
+	assign_to_player 1
+	base_elevation 5
+	land_id 2
+}
+/* left bases */
+create_land
+{
+	terrain_type DESERT
+	number_of_tiles 0
+	base_size 13
+	land_position X3 Y3
+	assign_to_player 2
+	set_circular_base
+	land_id 3
+}
+create_land
+{
+	terrain_type DIRT
+	number_of_tiles 0
+	base_size 13
+	land_position X4 Y4
+	assign_to_player 1
+	set_circular_base
+	land_id 4
+}
+/* right bases */
+create_land
+{
+	terrain_type DESERT
+	number_of_tiles 0
+	base_size 13
+	land_position X5 Y5
+	assign_to_player 2
+	set_circular_base
+	land_id 5
+}
+create_land
+{
+	terrain_type DIRT
+	number_of_tiles 0
+	base_size 13
+	land_position X6 Y6
+	assign_to_player 1
+	set_circular_base
+	land_id 6
+}
+
+create_land
+{
+	terrain_type DLC_SAVANNAH
+	number_of_tiles 0
+	base_size 1
+	land_position 50 50
+	land_id 7
+}
+
+<ELEVATION_GENERATION>
+create_elevation 7
+{
+	base_terrain SNOW
+	number_of_tiles 1250
+	number_of_clumps 20
+	enable_balanced_elevation
+}
+<TERRAIN_GENERATION>
+create_terrain DESERT
+{
+	base_terrain SNOW
+	land_percent 100
+	number_of_clumps 9999
+	height_limits 0 4
+}
+create_terrain DLC_DRYROAD
+{
+	base_terrain DLC_ROCK
+	land_percent 100
+	number_of_clumps 1
+	height_limits 5 5
+}
+create_terrain DIRT2
+{
+	base_terrain DLC_DRYROAD
+	land_percent 100
+	number_of_clumps 1
+	spacing_to_other_terrain_types 1
+}
+create_terrain DESERT
+{
+	base_terrain DIRT2
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain ROAD2
+{
+	base_terrain DLC_QUICKSAND
+	land_percent 100
+	number_of_clumps 1
+	height_limits 5 5
+}
+create_terrain DIRT2
+{
+	base_terrain ROAD2
+	land_percent 100
+	number_of_clumps 1
+	spacing_to_other_terrain_types 1
+}
+create_terrain DESERT
+{
+	base_terrain DIRT2
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain DESERT
+{
+	base_terrain SNOW
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain DESERT
+{
+	base_terrain SNOW
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain DESERT
+{
+	base_terrain SNOW
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain DESERT
+{
+	base_terrain SNOW
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain DESERT
+{
+	base_terrain SNOW
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain DESERT
+{
+	base_terrain SNOW
+	land_percent 100
+}
+create_terrain DESERT
+{
+	base_terrain SNOW
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain DESERT
+{
+	base_terrain DIRT
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain DESERT
+{
+	base_terrain GRASS2
+	land_percent 100
+	number_of_clumps 9999
+}
+create_terrain PALM_DESERT
+{
+	base_terrain DESERT
+	land_percent 12
+	number_of_clumps 20
+	set_avoid_player_start_areas 15
+	height_limits 0 2
+	set_scale_by_groups
+	spacing_to_other_terrain_types 7
+}
+
+create_terrain DLC_QUICKSAND { base_terrain DLC_ROCK land_percent 100 number_of_clumps 9999 terrain_mask 1 }
+create_terrain DLC_QUICKSAND { base_terrain DESERT land_percent 100 number_of_clumps 9999 height_limits 1 7 terrain_mask 1 }
+
+create_terrain DIRT 
+{
+	base_terrain DESERT
+	land_percent 5
+	number_of_clumps 10
+	clumping_factor 5
+	terrain_mask 1
+}
+create_terrain DIRT
+{
+	base_terrain DESERT
+	land_percent 5
+	number_of_clumps 10
+	clumping_factor 5
+	terrain_mask 2
+}
+create_terrain DLC_CRACKED
+{
+	base_terrain DESERT
+	land_percent 7
+	number_of_clumps 10
+	clumping_factor 5
+	terrain_mask 1
+}
+create_terrain DLC_QUICKSAND
+{
+	base_terrain DESERT
+	land_percent 7
+	number_of_clumps 10
+	clumping_factor 5
+	terrain_mask 1
+}
+create_terrain DLC_DESERTGRAVEL
+{
+	base_terrain DESERT
+	land_percent 1
+	number_of_clumps 10
+	clumping_factor 5
+	terrain_mask 1
+}
+<OBJECTS_GENERATION>
+
+create_object RELIC { number_of_groups 1 set_gaia_object_only place_on_specific_land_id 7 terrain_to_place_on DLC_SAVANNAH actor_area 3333 actor_area_radius 20 }
+create_object RELIC { number_of_groups 1 set_gaia_object_only min_distance_to_players 30 max_distance_to_players 35 place_on_specific_land_id 3 force_placement avoid_actor_area 3333 }
+create_object RELIC { number_of_groups 1 set_gaia_object_only min_distance_to_players 30 max_distance_to_players 35 place_on_specific_land_id 4 force_placement avoid_actor_area 3333 }
+create_object RELIC { number_of_groups 1 set_gaia_object_only min_distance_to_players 30 max_distance_to_players 35 place_on_specific_land_id 5 force_placement avoid_actor_area 3333 }
+create_object RELIC { number_of_groups 1 set_gaia_object_only min_distance_to_players 30 max_distance_to_players 35 place_on_specific_land_id 6 force_placement avoid_actor_area 3333 }
+/* hill base objects */
+create_object TOWN_CENTER { set_place_for_every_player min_distance_to_players 0 max_distance_to_players 0 place_on_specific_land_id 1 }
+create_object GATE { number_of_groups 2 temp_min_distance_group_placement 20 set_place_for_every_player place_on_specific_land_id 1 terrain_to_place_on DLC_DRYROAD min_distance_to_players 19 find_closest min_distance_group_placement 1 actor_area 9999 actor_area_radius 10 }
+create_object GATE_D { number_of_groups 2 temp_min_distance_group_placement 20 set_place_for_every_player place_on_specific_land_id 1 terrain_to_place_on DLC_DRYROAD min_distance_to_players 17 find_closest min_distance_group_placement 1 }
+create_object PLACEHOLDER_A { number_of_objects 9999 set_place_for_every_player place_on_specific_land_id 1 terrain_to_place_on DLC_DRYROAD find_closest second_object WALL }
+create_object SCOUT { number_of_objects 1 set_place_for_every_player min_distance_to_players 7 max_distance_to_players 9 place_on_specific_land_id 1 }
+create_object VILLAGER { set_place_for_every_player min_distance_to_players 6 max_distance_to_players 6 min_distance_group_placement 2 place_on_specific_land_id 1 }
+create_object DLC_GOAT { number_of_objects 4 set_loose_grouping set_place_for_every_player min_distance_to_players 7 max_distance_to_players 8 place_on_specific_land_id 1 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 23 avoid_forest_zone 1 place_on_specific_land_id 1 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 25 avoid_forest_zone 1 place_on_specific_land_id 1 }
+create_object GOLD { number_of_groups 25 set_gaia_object_only set_place_for_every_player min_distance_to_players 13 max_distance_to_players 15 temp_min_distance_group_placement 2 place_on_specific_land_id 1 }
+create_object FARM { number_of_groups 5 set_place_for_every_player min_distance_to_players 3 find_closest place_on_specific_land_id 1 }
+create_object PALMTREE { number_of_objects 5 set_gaia_object_only set_place_for_every_player min_distance_to_players 4 max_distance_to_players 8 temp_min_distance_group_placement 3 place_on_specific_land_id 1 }
+
+create_object TOWN_CENTER { set_place_for_every_player min_distance_to_players 0 max_distance_to_players 0 place_on_specific_land_id 2 }
+create_object GATE { number_of_groups 2 temp_min_distance_group_placement 20 set_place_for_every_player place_on_specific_land_id 2 terrain_to_place_on ROAD2 min_distance_to_players 19 find_closest min_distance_group_placement 1 actor_area 9999 actor_area_radius 10 }
+create_object GATE_D { number_of_groups 2 temp_min_distance_group_placement 20 set_place_for_every_player place_on_specific_land_id 2 terrain_to_place_on ROAD2 min_distance_to_players 17 find_closest min_distance_group_placement 1 }
+create_object PLACEHOLDER_A { number_of_objects 9999 set_place_for_every_player place_on_specific_land_id 2 terrain_to_place_on ROAD2 find_closest second_object WALL }
+create_object SCOUT { number_of_objects 1 set_place_for_every_player min_distance_to_players 7 max_distance_to_players 9 place_on_specific_land_id 2 }
+create_object VILLAGER { set_place_for_every_player min_distance_to_players 6 max_distance_to_players 6 min_distance_group_placement 2 place_on_specific_land_id 2 }
+create_object DLC_GOAT { number_of_objects 4 set_loose_grouping set_place_for_every_player min_distance_to_players 7 max_distance_to_players 8 place_on_specific_land_id 2 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 23 avoid_forest_zone 1 place_on_specific_land_id 2 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 25 avoid_forest_zone 1 place_on_specific_land_id 2 }
+create_object GOLD { number_of_groups 25 set_gaia_object_only set_place_for_every_player min_distance_to_players 13 max_distance_to_players 15 temp_min_distance_group_placement 2 place_on_specific_land_id 2 }
+create_object FARM { number_of_groups 5 min_distance_to_players 3 set_place_for_every_player find_closest place_on_specific_land_id 2 }
+create_object PALMTREE { number_of_objects 5 set_gaia_object_only set_place_for_every_player min_distance_to_players 4 max_distance_to_players 8 temp_min_distance_group_placement 3 place_on_specific_land_id 2 }
+
+/* close base objects */
+create_object TOWN_CENTER {	set_place_for_every_player min_distance_to_players 0 max_distance_to_players 0 place_on_specific_land_id 3 }
+create_object SCOUT { number_of_objects 1 set_place_for_every_player min_distance_to_players 7 max_distance_to_players 9 place_on_specific_land_id 3 }
+create_object VILLAGER { set_place_for_every_player min_distance_to_players 6 max_distance_to_players 6 min_distance_group_placement 2 place_on_specific_land_id 3 }
+create_object DLC_GOAT { number_of_objects 4 set_loose_grouping set_place_for_every_player min_distance_to_players 7 max_distance_to_players 8 place_on_specific_land_id 3 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 23 avoid_forest_zone 1 place_on_specific_land_id 3 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 25 avoid_forest_zone 1 place_on_specific_land_id 3 }
+create_object PALMTREE { number_of_objects 5 set_gaia_object_only set_place_for_every_player min_distance_to_players 4 max_distance_to_players 8 temp_min_distance_group_placement 3 place_on_specific_land_id 3 }
+create_object DLC_ORANGEBUSH { number_of_objects 6 group_placement_radius 2 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 12 max_distance_to_players 16 set_circular_placement avoid_forest_zone 1 	actor_area 2001 actor_area_radius 10 place_on_specific_land_id 3 }
+create_object GOLD { number_of_objects 2 group_placement_radius 2 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 15 max_distance_to_players 18 temp_min_distance_group_placement 10 set_circular_placement avoid_forest_zone 3 actor_area 2002 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 place_on_specific_land_id 3 }
+create_object STONE { number_of_objects 3 number_of_groups 3 group_placement_radius 3 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 16 max_distance_to_players 20 temp_min_distance_group_placement 13 set_circular_placement avoid_forest_zone 4 actor_area 2004 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 avoid_actor_area 2002 avoid_actor_area 2003 place_on_specific_land_id 3 }
+create_object STONE { number_of_objects 2 number_of_groups 2 group_placement_radius 3 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 23 max_distance_to_players 30 temp_min_distance_group_placement 13 set_circular_placement avoid_forest_zone 4 actor_area 2005 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 avoid_actor_area 2002 avoid_actor_area 2003 avoid_actor_area 2004 place_on_specific_land_id 3 }
+create_object BOAR { number_of_groups 1 set_gaia_object_only set_place_for_every_player min_distance_to_players 16 max_distance_to_players 17 set_circular_placement temp_min_distance_group_placement 12 place_on_specific_land_id 3 }
+create_object_group CHICKENS {
+    add_object WILD_CHICKEN_A 33
+    add_object WILD_CHICKEN_B 33
+    add_object WILD_CHICKEN_C 34
+}
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 16 max_distance_to_players 17 place_on_specific_land_id 3 min_distance_group_placement 5 }
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 20 max_distance_to_players 21 place_on_specific_land_id 3 min_distance_group_placement 5 }
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 21 max_distance_to_players 22 place_on_specific_land_id 3 min_distance_group_placement 5 }
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 23 max_distance_to_players 24 place_on_specific_land_id 3 min_distance_group_placement 5 }
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 23 max_distance_to_players 25 place_on_specific_land_id 3 min_distance_group_placement 5 }
+
+create_object TOWN_CENTER {	set_place_for_every_player min_distance_to_players 0 max_distance_to_players 0 place_on_specific_land_id 6 }
+create_object SCOUT { number_of_objects 1 set_place_for_every_player min_distance_to_players 7 max_distance_to_players 9 place_on_specific_land_id 6 }
+create_object VILLAGER { set_place_for_every_player min_distance_to_players 6 max_distance_to_players 6 min_distance_group_placement 2 place_on_specific_land_id 6 }
+create_object DLC_GOAT { number_of_objects 4 set_loose_grouping set_place_for_every_player min_distance_to_players 7 max_distance_to_players 8 place_on_specific_land_id 6 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 23 avoid_forest_zone 1 place_on_specific_land_id 6 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 25 avoid_forest_zone 1 place_on_specific_land_id 6 }
+create_object PALMTREE { number_of_objects 5 set_gaia_object_only set_place_for_every_player min_distance_to_players 4 max_distance_to_players 8 temp_min_distance_group_placement 3 place_on_specific_land_id 6 }
+create_object DLC_ORANGEBUSH { number_of_objects 6 group_placement_radius 2 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 12 max_distance_to_players 16 set_circular_placement avoid_forest_zone 1 	actor_area 2001 actor_area_radius 10 place_on_specific_land_id 6 }
+create_object GOLD { number_of_objects 2 group_placement_radius 2 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 15 max_distance_to_players 18 temp_min_distance_group_placement 10 set_circular_placement avoid_forest_zone 3 actor_area 2002 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 place_on_specific_land_id 6 }
+create_object STONE { number_of_objects 3 number_of_groups 3 group_placement_radius 3 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 16 max_distance_to_players 20 temp_min_distance_group_placement 13 set_circular_placement avoid_forest_zone 4 actor_area 2004 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 avoid_actor_area 2002 avoid_actor_area 2003 place_on_specific_land_id 6 }
+create_object STONE { number_of_objects 2 number_of_groups 2 group_placement_radius 3 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 23 max_distance_to_players 30 temp_min_distance_group_placement 13 set_circular_placement avoid_forest_zone 4 actor_area 2005 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 avoid_actor_area 2002 avoid_actor_area 2003 avoid_actor_area 2004 place_on_specific_land_id 6 }
+create_object BOAR { number_of_groups 1 set_gaia_object_only set_place_for_every_player min_distance_to_players 16 max_distance_to_players 17 set_circular_placement temp_min_distance_group_placement 12 place_on_specific_land_id 6 }
+create_object_group CHICKENS {
+    add_object WILD_CHICKEN_A 33
+    add_object WILD_CHICKEN_B 33
+    add_object WILD_CHICKEN_C 34
+}
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 16 max_distance_to_players 17 place_on_specific_land_id 6 min_distance_group_placement 5 }
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 20 max_distance_to_players 21 place_on_specific_land_id 6 min_distance_group_placement 5 }
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 21 max_distance_to_players 22 place_on_specific_land_id 6 min_distance_group_placement 5 }
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 23 max_distance_to_players 24 place_on_specific_land_id 6 min_distance_group_placement 5 }
+create_object CHICKENS { number_of_objects rnd(6,8) set_gaia_object_only set_place_for_every_player group_placement_radius 5 set_tight_grouping min_distance_to_players 23 max_distance_to_players 25 place_on_specific_land_id 6 min_distance_group_placement 5 }
+
+/* far base objects */
+create_object TOWN_CENTER {	set_place_for_every_player min_distance_to_players 0 max_distance_to_players 0 place_on_specific_land_id 5 }
+create_object SCOUT { number_of_objects 1 set_place_for_every_player min_distance_to_players 7 max_distance_to_players 9 place_on_specific_land_id 5 }
+create_object VILLAGER { set_place_for_every_player min_distance_to_players 6 max_distance_to_players 6 min_distance_group_placement 2 place_on_specific_land_id 5 }
+create_object DLC_GOAT { number_of_objects 4 set_loose_grouping set_place_for_every_player min_distance_to_players 7 max_distance_to_players 8 place_on_specific_land_id 5 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 23 avoid_forest_zone 1 place_on_specific_land_id 5 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 25 avoid_forest_zone 1 place_on_specific_land_id 5 }
+create_object PALMTREE { number_of_objects 5 set_gaia_object_only set_place_for_every_player min_distance_to_players 4 max_distance_to_players 8 temp_min_distance_group_placement 3 place_on_specific_land_id 5 }
+create_object DLC_ORANGEBUSH { number_of_objects 6 group_placement_radius 2 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 12 max_distance_to_players 16 set_circular_placement avoid_forest_zone 1 actor_area 2001 actor_area_radius 10 place_on_specific_land_id 5 }
+create_object GOLD { number_of_objects 3 number_of_groups 3 group_placement_radius 2 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 15 max_distance_to_players 15 temp_min_distance_group_placement 8 set_circular_placement avoid_forest_zone 3 actor_area 2002 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 place_on_specific_land_id 5 }
+/*
+create_object STONE { number_of_objects 2 number_of_groups 2 group_placement_radius 3 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 18 max_distance_to_players 20 temp_min_distance_group_placement 13 set_circular_placement avoid_forest_zone 4 actor_area 2005 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 avoid_actor_area 2002 avoid_actor_area 2003 avoid_actor_area 2004 place_on_specific_land_id 5 }
+*/
+create_object BOAR { number_of_groups 3 set_gaia_object_only set_place_for_every_player min_distance_to_players 18 max_distance_to_players 21 set_circular_placement temp_min_distance_group_placement 5 place_on_specific_land_id 5 }
+create_object BOAR { number_of_groups 2 set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 25 set_circular_placement temp_min_distance_group_placement 5 place_on_specific_land_id 5 }
+
+create_object TOWN_CENTER {	set_place_for_every_player min_distance_to_players 0 max_distance_to_players 0 place_on_specific_land_id 4 }
+create_object SCOUT { number_of_objects 1 set_place_for_every_player min_distance_to_players 7 max_distance_to_players 9 place_on_specific_land_id 4 }
+create_object VILLAGER { set_place_for_every_player min_distance_to_players 6 max_distance_to_players 6 min_distance_group_placement 2 place_on_specific_land_id 4 }
+create_object DLC_GOAT { number_of_objects 4 set_loose_grouping set_place_for_every_player min_distance_to_players 7 max_distance_to_players 8 place_on_specific_land_id 4 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 23 avoid_forest_zone 1 place_on_specific_land_id 4 }
+create_object DLC_GOAT { number_of_objects 2 set_loose_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 25 avoid_forest_zone 1 place_on_specific_land_id 4 }
+create_object PALMTREE { number_of_objects 5 set_gaia_object_only set_place_for_every_player min_distance_to_players 4 max_distance_to_players 8 temp_min_distance_group_placement 3 place_on_specific_land_id 4 }
+create_object DLC_ORANGEBUSH { number_of_objects 6 group_placement_radius 2 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 12 max_distance_to_players 16 set_circular_placement avoid_forest_zone 1 actor_area 2001 actor_area_radius 10 place_on_specific_land_id 4 }
+create_object GOLD { number_of_objects 3 number_of_groups 3 group_placement_radius 2 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 15 max_distance_to_players 15 temp_min_distance_group_placement 8 set_circular_placement avoid_forest_zone 3 actor_area 2002 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 place_on_specific_land_id 4 }
+/*
+create_object STONE { number_of_objects 2 number_of_groups 2 group_placement_radius 3 set_tight_grouping set_gaia_object_only set_place_for_every_player min_distance_to_players 18 max_distance_to_players 20 temp_min_distance_group_placement 13 set_circular_placement avoid_forest_zone 4 actor_area 2005 actor_area_radius 5 avoid_actor_area 1002 avoid_actor_area 2001 avoid_actor_area 2002 avoid_actor_area 2003 avoid_actor_area 2004 place_on_specific_land_id 4 }
+*/
+create_object BOAR { number_of_groups 3 set_gaia_object_only set_place_for_every_player min_distance_to_players 18 max_distance_to_players 21 set_circular_placement temp_min_distance_group_placement 5 place_on_specific_land_id 4 force_placement }
+create_object BOAR { number_of_groups 2 set_gaia_object_only set_place_for_every_player min_distance_to_players 21 max_distance_to_players 25 set_circular_placement temp_min_distance_group_placement 5 place_on_specific_land_id 4 force_placement }

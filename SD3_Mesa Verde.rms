@@ -1,0 +1,865 @@
+/* Mesa Verde NP */
+
+/*
+by Zetnus
+zetnus@outlook.com
+zetnus on Discord
+Most recent update: 21 May 2026
+Learn about random map scripting: https://tinyurl.com/7xteyu58
+*/
+
+/*
+v1.3
+- Moved the TC 1 tile forward, to allow better villager access
+
+v1.2
+- Forage bushes outside the base now consistently generate with 7 bushes
+- Fixed an issue where relics could be placed on the outside of the map
+
+v1.2
+- Removed the lumber camps
+- Replaced the 4 tile stone inside the base with a 3 tile forage
+- Added a 3 tile stone outside the base
+- Sheep and pigs replaced by turkeys
+- Improved the consistency of gold positioning
+- Improved the consistency of woodlines
+
+*/
+
+/* #define 9_VIL_START */
+
+
+/* terrains */
+#const GRAVEL_GREY 70
+#const BUSH_FOREST 89
+#const PASTURE_DEAD 118
+
+/* objects */
+#const BUSH_A 302
+#const FALCON 1056
+#const LARGE_TEMP_REVEALER 1874
+#const OWL 2490
+
+/* actor areas */
+#const AA_HOUSE 9000
+#const AA_LUMBER_CAMP 9001
+#const AA_9V_VIL 9002
+#const AA_TC 9003
+#const AA_WALL 9004
+
+/* map scaling */
+if MAPSIZE_NANO			#const RAW_LENGTH 36	#define 36x36	#define MEDIUM_OR_SMALLER #define TINY_OR_SMALLER	#define MINI_OR_SMALLER
+elseif MAPSIZE_MICRO	#const RAW_LENGTH 60	#define 60x60	#define MEDIUM_OR_SMALLER #define TINY_OR_SMALLER	#define MINI_OR_SMALLER
+elseif MAPSIZE_MINI		#const RAW_LENGTH 80	#define 80x80	#define MEDIUM_OR_SMALLER #define TINY_OR_SMALLER	#define MINI_OR_SMALLER
+elseif MAPSIZE_PUNY		#const RAW_LENGTH 100	#define 100x100	#define MEDIUM_OR_SMALLER #define TINY_OR_SMALLER
+elseif MAPSIZE_TINY		#const RAW_LENGTH 120	#define 120x120	#define MEDIUM_OR_SMALLER #define TINY_OR_SMALLER
+elseif MAPSIZE_SMALL	#const RAW_LENGTH 144	#define 144x144 #define MEDIUM_OR_SMALLER
+elseif MAPSIZE_MEDIUM	#const RAW_LENGTH 168	#define 168x168 #define MEDIUM_OR_SMALLER
+elseif MAPSIZE_NORMAL	#const RAW_LENGTH 200	#define 200x200
+elseif MAPSIZE_LARGE	#const RAW_LENGTH 220	#define 220x220
+elseif MAPSIZE_HUGE		#const RAW_LENGTH 240	#define 240x240	#define HUGE_OR_LARGER
+elseif MAPSIZE_GIANT	#const RAW_LENGTH 252	#define 252x252	#define HUGE_OR_LARGER
+elseif MAPSIZE_MASSIVE	#const RAW_LENGTH 276	#define 276x276	#define HUGE_OR_LARGER
+elseif MAPSIZE_ENORMOUS	#const RAW_LENGTH 300	#define 300x300	#define HUGE_OR_LARGER	#define ENORMOUS_OR_LARGER
+elseif MAPSIZE_COLOSSAL	#const RAW_LENGTH 320	#define 320x320	#define HUGE_OR_LARGER	#define ENORMOUS_OR_LARGER
+elseif MAPSIZE_INCREDIBLE	#const RAW_LENGTH 360	#define 360x360	#define HUGE_OR_LARGER	#define ENORMOUS_OR_LARGER	#define INCREDIBLE_OR_LARGER
+elseif MAPSIZE_MONSTROUS	#const RAW_LENGTH 400	#define 400x400	#define HUGE_OR_LARGER	#define ENORMOUS_OR_LARGER	#define INCREDIBLE_OR_LARGER
+elseif MAPSIZE_LUDICROUS	#const RAW_LENGTH 480	#define 480x480	#define HUGE_OR_LARGER	#define ENORMOUS_OR_LARGER	#define INCREDIBLE_OR_LARGER
+endif
+
+#const LENGTH (RAW_LENGTH * 1.1)
+#const AREA (LENGTH * LENGTH)
+#const SCALING_FACTOR (AREA / 10000)
+override_map_size (LENGTH)
+
+if 1_PLAYER_GAME	#const PLAYER_COUNT 1
+elseif 2_PLAYER_GAME	#const PLAYER_COUNT 2
+elseif 3_PLAYER_GAME	#const PLAYER_COUNT 3
+elseif 4_PLAYER_GAME	#const PLAYER_COUNT 4
+elseif 5_PLAYER_GAME	#const PLAYER_COUNT 5
+elseif 6_PLAYER_GAME	#const PLAYER_COUNT 6
+elseif 7_PLAYER_GAME	#const PLAYER_COUNT 7
+elseif 8_PLAYER_GAME	#const PLAYER_COUNT 8
+endif
+
+/* =================================================================================================== */
+<PLAYER_SETUP>
+
+random_placement
+behavior_version 2
+ai_info_map_type CUSTOM 0 0 0
+
+/* adjust starting resources */
+if 9_VIL_START
+	effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+	effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -90
+endif
+
+effect_amount GAIA_SET_ATTRIBUTE DLC_BOULDER_A ATTR_OCCLUSION_MODE 2
+effect_amount GAIA_SET_ATTRIBUTE DLC_BOULDER_B ATTR_OCCLUSION_MODE 2
+effect_amount GAIA_SET_ATTRIBUTE DLC_BOULDER_C ATTR_OCCLUSION_MODE 2
+
+/* =================================================================================================== */
+<LAND_GENERATION>
+
+base_terrain PASTURE_DEAD
+
+#const BORDER 20
+
+/* center */
+create_land {
+	terrain_type DLC_DRYGRASS
+	land_percent 100
+	base_size (LENGTH / 4)
+	set_circular_base
+	land_position 50 50
+	land_id 150
+	zone 150
+	left_border (BORDER) right_border (BORDER) top_border (BORDER) bottom_border (BORDER)
+}
+
+/* the playerlands */
+create_player_lands {
+	terrain_type DIRT3
+	base_elevation 1
+	base_size 14
+	land_percent 100
+	set_circular_base
+	other_zone_avoidance_distance 4
+	left_border (BORDER) right_border (BORDER) top_border (BORDER) bottom_border (BORDER)
+	circle_radius (BORDER + 10) 0
+}
+
+
+/* helper lands to make sure the elevation generates properly */
+create_land {
+	terrain_type DLC_SAVANNAH
+	base_elevation 10
+	base_size 1
+	land_percent 100
+	land_position 0 0
+	other_zone_avoidance_distance 6
+}
+create_land {
+	terrain_type DLC_SAVANNAH
+	base_elevation 10
+	base_size 1
+	land_percent 100
+	land_position 0 98
+	other_zone_avoidance_distance 6
+}
+create_land {
+	terrain_type DLC_SAVANNAH
+	base_elevation 10
+	base_size 1
+	land_percent 100
+	land_position 99 0
+	other_zone_avoidance_distance 6
+}
+create_land {
+	terrain_type DLC_SAVANNAH
+	base_elevation 10
+	base_size 1
+	land_percent 100
+	land_position 99 98
+	other_zone_avoidance_distance 6
+}
+
+
+/* =================================================================================================== */
+<ELEVATION_GENERATION>
+
+create_elevation 11 {
+	base_terrain DLC_SAVANNAH
+	enable_balanced_elevation
+	number_of_tiles (AREA / 4)
+	number_of_clumps (32 * SCALING_FACTOR)
+	set_scale_by_groups
+	spacing 1
+}
+
+
+/* =================================================================================================== */
+<TERRAIN_GENERATION>
+
+/* fix the slopes */
+create_terrain PASTURE_DEAD { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 2 16 }
+create_terrain PASTURE_DEAD { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 2 16 }
+create_terrain PASTURE_DEAD { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 2 16 }
+
+create_terrain PASTURE_DEAD { base_terrain DIRT3 land_percent 100 number_of_clumps 9320 height_limits 2 16 }
+create_terrain PASTURE_DEAD { base_terrain DIRT3 land_percent 100 number_of_clumps 9320 height_limits 2 16 }
+create_terrain PASTURE_DEAD { base_terrain DIRT3 land_percent 100 number_of_clumps 9320 height_limits 2 16 }
+
+create_terrain DIRT3 { base_terrain PASTURE_DEAD land_percent 100 number_of_clumps 9320 height_limits 0 1 }
+create_terrain DIRT3 { base_terrain PASTURE_DEAD land_percent 100 number_of_clumps 9320 height_limits 0 1 }
+create_terrain DIRT3 { base_terrain PASTURE_DEAD land_percent 100 number_of_clumps 9320 height_limits 0 1 }
+
+create_terrain DIRT3 { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 1 2 }
+create_terrain DIRT3 { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 1 2 }
+create_terrain DIRT3 { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 1 2 }
+
+create_terrain DIRT3 { base_terrain PASTURE_DEAD land_percent 100 number_of_clumps 9320 height_limits 0 1 }
+
+
+/* the center */
+create_terrain GRASS3 { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 0 0 spacing_to_other_terrain_types 1 set_flat_terrain_only }
+create_terrain GRASS3 { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 0 0 spacing_to_other_terrain_types 1 set_flat_terrain_only }
+create_terrain GRASS3 { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 0 0 spacing_to_other_terrain_types 1 set_flat_terrain_only }
+
+create_terrain DIRT { base_terrain DLC_DRYGRASS land_percent 100 number_of_clumps 9320 height_limits 0 16 terrain_mask 1 }
+
+create_terrain SOUTH_AMERICAN_FOREST {
+	base_terrain DIRT3
+	terrain_mask 2
+	land_percent 100
+	number_of_clumps 9320
+	set_scale_by_groups
+	spacing_to_other_terrain_types 0
+	set_avoid_player_start_areas 20
+}
+
+/* scattered forests */
+create_terrain SOUTH_AMERICAN_FOREST {
+	base_terrain GRASS3
+	terrain_mask 2
+	land_percent 5
+	number_of_clumps 18
+	set_scale_by_groups
+	spacing_to_other_terrain_types 0
+	set_avoid_player_start_areas 20
+}
+
+/* cosmetic terrain mixing */
+create_terrain DLC_DRYGRASS {
+	base_terrain GRASS3
+	land_percent 5
+	number_of_clumps 15
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain LEAVES {
+	base_terrain GRASS3
+	land_percent 5
+	number_of_clumps 15
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain DIRT2 {
+	base_terrain GRASS3
+	land_percent 5
+	number_of_clumps 45
+	set_scale_by_groups
+	terrain_mask 1
+}
+
+create_terrain DLC_DRYGRASS {
+	base_terrain DLC_SAVANNAH
+	land_percent 10
+	number_of_clumps 30
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain LEAVES {
+	base_terrain DLC_SAVANNAH
+	land_percent 10
+	number_of_clumps 30
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain GRASS3 {
+	base_terrain DLC_SAVANNAH
+	land_percent 10
+	number_of_clumps 30
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain GRAVEL_GREY {
+	base_terrain DLC_SAVANNAH
+	land_percent 10
+	number_of_clumps 30
+	set_scale_by_groups
+	terrain_mask 1
+}
+
+
+/* outside */
+create_terrain SOUTH_AMERICAN_FOREST {
+	base_terrain DLC_SAVANNAH
+	terrain_mask 2
+	land_percent 15
+	number_of_clumps 30
+	set_scale_by_groups
+}
+create_terrain BUSH_FOREST {
+	base_terrain DLC_SAVANNAH
+	terrain_mask 2
+	land_percent 15
+	number_of_clumps 30
+	set_scale_by_groups
+}
+
+
+
+
+
+/* forest mixing */
+create_terrain BUSH_FOREST {
+	base_terrain SOUTH_AMERICAN_FOREST
+	terrain_mask 2
+	land_percent 15
+	number_of_clumps 60
+	set_scale_by_groups
+}
+create_terrain SOUTH_AMERICAN_FOREST {
+	base_terrain BUSH_FOREST
+	terrain_mask 2
+	land_percent 10
+	number_of_clumps 45
+	set_scale_by_groups
+}
+
+
+
+/* =================================================================================================== */
+<CONNECTION_GENERATION>
+
+accumulate_connections
+
+#const CONNECTION_WIDTH 5
+
+create_connect_land_zones 150 -9 {
+	replace_terrain SOUTH_AMERICAN_FOREST GRASS3
+	replace_terrain BUSH_FOREST GRASS3
+	terrain_cost DLC_SAVANNAH 0
+	terrain_cost PASTURE_DEAD 0
+	terrain_size SOUTH_AMERICAN_FOREST (CONNECTION_WIDTH) 0
+	terrain_size BUSH_FOREST (CONNECTION_WIDTH) 0
+	terrain_size GRASS3 (CONNECTION_WIDTH) 0
+}
+create_connect_land_zones 150 -8 {
+	replace_terrain SOUTH_AMERICAN_FOREST GRASS3
+	replace_terrain BUSH_FOREST GRASS3
+	terrain_cost DLC_SAVANNAH 0
+	terrain_cost PASTURE_DEAD 0
+	terrain_size SOUTH_AMERICAN_FOREST (CONNECTION_WIDTH) 0
+	terrain_size BUSH_FOREST (CONNECTION_WIDTH) 0
+	terrain_size GRASS3 (CONNECTION_WIDTH) 0
+}
+create_connect_land_zones 150 -7 {
+	replace_terrain SOUTH_AMERICAN_FOREST GRASS3
+	replace_terrain BUSH_FOREST GRASS3
+	terrain_cost DLC_SAVANNAH 0
+	terrain_cost PASTURE_DEAD 0
+	terrain_size SOUTH_AMERICAN_FOREST (CONNECTION_WIDTH) 0
+	terrain_size BUSH_FOREST (CONNECTION_WIDTH) 0
+	terrain_size GRASS3 (CONNECTION_WIDTH) 0
+}
+create_connect_land_zones 150 -6 {
+	replace_terrain SOUTH_AMERICAN_FOREST GRASS3
+	replace_terrain BUSH_FOREST GRASS3
+	terrain_cost DLC_SAVANNAH 0
+	terrain_cost PASTURE_DEAD 0
+	terrain_size SOUTH_AMERICAN_FOREST (CONNECTION_WIDTH) 0
+	terrain_size BUSH_FOREST (CONNECTION_WIDTH) 0
+	terrain_size GRASS3 (CONNECTION_WIDTH) 0
+}
+create_connect_land_zones 150 -5 {
+	replace_terrain SOUTH_AMERICAN_FOREST GRASS3
+	replace_terrain BUSH_FOREST GRASS3
+	terrain_cost DLC_SAVANNAH 0
+	terrain_cost PASTURE_DEAD 0
+	terrain_size SOUTH_AMERICAN_FOREST (CONNECTION_WIDTH) 0
+	terrain_size BUSH_FOREST (CONNECTION_WIDTH) 0
+	terrain_size GRASS3 (CONNECTION_WIDTH) 0
+}
+create_connect_land_zones 150 -4 {
+	replace_terrain SOUTH_AMERICAN_FOREST GRASS3
+	replace_terrain BUSH_FOREST GRASS3
+	terrain_cost DLC_SAVANNAH 0
+	terrain_cost PASTURE_DEAD 0
+	terrain_size SOUTH_AMERICAN_FOREST (CONNECTION_WIDTH) 0
+	terrain_size BUSH_FOREST (CONNECTION_WIDTH) 0
+	terrain_size GRASS3 (CONNECTION_WIDTH) 0
+}
+create_connect_land_zones 150 -3 {
+	replace_terrain SOUTH_AMERICAN_FOREST GRASS3
+	replace_terrain BUSH_FOREST GRASS3
+	terrain_cost DLC_SAVANNAH 0
+	terrain_cost PASTURE_DEAD 0
+	terrain_size SOUTH_AMERICAN_FOREST (CONNECTION_WIDTH) 0
+	terrain_size BUSH_FOREST (CONNECTION_WIDTH) 0
+	terrain_size GRASS3 (CONNECTION_WIDTH) 0
+}
+create_connect_land_zones 150 -2 {
+	replace_terrain SOUTH_AMERICAN_FOREST GRASS3
+	replace_terrain BUSH_FOREST GRASS3
+	terrain_cost DLC_SAVANNAH 0
+	terrain_cost PASTURE_DEAD 0
+	terrain_size SOUTH_AMERICAN_FOREST (CONNECTION_WIDTH) 0
+	terrain_size BUSH_FOREST (CONNECTION_WIDTH) 0
+	terrain_size GRASS3 (CONNECTION_WIDTH) 0
+}
+
+
+
+
+/* =================================================================================================== */
+<OBJECTS_GENERATION>
+
+create_object_group HARE_HUNT {
+	add_object HARE_A 50
+	add_object HARE_B 50
+}
+
+create_object_group BIRD {
+	add_object HAWK 20
+	add_object FALCON 20
+	add_object DLC_VULTURE 20
+	add_object OWL 20
+	add_object CONDOR 20
+}
+
+create_object_group STRAGGLER_MIX {
+	add_object BUSH_A 10
+	add_object BUSH_A 10
+	add_object DLC_AFRICANBUSH 10
+	add_object DLC_AFRICANBUSH 10
+	add_object TREE_GREEN_OAK 10
+	add_object TREE_GREEN_OAK 10
+	add_object TREE_GREEN_OAK 10
+	add_object ITALIAN_PINETREE 10
+	add_object ITALIAN_PINETREE 10
+	add_object ITALIAN_PINETREE 10
+}
+
+
+create_object DLC_BOULDER_C {
+	terrain_to_place_on PASTURE_DEAD
+	number_of_objects 9320
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 3
+	min_distance_to_players 22
+	set_circular_placement
+}
+
+create_object DLC_BOULDER_B {
+	terrain_to_place_on PASTURE_DEAD
+	number_of_objects 9320
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 1
+	min_distance_to_players 19
+	set_circular_placement
+}
+
+create_object DLC_BOULDER_A {
+	terrain_to_place_on PASTURE_DEAD
+	number_of_objects 9320
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 0
+}
+
+/* player objects */
+create_object TOWN_CENTER {
+	set_place_for_every_player
+	find_closest_to_map_edge
+	terrain_to_place_on DIRT3
+	min_distance_to_players 6
+	max_distance_to_players 7
+	set_circular_placement
+	actor_area AA_TC
+	actor_area_radius 10
+}
+
+create_object HOUSE {
+	number_of_objects 12
+	temp_min_distance_group_placement 0
+	set_place_for_every_player
+	find_closest_to_map_edge
+	terrain_to_place_on DIRT3
+	min_distance_to_players 8
+	max_distance_to_players 14
+	set_circular_placement
+	actor_area_to_place_in AA_TC
+	actor_area AA_HOUSE
+	actor_area_radius 3
+}
+
+if 9_VIL_START
+create_object STRAGGLER_MIX {
+	number_of_objects 1
+	set_place_for_every_player
+	set_gaia_object_only
+	find_closest
+	set_circular_placement
+	find_closest enable_tile_shuffling
+	require_path
+	terrain_to_place_on GRASS3
+	place_on_forest_zone
+	actor_area AA_LUMBER_CAMP
+	actor_area_radius 2
+}
+endif
+
+create_object DLC_FORTIFIED_PALISADE_WALL {
+	number_of_objects 12
+	temp_min_distance_group_placement 0
+	set_place_for_every_player
+	find_closest_to_map_edge
+	terrain_to_place_on DIRT3
+	min_distance_to_players 10
+	max_distance_to_players 10
+	set_circular_placement
+	avoid_other_land_zones 1
+	actor_area AA_WALL
+	actor_area_radius 2
+}
+
+if 9_VIL_START
+create_object LARGE_TEMP_REVEALER {
+	set_place_for_every_player
+	find_closest
+}
+
+create_object VILLAGER {
+	set_place_for_every_player
+	find_closest
+	avoid_actor_area AA_HOUSE
+	avoid_actor_area AA_WALL
+}
+create_object VILLAGER {
+	set_place_for_every_player
+	find_closest
+	avoid_actor_area AA_HOUSE
+	avoid_actor_area AA_WALL
+}
+
+create_object VILLAGER {
+	set_place_for_every_player
+	actor_area_to_place_in AA_LUMBER_CAMP
+	find_closest
+	force_placement
+	actor_area AA_9V_VIL
+	actor_area_radius 3
+}
+else /* 3 vill start */
+create_object VILLAGER {
+	set_place_for_every_player
+	find_closest enable_tile_shuffling
+	avoid_actor_area AA_HOUSE
+	avoid_actor_area AA_WALL
+}
+endif
+
+if REGICIDE
+	create_object KING {
+		set_place_for_every_player
+		set_circular_placement
+		find_closest enable_tile_shuffling
+	}
+	create_object VILLAGER {
+		number_of_objects 7
+		set_place_for_every_player
+		set_circular_placement
+		find_closest enable_tile_shuffling
+	}
+	create_object CASTLE {
+		set_place_for_every_player
+		max_distance_to_players 13
+		set_circular_placement
+		find_closest_to_map_center enable_tile_shuffling
+		min_distance_group_placement 2
+	}
+endif
+
+create_object FORAGE {
+	set_gaia_object_only
+	number_of_objects 3
+	set_tight_grouping
+	set_place_for_every_player
+	min_distance_to_players 1
+	set_circular_placement
+	find_closest enable_tile_shuffling
+	avoid_actor_area AA_WALL
+	actor_area_to_place_in AA_TC
+}
+
+create_object TURKEY {
+	number_of_objects 4
+	set_place_for_every_player
+	min_distance_to_players 4
+	set_circular_placement
+	find_closest enable_tile_shuffling
+	avoid_actor_area AA_WALL
+	actor_area_to_place_in AA_TC
+}
+
+
+create_object SCOUT {
+	set_place_for_every_player
+	max_distance_to_players 12
+	set_circular_placement
+	find_closest_to_map_center enable_tile_shuffling
+	min_distance_group_placement 1
+}
+
+create_object FORAGE {
+	number_of_objects 7
+	group_placement_radius 2
+	set_tight_grouping
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 4
+	max_distance_to_players 14
+	find_closest_to_map_center
+	set_circular_placement
+	min_distance_group_placement 5
+	avoid_forest_zone 2
+	avoid_actor_area AA_TC
+	avoid_actor_area AA_WALL
+	avoid_other_land_zones 1
+	avoid_actor_area AA_LUMBER_CAMP
+}
+
+create_object GOLD {
+	number_of_objects 5
+	group_placement_radius 1
+	set_tight_grouping
+	number_of_groups 3
+	temp_min_distance_group_placement 10
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 4
+	max_distance_to_players 16
+	find_closest_to_map_center
+	set_circular_placement
+	min_distance_group_placement 3
+	avoid_forest_zone 2
+	avoid_actor_area AA_TC
+	avoid_actor_area AA_WALL
+	terrain_to_place_on DIRT3
+	avoid_actor_area AA_LUMBER_CAMP
+}
+
+create_object STONE {
+	number_of_objects 3
+	group_placement_radius 2
+	set_tight_grouping
+	number_of_groups 3
+	temp_min_distance_group_placement 11
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 16
+	find_closest enable_tile_shuffling
+	set_circular_placement
+	min_distance_group_placement 3
+	avoid_forest_zone 2
+	terrain_to_place_on GRASS3
+	avoid_actor_area AA_LUMBER_CAMP
+}
+
+create_object JAVELINA {
+	number_of_objects 2
+	temp_min_distance_group_placement 15
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 17
+	find_closest enable_tile_shuffling
+	set_circular_placement
+	avoid_forest_zone 2
+	terrain_to_place_on GRASS3
+	avoid_actor_area AA_LUMBER_CAMP
+}
+
+create_object TURKEY {
+	if 9_VIL_START	number_of_objects 1
+	else number_of_objects 2
+	endif
+	number_of_groups 2
+	set_tight_grouping
+	temp_min_distance_group_placement 18
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 20
+	find_closest enable_tile_shuffling
+	set_circular_placement
+	avoid_forest_zone 2
+	terrain_to_place_on GRASS3
+	avoid_actor_area AA_LUMBER_CAMP
+}
+
+start_random 
+	percent_chance 50 #define PUSHABLE_HUNT
+	percent_chance 50 #define UNPUSHABLE_HUNT
+end_random
+
+if PUSHABLE_HUNT	create_object DEER
+elseif UNPUSHABLE_HUNT	create_object HARE_HUNT
+endif
+{
+if PUSHABLE_HUNT	number_of_objects 4
+elseif UNPUSHABLE_HUNT	number_of_objects 7
+endif
+	number_of_groups 1
+	set_tight_grouping
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 22
+	find_closest enable_tile_shuffling
+	set_circular_placement
+	avoid_forest_zone 2
+	terrain_to_place_on GRASS3
+	avoid_actor_area AA_LUMBER_CAMP
+}
+
+create_object STRAGGLER_MIX {
+	number_of_objects 5
+	set_gaia_object_only
+	set_place_for_every_player
+	max_distance_to_players 17
+	set_circular_placement
+	avoid_actor_area AA_TC
+	avoid_actor_area AA_WALL
+	terrain_to_place_on DIRT3
+}
+
+/* neutral center resources */
+create_object RELIC {
+	set_gaia_object_only
+	min_distance_to_players 25
+	set_circular_placement
+	min_distance_group_placement 1
+	number_of_objects (PLAYER_COUNT + 3)
+	temp_min_distance_group_placement (LENGTH / 8)
+	terrain_to_place_on GRASS3
+}
+
+
+create_object GOLD {
+	number_of_objects 3
+	number_of_groups 9320
+	set_tight_grouping
+	temp_min_distance_group_placement 25
+	set_gaia_object_only
+	min_distance_to_players 30
+	set_circular_placement
+	avoid_forest_zone 1
+	terrain_to_place_on GRASS3
+	min_distance_group_placement 3
+}
+create_object STONE {
+	number_of_objects 3
+	number_of_groups 9320
+	set_tight_grouping
+	temp_min_distance_group_placement 32
+	set_gaia_object_only
+	min_distance_to_players 35
+	set_circular_placement
+	avoid_forest_zone 1
+	terrain_to_place_on GRASS3
+	min_distance_group_placement 3
+}
+
+create_object DEER {
+	number_of_objects 3
+	group_variance 1
+	number_of_groups 9320
+	temp_min_distance_group_placement 20
+	set_gaia_object_only
+	min_distance_to_players 35
+	set_circular_placement
+	avoid_forest_zone 1
+	terrain_to_place_on GRASS3
+}
+create_object RED_FOX {
+	number_of_objects 3
+	group_variance 1
+	number_of_groups 9320
+	temp_min_distance_group_placement 20
+	set_gaia_object_only
+	min_distance_to_players 35
+	set_circular_placement
+	avoid_forest_zone 1
+	terrain_to_place_on GRASS3
+}
+create_object HARE_HUNT {
+	number_of_objects 5
+	group_variance 3
+	number_of_groups 9320
+	temp_min_distance_group_placement 20
+	set_gaia_object_only
+	min_distance_to_players 35
+	set_circular_placement
+	avoid_forest_zone 1
+	terrain_to_place_on GRASS3
+}
+create_object BLACK_BEAR {
+	number_of_objects 1
+	group_variance 1
+	number_of_groups 9320
+	temp_min_distance_group_placement 30
+	set_gaia_object_only
+	min_distance_to_players 50
+	set_circular_placement
+	avoid_forest_zone 1
+	terrain_to_place_on GRASS3
+}
+
+create_object STRAGGLER_MIX {
+	number_of_groups 10
+	set_scaling_to_map_size
+	set_gaia_object_only
+	min_distance_group_placement 1
+	avoid_forest_zone 1
+	temp_min_distance_group_placement 7
+	min_distance_to_players 22
+	set_circular_placement
+	terrain_to_place_on GRASS3
+}
+
+/* things on the outside that are never accessible */
+create_object STRAGGLER_MIX {
+	number_of_groups 20
+	set_scaling_to_map_size
+	set_gaia_object_only
+	temp_min_distance_group_placement 7
+	terrain_to_place_on DLC_SAVANNAH
+}
+
+create_object BIRD {
+	number_of_objects 6
+	set_scaling_to_map_size
+	terrain_to_place_on DLC_SAVANNAH
+}
+
+create_object WOLF {
+	number_of_objects 5
+	group_variance 2
+	number_of_groups 4
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 20
+	terrain_to_place_on DLC_SAVANNAH
+}
+
+create_object HARE_HUNT {
+	number_of_objects 6
+	group_variance 4
+	number_of_groups 4
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 20
+	terrain_to_place_on DLC_SAVANNAH
+}
+
+create_object DEER {
+	number_of_objects 3
+	group_variance 2
+	number_of_groups 4
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 20
+	terrain_to_place_on DLC_SAVANNAH
+}
+
+create_object BLACK_PANTHER {
+	number_of_objects 1
+	terrain_to_place_on DLC_SAVANNAH
+}
