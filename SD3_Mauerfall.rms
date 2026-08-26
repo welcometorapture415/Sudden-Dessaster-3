@@ -1,0 +1,4327 @@
+if ANTIQUITY_MODE
+#define ADMIN_RESTART
+elseif RANDOM_MAP
+if REGICIDE
+#define ADMIN_RESTART
+elseif EMPIRE_WARS
+#define ADMIN_RESTART
+elseif SUDDEN_DEATH
+#define ADMIN_RESTART
+endif
+else
+#define ADMIN_RESTART
+endif
+if ADMIN_RESTART
+<PLAYER_SETUP>
+guard_state SABOTEUR AMOUNT_GOLD 0 1
+endif
+#const HARE_A 2098
+#const HARE_B 2099
+#const HARE_ARCTIC 2100
+#const HERDABLE_A SHEEP
+#const HERDABLE_B DLC_PIG
+#const STRAGGLER DLC_AUTUMNTREE
+#const WALL_SEGMENT_LENGTH 8
+#const PLAYER_BASE_SIZE 18
+#const GRASS_FLOWERS_1 122
+#const GRASS_FLOWERS_2 123
+#const RED_FOX 1955
+#const WALL_SEGMENT_LENGTH 16
+#const WALL_SEGMENT_GAP 8
+#const PHOFF 1902
+#const PHON 1543
+#const TERRAIN_BLOCKER 1613
+#const TEMPORARY_REVEALER 651
+start_random
+percent_chance 50 #const SHEP0 590
+percent_chance 50 #const SHEP0 592
+end_random
+start_random
+percent_chance 50 #const SHEP1 590
+percent_chance 50 #const SHEP1 592
+end_random
+start_random
+percent_chance 50 #const SHEP2 590
+percent_chance 50 #const SHEP2 592
+end_random
+start_random
+percent_chance 50 #const SHEP3 590
+percent_chance 50 #const SHEP3 592
+end_random
+start_random
+percent_chance 50 #const SHEP4 590
+percent_chance 50 #const SHEP4 592
+end_random
+start_random
+percent_chance 50 #const SHEP5 590
+percent_chance 50 #const SHEP5 592
+end_random
+start_random
+percent_chance 50 #const LUMBERJACK0 123
+percent_chance 50 #const LUMBERJACK0 218
+end_random
+start_random
+percent_chance 50 #const LUMBERJACK1 123
+percent_chance 50 #const LUMBERJACK1 218
+end_random
+start_random
+percent_chance 50 #const LUMBERJACK2 123
+percent_chance 50 #const LUMBERJACK2 218
+end_random
+<PLAYER_SETUP>
+direct_placement
+behavior_version 2
+ai_info_map_type ARABIA 0 0 0
+effect_amount GAIA_SET_ATTRIBUTE HERDABLE_A ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE TEMPORARY_REVEALER ATTR_DEAD_ID -1
+effect_amount SET_ATTRIBUTE TEMPORARY_REVEALER ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE TEMPORARY_REVEALER ATTR_LINE_OF_SIGHT 18
+effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
+effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -90
+effect_amount SET_ATTRIBUTE HERDABLE_A ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE HERDABLE_B ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE DEER ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE DLC_IBEX ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE BOAR ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE WOLF ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE RED_FOX ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE HARE_A ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE HARE_B ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE HARE_ARCTIC ATTR_TERRAIN_ID 4
+<LAND_GENERATION>
+enable_waves 0
+base_terrain ICYSHORE
+create_land {
+land_position 25 75
+terrain_type DLC_DRYGRASS
+assign_to AT_TEAM -10 0 0
+top_border 55
+right_border 50
+bottom_border -15
+border_fuzziness 50
+}
+create_land {
+land_position 75 75
+terrain_type DIRT
+assign_to AT_TEAM -10 0 0
+top_border 55
+left_border 50
+bottom_border -15
+border_fuzziness 50
+}
+create_land {
+land_position 1 1
+terrain_type DLC_JUNGLELEAVES
+set_circular_base
+number_of_tiles 175
+base_size 10
+}
+create_land {
+land_position 99 1
+terrain_type DLC_JUNGLELEAVES
+set_circular_base
+number_of_tiles 175
+base_size 10
+}
+<ELEVATION_GENERATION>
+create_elevation 4 {
+base_terrain ICYSHORE
+number_of_tiles 1000
+number_of_clumps 20
+}
+create_elevation 2 {
+base_terrain DLC_DRYGRASS
+number_of_tiles 250
+number_of_clumps 10
+}
+create_elevation 2 {
+base_terrain DIRT
+number_of_tiles 250
+number_of_clumps 10
+}
+<TERRAIN_GENERATION>
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain MED_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain WATER {
+base_terrain DLC_JUNGLELEAVES
+number_of_tiles 1
+spacing_to_other_terrain_types 1
+}
+create_terrain DEEP_WATER {
+base_terrain WATER
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS2 {
+base_terrain DLC_JUNGLELEAVES
+land_percent 100
+number_of_clumps 8192
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS2 {
+base_terrain DLC_JUNGLELEAVES
+land_percent 100
+number_of_clumps 8192
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS2 {
+base_terrain DLC_JUNGLELEAVES
+land_percent 100
+number_of_clumps 8192
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS2 {
+base_terrain DLC_JUNGLELEAVES
+land_percent 100
+number_of_clumps 8192
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS2 {
+base_terrain DLC_JUNGLELEAVES
+land_percent 100
+number_of_clumps 8192
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS2 {
+base_terrain DLC_JUNGLELEAVES
+land_percent 100
+number_of_clumps 8192
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS2 {
+base_terrain DLC_JUNGLELEAVES
+land_percent 100
+number_of_clumps 8192
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS2 {
+base_terrain DLC_JUNGLELEAVES
+land_percent 100
+number_of_clumps 8192
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain DLC_ROCK {
+base_terrain ICYSHORE
+spacing_to_specific_terrain DLC_DRYGRASS 3
+spacing_to_specific_terrain DIRT 3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain ICYSHORE
+spacing_to_specific_terrain DLC_DRYGRASS 3
+spacing_to_specific_terrain DIRT 3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain ICYSHORE
+spacing_to_specific_terrain DLC_DRYGRASS 3
+spacing_to_specific_terrain DIRT 3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain ICYSHORE
+spacing_to_specific_terrain DLC_DRYGRASS 3
+spacing_to_specific_terrain DIRT 3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain ICYSHORE
+spacing_to_specific_terrain DLC_DRYGRASS 3
+spacing_to_specific_terrain DIRT 3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain ICYSHORE
+spacing_to_specific_terrain DLC_DRYGRASS 3
+spacing_to_specific_terrain DIRT 3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain ICYSHORE
+spacing_to_specific_terrain DLC_DRYGRASS 3
+spacing_to_specific_terrain DIRT 3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain ICYSHORE
+spacing_to_specific_terrain DLC_DRYGRASS 3
+spacing_to_specific_terrain DIRT 3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_ROCK
+spacing_to_specific_terrain ICYSHORE 6
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_ROCK
+spacing_to_specific_terrain ICYSHORE 6
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_ROCK
+spacing_to_specific_terrain ICYSHORE 6
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_ROCK
+spacing_to_specific_terrain ICYSHORE 6
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_ROCK
+spacing_to_specific_terrain ICYSHORE 6
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_ROCK
+spacing_to_specific_terrain ICYSHORE 6
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_ROCK
+spacing_to_specific_terrain ICYSHORE 6
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_ROCK
+spacing_to_specific_terrain ICYSHORE 6
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DESERT {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain DESERT {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 26
+}
+create_terrain FOREST {
+base_terrain DLC_DRYGRASS
+number_of_tiles 200
+number_of_clumps 4
+set_avoid_player_start_areas 15
+}
+create_terrain FOREST {
+base_terrain DIRT
+number_of_tiles 200
+number_of_clumps 4
+set_avoid_player_start_areas 15
+}
+create_terrain DLC_FORESTAUTUMN {
+base_terrain DESERT
+land_percent 3
+number_of_clumps 12
+spacing_to_specific_terrain FOREST 6
+spacing_to_specific_terrain DLC_ROCK 4
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DESERT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DESERT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DESERT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DESERT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DESERT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DESERT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DESERT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DIRT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DESERT
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain GRASS
+land_percent 3
+number_of_clumps 12
+spacing_to_other_terrain_types 5
+}
+create_terrain SNOW {
+base_terrain DLC_ROCK
+spacing_to_other_terrain_types 1
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_ROCK
+spacing_to_other_terrain_types 1
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_ROCK
+spacing_to_other_terrain_types 1
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_ROCK
+spacing_to_other_terrain_types 1
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_ROCK
+spacing_to_other_terrain_types 1
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_ROCK
+spacing_to_other_terrain_types 1
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_ROCK
+spacing_to_other_terrain_types 1
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_ROCK
+spacing_to_other_terrain_types 1
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT2 WALL_SEGMENT_GAP
+spacing_to_specific_terrain DLC_DRYGRASS 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_ROCK
+number_of_tiles WALL_SEGMENT_LENGTH
+spacing_to_specific_terrain DIRT3 WALL_SEGMENT_GAP
+spacing_to_specific_terrain GRASS 2
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT3 {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain DIRT3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain DIRT3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain DIRT3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain DIRT3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain DIRT3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain DIRT3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain DIRT3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT2 {
+base_terrain DIRT3
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_ROCK {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DIRT 2
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DIRT {
+base_terrain DLC_ROCK
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DIRT {
+base_terrain DLC_ROCK
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DIRT {
+base_terrain DLC_ROCK
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DIRT {
+base_terrain DLC_ROCK
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DIRT {
+base_terrain DLC_ROCK
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DIRT {
+base_terrain DLC_ROCK
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DIRT {
+base_terrain DLC_ROCK
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DIRT {
+base_terrain DLC_ROCK
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain DLC_ROCK 5
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain DLC_ROCK 5
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain DLC_ROCK 5
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain DLC_ROCK 5
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain DLC_ROCK 5
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain DLC_ROCK 5
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain DLC_ROCK 5
+}
+create_terrain GRASS2 {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain DLC_ROCK 5
+}
+create_terrain DIRT3 {
+base_terrain GRASS
+land_percent 2
+number_of_clumps 32
+}
+create_terrain GRASS3 {
+base_terrain GRASS
+land_percent 2
+number_of_clumps 32
+}
+create_terrain GRASS3 {
+base_terrain DLC_DRYGRASS
+land_percent 2
+number_of_clumps 32
+}
+create_terrain DIRT {
+base_terrain GRASS
+land_percent 1
+number_of_clumps 16
+terrain_mask 1
+}
+create_terrain DIRT {
+base_terrain DLC_DRYGRASS
+land_percent 1
+number_of_clumps 16
+terrain_mask 1
+}
+create_terrain DIRT3 {
+base_terrain DLC_DRYGRASS
+land_percent 1
+number_of_clumps 16
+terrain_mask 1
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain GRASS2
+land_percent 4
+number_of_clumps 12
+spacing_to_specific_terrain DLC_ROCK 16
+terrain_mask 1
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain GRASS2
+land_percent 4
+number_of_clumps 12
+spacing_to_specific_terrain DLC_ROCK 18
+terrain_mask 1
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain GRASS {
+base_terrain GRASS2
+land_percent 6
+number_of_clumps 12
+terrain_mask 1
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain SNOW {
+base_terrain GRASS2
+terrain_mask 1
+land_percent 1
+number_of_clumps 32
+beach_terrain DLC_WETROCKBEACH
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+terrain_mask 1
+land_percent 1
+number_of_clumps 32
+}
+create_terrain DLC_FORESTSNOWAUTUMN {
+base_terrain DLC_FORESTAUTUMN
+number_of_tiles 64
+number_of_clumps 64
+}
+create_terrain SNOW_FOREST {
+base_terrain PINE_FOREST
+number_of_tiles 64
+number_of_clumps 64
+}
+create_terrain DLC_FORESTDEAD {
+base_terrain FOREST
+number_of_tiles 64
+number_of_clumps 64
+}
+<OBJECTS_GENERATION>
+create_actor_area 20 15 20000 20
+create_actor_area 60 15 20000 20
+create_actor_area 100 15 20000 20
+create_actor_area 20 55 20001 20
+create_actor_area 60 55 20001 20
+create_actor_area 100 55 20001 20
+create_object HAWK {
+number_of_objects 6
+set_scaling_to_map_size
+}
+create_object WALL {
+number_of_objects 14400
+set_gaia_object_only
+set_gaia_unconvertible
+terrain_to_place_on DIRT2
+actor_area 20002
+actor_area_radius 1
+}
+create_object STONE {
+number_of_objects 3
+group_variance 1
+number_of_groups 32
+temp_min_distance_group_placement 7
+set_tight_grouping
+actor_area_to_place_in 20002
+actor_area 20003
+actor_area_radius 8
+}
+create_object SHORE_FISH {
+number_of_objects 8192
+}
+create_object TOWN_CENTER {
+set_place_for_every_player
+max_distance_to_players 0
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+max_distance_to_players 0
+actor_area 20004
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 2
+set_place_for_every_player
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+actor_area 20005
+actor_area_radius 0
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+avoid_actor_area 20005
+actor_area 20006
+actor_area_radius 0
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+avoid_actor_area 20005
+avoid_actor_area 20006
+actor_area 20007
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 2
+set_place_for_every_player
+set_gaia_object_only
+find_closest
+min_distance_to_players 1
+max_distance_to_players 1
+actor_area 20008
+actor_area_radius 1
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+max_distance_to_players 1
+avoid_actor_area 20008
+actor_area 20009
+actor_area_radius 0
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20009
+actor_area 20010
+actor_area_radius 0
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20007
+actor_area 20010
+actor_area_radius 0
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20006
+actor_area 20010
+actor_area_radius 0
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20004
+actor_area 20010
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20011
+actor_area_radius 1
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20012
+actor_area_radius 2
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20013
+actor_area_radius 3
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20014
+actor_area_radius 4
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20015
+actor_area_radius 5
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20016
+actor_area_radius 6
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20017
+actor_area_radius 7
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20018
+actor_area_radius 8
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20019
+actor_area_radius 9
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20020
+actor_area_radius 10
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20021
+actor_area_radius 11
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20022
+actor_area_radius 12
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20023
+actor_area_radius 13
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20024
+actor_area_radius 14
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20025
+actor_area_radius 15
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20026
+actor_area_radius 16
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20027
+actor_area_radius 17
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20028
+actor_area_radius 18
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20029
+actor_area_radius 19
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20030
+actor_area_radius 20
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20031
+actor_area_radius 21
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20032
+actor_area_radius 22
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20033
+actor_area_radius 23
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20034
+actor_area_radius 24
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20035
+actor_area_radius 25
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20036
+actor_area_radius 26
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20037
+actor_area_radius 27
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20038
+actor_area_radius 28
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20039
+actor_area_radius 29
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20040
+actor_area_radius 30
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20041
+actor_area_radius 31
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20042
+actor_area_radius 32
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20043
+actor_area_radius 33
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20044
+actor_area_radius 34
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20045
+actor_area_radius 35
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20046
+actor_area_radius 36
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20047
+actor_area_radius 37
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20048
+actor_area_radius 38
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20049
+actor_area_radius 39
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20050
+actor_area_radius 40
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20051
+actor_area_radius 41
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20052
+actor_area_radius 42
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20053
+actor_area_radius 43
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20054
+actor_area_radius 44
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20055
+actor_area_radius 45
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20056
+actor_area_radius 46
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20057
+actor_area_radius 47
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20058
+actor_area_radius 48
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20059
+actor_area_radius 49
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20060
+actor_area_radius 50
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20061
+actor_area_radius 51
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20062
+actor_area_radius 52
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20063
+actor_area_radius 53
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20064
+actor_area_radius 54
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20065
+actor_area_radius 55
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20066
+actor_area_radius 56
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20067
+actor_area_radius 57
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20068
+actor_area_radius 58
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20069
+actor_area_radius 59
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20070
+actor_area_radius 60
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20071
+actor_area_radius 61
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20072
+actor_area_radius 62
+}
+create_object PHON {
+number_of_objects 4
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20010
+actor_area 20073
+actor_area_radius 63
+}
+create_object TEMPORARY_REVEALER {
+number_of_objects 4
+actor_area_to_place_in 20010
+set_place_for_every_player
+max_distance_to_players 2
+}
+ create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 5
+min_distance_to_players 1
+max_distance_to_players 1
+find_closest
+actor_area 20074
+actor_area_radius 0
+}
+create_object PHOFF {
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 1
+max_distance_to_players 1
+find_closest
+second_object HERDABLE_A
+actor_area 20075
+actor_area_radius 0
+avoid_actor_area 20074
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20075
+actor_area 20076
+actor_area_radius 1
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+max_distance_to_players 0
+actor_area 20077
+actor_area_radius 1
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+number_of_objects 5
+max_distance_to_players 2
+temp_min_distance_group_placement 1
+find_closest
+avoid_actor_area 20077
+actor_area 20078
+actor_area_radius 1
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+max_distance_to_players 2
+find_closest
+avoid_actor_area 20077
+avoid_actor_area 20078
+actor_area 20079
+actor_area_radius 0
+}
+create_object PHOFF {
+set_place_for_every_player
+actor_area_to_place_in 20076
+avoid_actor_area 20004
+avoid_actor_area 20080
+avoid_actor_area 20075
+avoid_actor_area 20079
+actor_area 20080
+actor_area_radius 0
+second_object SHEP0
+}
+create_object PHOFF {
+set_place_for_every_player
+actor_area_to_place_in 20076
+avoid_actor_area 20004
+avoid_actor_area 20080
+avoid_actor_area 20075
+avoid_actor_area 20079
+actor_area 20080
+actor_area_radius 0
+second_object SHEP1
+}
+create_object PHOFF {
+set_place_for_every_player
+actor_area_to_place_in 20076
+avoid_actor_area 20004
+avoid_actor_area 20080
+avoid_actor_area 20075
+avoid_actor_area 20079
+actor_area 20080
+actor_area_radius 0
+second_object SHEP2
+}
+create_object PHOFF {
+set_place_for_every_player
+actor_area_to_place_in 20076
+avoid_actor_area 20004
+avoid_actor_area 20080
+avoid_actor_area 20075
+avoid_actor_area 20079
+actor_area 20080
+actor_area_radius 0
+second_object SHEP3
+}
+create_object PHOFF {
+set_place_for_every_player
+actor_area_to_place_in 20076
+avoid_actor_area 20004
+avoid_actor_area 20080
+avoid_actor_area 20075
+avoid_actor_area 20079
+actor_area 20080
+actor_area_radius 0
+second_object SHEP4
+}
+create_object PHOFF {
+set_place_for_every_player
+actor_area_to_place_in 20076
+avoid_actor_area 20004
+avoid_actor_area 20080
+avoid_actor_area 20075
+avoid_actor_area 20079
+actor_area 20080
+actor_area_radius 0
+second_object SHEP5
+}
+create_object PHON {
+number_of_objects 2
+set_gaia_object_only
+set_place_for_every_player
+find_closest
+min_distance_to_players 5
+max_distance_to_players 5
+actor_area 20081
+actor_area_radius 5
+}
+create_object PHON {
+number_of_objects 99
+set_gaia_object_only
+set_place_for_every_player
+actor_area_to_place_in 20015
+avoid_actor_area 20081
+avoid_actor_area 20014
+actor_area 20082
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 2
+set_gaia_object_only
+set_place_for_every_player
+find_closest
+min_distance_to_players 5
+max_distance_to_players 5
+actor_area 20083
+actor_area_radius 6
+}
+create_object PHON {
+number_of_objects 99
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20083
+avoid_actor_area 20015
+max_distance_to_players 7
+actor_area 20082
+actor_area_radius 0
+}
+create_object HOUSE {
+number_of_objects 2
+temp_min_distance_group_placement 7
+set_place_for_every_player
+avoid_forest_zone 2
+actor_area_to_place_in 20082
+actor_area 20084
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 2
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20084
+actor_area 20085
+actor_area_radius 1
+}
+create_object PHON {
+number_of_objects 18
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20085
+actor_area 20086
+actor_area_radius 0
+}
+create_object TERRAIN_BLOCKER {
+number_of_objects 10
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20086
+actor_area 20087
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20086
+avoid_actor_area 20087
+actor_area 20088
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20089
+actor_area_radius 1
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20090
+actor_area_radius 2
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20091
+actor_area_radius 3
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20092
+actor_area_radius 4
+}
+create_object TERRAIN_BLOCKER {
+number_of_objects 14
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20089
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20090
+actor_area_radius 2
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20091
+actor_area_radius 3
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20092
+actor_area_radius 4
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20093
+actor_area_radius 5
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20094
+actor_area_radius 6
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20095
+actor_area_radius 7
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20096
+actor_area_radius 8
+}
+create_object PHON {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20088
+actor_area 20097
+actor_area_radius 9
+}
+create_object STRAGGLER {
+set_place_for_every_player
+set_gaia_object_only
+avoid_forest_zone 2
+actor_area_to_place_in 20015
+avoid_actor_area 20014
+avoid_actor_area 20090
+actor_area 20098
+actor_area_radius 0
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20098
+actor_area 20099
+actor_area_radius 1
+}
+create_object PHON {
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20098
+actor_area 20100
+actor_area_radius 2
+}
+create_object STRAGGLER {
+number_of_objects 2
+set_place_for_every_player
+set_gaia_object_only
+temp_min_distance_group_placement 2
+avoid_forest_zone 2
+actor_area_to_place_in 20014
+avoid_actor_area 20013
+avoid_actor_area 20089
+avoid_actor_area 20100
+actor_area 20100
+actor_area_radius 2
+}
+create_object STRAGGLER {
+number_of_objects 2
+set_place_for_every_player
+set_gaia_object_only
+temp_min_distance_group_placement 3
+avoid_forest_zone 2
+actor_area_to_place_in 20015
+avoid_actor_area 20014
+avoid_actor_area 20089
+avoid_actor_area 20100
+actor_area 20100
+actor_area_radius 2
+}
+create_object LUMBERJACK0 {
+set_place_for_every_player
+actor_area_to_place_in 20099
+actor_area 20080
+actor_area_radius 0
+}
+create_object LUMBERJACK1 {
+set_place_for_every_player
+actor_area_to_place_in 20099
+actor_area 20080
+actor_area_radius 0
+}
+create_object LUMBERJACK2 {
+set_place_for_every_player
+actor_area_to_place_in 20099
+actor_area 20080
+actor_area_radius 0
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20101
+actor_area_radius 1
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20102
+actor_area_radius 2
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20103
+actor_area_radius 3
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20104
+actor_area_radius 4
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20105
+actor_area_radius 5
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20106
+actor_area_radius 6
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20107
+actor_area_radius 7
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20108
+actor_area_radius 8
+}
+create_object PHON {
+number_of_objects 9
+set_place_for_every_player
+set_gaia_object_only
+actor_area_to_place_in 20080
+actor_area 20109
+actor_area_radius 9
+}
+create_object SCOUT {
+set_place_for_every_player
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+}
+create_object HERDABLE_A {
+number_of_objects 3
+set_loose_grouping
+set_place_for_every_player
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+}
+create_object RUBBLE_2_X_2 {
+temp_min_distance_group_placement 20
+number_of_objects 7
+terrain_to_place_on DLC_ROCK
+temp_min_distance_group_placement 10
+}
+create_object RUBBLE_1_X_1 {
+temp_min_distance_group_placement 20
+number_of_objects 27
+terrain_to_place_on DLC_ROCK
+temp_min_distance_group_placement 1
+}
+create_object FORAGE {
+set_place_for_every_player
+number_of_objects 6
+set_gaia_object_only
+min_distance_to_players 10
+max_distance_to_players 12
+set_tight_grouping
+avoid_forest_zone 4
+max_distance_to_other_zones 8
+actor_area 20110
+actor_area_radius 6
+}
+create_object GOLD {
+set_place_for_every_player
+number_of_objects 2
+number_of_groups 2
+set_gaia_object_only
+set_tight_grouping
+min_distance_to_players 16
+max_distance_to_players 20
+avoid_forest_zone 4
+max_distance_to_other_zones 12
+min_distance_to_map_edge 3
+min_distance_group_placement 4
+temp_min_distance_group_placement 10
+avoid_actor_area 20110
+actor_area 20110
+actor_area_radius 14
+}
+create_object STONE {
+set_place_for_every_player
+number_of_objects 3
+set_gaia_object_only
+set_tight_grouping
+group_placement_radius 2
+min_distance_to_players 14
+max_distance_to_players 18
+avoid_forest_zone 3
+max_distance_to_other_zones 14
+min_distance_to_map_edge 3
+actor_area 20110
+actor_area_radius 6
+avoid_actor_area 20110
+}
+create_object BOAR {
+set_place_for_every_player
+number_of_objects 2
+set_gaia_object_only
+set_circular_placement
+min_distance_to_players 14
+max_distance_to_players 16
+avoid_forest_zone 2
+max_distance_to_other_zones 6
+min_distance_group_placement 1
+temp_min_distance_group_placement 10
+}
+create_object HERDABLE_B {
+set_place_for_every_player
+number_of_objects 2
+set_loose_grouping
+set_gaia_object_only
+min_distance_to_players 22
+max_distance_to_players 25
+set_circular_placement
+avoid_forest_zone 3
+max_distance_to_other_zones 8
+}
+create_object RED_FOX {
+number_of_objects 2
+number_of_groups 3
+set_loose_grouping
+avoid_forest_zone 2
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 24
+max_distance_to_players 32
+set_circular_placement
+max_distance_to_other_zones 12
+avoid_actor_area deer
+temp_min_distance_group_placement 20
+}
+create_object DLC_AUTUMNTREE {
+number_of_objects 8
+set_place_for_every_player
+set_gaia_object_only
+max_distance_to_other_zones 4
+avoid_forest_zone 3
+avoid_actor_area 20110
+temp_min_distance_group_placement 4
+min_distance_to_players 14
+}
+create_object GOLD {
+number_of_objects 3
+number_of_groups 32
+set_tight_grouping
+temp_min_distance_group_placement 14
+max_distance_to_other_zones 6
+group_placement_radius 2
+avoid_forest_zone 3
+min_distance_to_map_edge 3
+min_distance_group_placement 4
+avoid_actor_area 20000
+avoid_actor_area 20003
+actor_area 20111
+actor_area_radius 16
+terrain_to_place_on GRASS2
+}
+create_object GOLD {
+number_of_objects 7
+number_of_groups 32
+set_tight_grouping
+temp_min_distance_group_placement 24
+group_placement_radius 2
+avoid_forest_zone 4
+min_distance_to_map_edge 4
+min_distance_group_placement 4
+avoid_actor_area 20001
+avoid_actor_area 20111
+terrain_to_place_on GRASS2
+}
+create_object_group HARES {
+add_object HARE_A 50
+add_object HARE_B 50
+}
+create_object HARES {
+number_of_objects 7
+group_variance 1
+number_of_groups 16
+set_tight_grouping
+avoid_forest_zone 4
+min_distance_to_map_edge 4
+max_distance_to_other_zones 5
+terrain_to_place_on GRASS2
+min_distance_group_placement 4
+temp_min_distance_group_placement 18
+actor_area 20112
+actor_area_radius 14
+avoid_actor_area 20000
+}
+create_object DEER {
+number_of_objects 4
+number_of_groups 32
+set_loose_grouping
+group_variance 1
+avoid_forest_zone 4
+min_distance_to_map_edge 4
+max_distance_to_other_zones 12
+terrain_to_place_on GRASS2
+min_distance_group_placement 4
+temp_min_distance_group_placement 20
+avoid_actor_area 20112
+}
+create_object RELIC {
+number_of_objects 5
+terrain_to_place_on GRASS2
+min_distance_to_map_edge 5
+temp_min_distance_group_placement 20
+min_distance_group_placement 1
+avoid_forest_zone 2
+avoid_actor_area 20002
+max_distance_to_other_zones 16
+}
+create_object WOLF {
+number_of_objects 3
+avoid_forest_zone 1
+max_distance_to_other_zones 16
+terrain_to_place_on GRASS2
+min_distance_group_placement 1
+temp_min_distance_group_placement 32
+}
+create_object PINETREE {
+base_terrain GRASS2
+number_of_objects 12
+avoid_forest_zone 2
+temp_min_distance_group_placement 8
+max_distance_to_other_zones 4
+}

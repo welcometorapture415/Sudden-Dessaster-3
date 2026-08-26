@@ -1,7 +1,8 @@
-/* *** Monkey Island v2 *** */
+/* *** Monkey Island v3 *** */
 /* Made by jasouki - July 2026 */
 /* Only working for 1v1 games as of now */
 /* v2 changes: corrected an error where extra outside berries did not spawn for one of the players in rare cases */
+/* v3 changes: remove castle ruins and moat. Changed to 4 places where Petards can be trained. Added Papayas and gold to the neutral side land between players */
 
 <PLAYER_SETUP>
  random_placement  
@@ -24,19 +25,23 @@ behavior_version 1
 #const FOREST2 113 /* lush bamboo */
 #const WATER2D 15
 
+#const MONKEY_TREE 2585
+
+#const UNBUILDABLE_TERRAIN 1639
+
+#const PAGAN_SHRINE 1712
+
+
+effect_percent SET_ATTRIBUTE UNBUILDABLE_TERRAIN ATTR_RADIUS_1 50 /* make it a 1x1 object */
+effect_percent SET_ATTRIBUTE UNBUILDABLE_TERRAIN ATTR_RADIUS_2 50 /* make it a 1x1 object */
+
+effect_amount SET_ATTRIBUTE UNBUILDABLE_TERRAIN ATTR_FOUNDATION_TERRAIN 40 /* DLC_ROCK */
+effect_amount SET_ATTRIBUTE UNBUILDABLE_TERRAIN ATTR_TERRAIN_ID 4
+
+
 effect_amount GAIA_SET_ATTRIBUTE LUSH_BAMBOO_TREE ATTR_TERRAIN_ID 13
 
 
-/* CONFIGURE CASTLE RUINS */
-
-#const CASTLE_RUINS 251 /* AMPHITEATRE */
-effect_amount SET_ATTRIBUTE CASTLE_RUINS ATTR_STANDING_GRAPHIC 12695
-effect_amount SET_ATTRIBUTE CASTLE_RUINS ATTR_NAME_ID 21124
-effect_amount SET_ATTRIBUTE CASTLE_RUINS ATTR_LINE_OF_SIGHT 3
-effect_amount SET_ATTRIBUTE CASTLE_RUINS ATTR_SEARCH_RADIUS 1
-effect_amount SET_ATTRIBUTE CASTLE_RUINS ATTR_RADIUS_1 2
-effect_amount SET_ATTRIBUTE CASTLE_RUINS ATTR_RADIUS_2 2
-effect_amount SET_ATTRIBUTE CASTLE_RUINS ATTR_ICON_ID 7
 
 /* CONFIGURE PETARD */ 
 #const PETARD2 440
@@ -45,7 +50,7 @@ effect_amount SET_ATTRIBUTE CASTLE_RUINS ATTR_ICON_ID 7
 effect_amount ENABLE_OBJECT PETARD2 ATTR_ENABLE 0
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_LOCATIONS_TOTAL_NUM 3
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_LOCATIONS_ENTRY_MOD 2
-effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_LOCATION CASTLE_RUINS
+effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_LOCATION PAGAN_SHRINE
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_BUTTON 3
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_CREATION_TIME 40
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_BUTTON_ID 0
@@ -86,7 +91,8 @@ create_land { terrain_type FOREST2 base_elevation BE number_of_tiles 0 base_size
 
 /* **************************************** */
 <TERRAIN_GENERATION>
-color_correction CC_AUTUMN
+color_correction CC_STEPPES
+water_definition WD_TROPICAL
 
 /* FOREST2 */
 create_terrain FOREST2
@@ -98,62 +104,21 @@ create_terrain FOREST2
 	 set_avoid_player_start_areas 26
 	 spacing_to_specific_terrain DIRT 5
 }
-/* making island */
-create_terrain DLC_ROCK
-{
-     base_terrain BLACK_WALKABLE
-     land_percent 100
-     number_of_clumps 999
-     spacing_to_specific_terrain GRASS 10
-	 spacing_to_specific_terrain ICE 5
-}
+/* reverting placeholders */
 
-create_terrain GRASS
-{
-     base_terrain BLACK_WALKABLE
-     land_percent 100
-     number_of_clumps 999
-     spacing_to_specific_terrain DLC_ROCK 2
-}
+create_terrain GRASS { base_terrain BLACK_WALKABLE land_percent 100 number_of_clumps 999 }
+create_terrain GRASS { base_terrain BLACK_WALKABLE land_percent 100 number_of_clumps 999 }
+create_terrain GRASS { base_terrain BLACK_WALKABLE land_percent 100 number_of_clumps 999 }
+create_terrain GRASS { base_terrain BLACK_WALKABLE land_percent 100 number_of_clumps 999 }
 
-create_terrain WATER
-{
-     base_terrain BLACK_WALKABLE
-     land_percent 100
-     number_of_clumps 999
-}
+create_terrain DIRT { base_terrain GRASS land_percent 100 number_of_clumps 999 height_limits 5 7 }
+create_terrain DIRT { base_terrain GRASS land_percent 100 number_of_clumps 999 height_limits 5 7 }
+create_terrain DIRT { base_terrain GRASS land_percent 100 number_of_clumps 999 height_limits 5 7 }
+create_terrain DIRT { base_terrain GRASS land_percent 100 number_of_clumps 999 height_limits 5 7 }
 
-create_terrain WATER2D
-{  land_percent 100
-   number_of_clumps 9999
-  
-  base_terrain WATER 
-  spacing_to_specific_terrain GRASS 1
-
-}
-
-create_terrain DLC_WATER5
-{
-     base_terrain WATER
-     land_percent 100
-     number_of_clumps 999
-	 terrain_mask 1
-}
-create_terrain DLC_WATER5
-{
-     base_terrain WATER2D
-     land_percent 100
-     number_of_clumps 999
-	 terrain_mask 1
-}
 
 /* creating border ring */
-create_terrain ICE
-{
-     base_terrain BLACK_WALKABLE
-     land_percent 100
-     number_of_clumps 999
-}
+
 
 create_terrain DEEP_WATER
 {
@@ -162,6 +127,11 @@ create_terrain DEEP_WATER
      number_of_clumps 999
 	 spacing_to_other_terrain_types 3
 }
+create_terrain GRASS { base_terrain ICE land_percent 100 number_of_clumps 999 spacing_to_specific_terrain DEEP_WATER 8   }
+create_terrain GRASS { base_terrain ICE land_percent 100 number_of_clumps 999 spacing_to_specific_terrain DEEP_WATER 8   }
+create_terrain GRASS { base_terrain ICE land_percent 100 number_of_clumps 999 spacing_to_specific_terrain DEEP_WATER 8   }
+create_terrain GRASS { base_terrain ICE land_percent 100 number_of_clumps 999 spacing_to_specific_terrain DEEP_WATER 8   }
+
 
 create_terrain WEEDS_WATER
 {
@@ -187,6 +157,7 @@ create_terrain WEEDS_WATER
      number_of_clumps 999
 	 spacing_to_other_terrain_types 3
 }
+
 
 /* NETURAL LANDS FORESTS */
 
@@ -287,6 +258,8 @@ terrain_to_place_on FOREST2
 
 create_actor_area 60 60 9876 10
 create_actor_area 60 60 6789 1
+create_actor_area 60 60 3333 3
+create_actor_area 60 60 5050 0
 
 /* edge objects */
 
@@ -327,35 +300,6 @@ create_object SCOUT
 	 place_on_specific_land_id 1
 }
 
-create_object CASTLE_RUINS
-{ 
-  set_gaia_object_only
-  place_on_specific_land_id 99
-  find_closest
-  ignore_terrain_restrictions
-  make_indestructible
-  set_building_capturable
-  actor_area 1515
-  actor_area_radius 12
-}
-
-/* creating neutral lands actor areas */
-
-create_object ON_GRID
-{ number_of_objects 1
-  set_gaia_object_only
-  set_place_for_every_player
-  min_distance_to_players 0
-  max_distance_to_players 0
-  avoid_actor_area 1515 /* castle ruins */
-  avoid_forest_zone 5
-  actor_area 1015
-  actor_area_radius 8
-  
-
-}
-
-
 if REGICIDE
 
 create_object KING
@@ -384,15 +328,7 @@ create_object WALL
 	 actor_area_radius 2
 	 
 }
-/*
-create_object FLAG_A
-{ 
-set_place_for_every_player
-number_of_objects 9999
-actor_area_to_place_in 9876
 
-}
-*/
 /* NEAR PAPAYA_TREE */
 
 create_object PAPAYA_TREE
@@ -571,7 +507,7 @@ create_object TAPIR
 
 
 
-/* TREES NEAR PLAYER STARTS */
+/* STRAGLER TREES  */
 
 create_object TREE_MONKEY_PUZZLE
 {
@@ -580,8 +516,8 @@ create_object TREE_MONKEY_PUZZLE
      set_place_for_every_player
      min_distance_to_players       4
      max_distance_to_players       5
-     min_distance_group_placement  2
-	 set_circular_placement
+     min_distance_group_placement  4
+	 set_circular_placement enable_tile_shuffling
 	 place_on_specific_land_id 1
 }
 create_object TREE_MONKEY_PUZZLE
@@ -591,9 +527,106 @@ create_object TREE_MONKEY_PUZZLE
      set_place_for_every_player
      min_distance_to_players       6
      max_distance_to_players       8
-	 set_circular_placement
-     min_distance_group_placement  2
+	 set_circular_placement enable_tile_shuffling
+     min_distance_group_placement  4
 	 place_on_specific_land_id 1
+}
+
+
+
+/* PAGAN SHRINES */
+
+/* NEUTRAL SHRINE */
+create_object ON_GRID
+{ 
+  number_of_objects 9999
+  set_place_for_every_player
+  set_gaia_object_only
+  place_on_specific_land_id 99
+  find_closest
+  set_circular_placement
+  max_distance_to_players 20
+  actor_area 1515
+  actor_area_radius 0
+   
+
+}
+
+create_object PAGAN_SHRINE
+{ 
+  set_gaia_object_only
+  place_on_specific_land_id 99
+  find_closest
+  make_indestructible
+  set_building_capturable
+	actor_area 2222
+	actor_area_radius 3  
+}
+create_object UNBUILDABLE_TERRAIN
+{    place_on_specific_land_id 99
+     number_of_objects          9999
+	 set_gaia_object_only
+	 actor_area_to_place_in 2222 /* PAGAN_SHRINE */
+	 
+}
+
+/* creating neutral lands actor areas */
+
+create_object ON_GRID
+{ number_of_objects 1
+  set_gaia_object_only
+  set_place_for_every_player
+  min_distance_to_players 0
+  max_distance_to_players 0
+  avoid_actor_area 1515 /* neutral land */
+  avoid_forest_zone 5
+  actor_area 1015
+  actor_area_radius 8
+}
+
+/* PLAYERS OUTSIDE LAND SHRINE */
+create_object PAGAN_SHRINE
+{ 	
+        number_of_objects          1
+	set_gaia_object_only
+	make_indestructible
+	set_building_capturable
+	actor_area 3030
+	actor_area_radius 3  
+
+     set_place_for_every_player
+     max_distance_to_players    1
+	 actor_area_to_place_in 1015 /* neutral land actor area */
+}
+create_object UNBUILDABLE_TERRAIN
+{    set_place_for_every_player
+     number_of_objects          9999
+	 set_gaia_object_only
+	 actor_area_to_place_in 3030 /* PAGAN_SHRINE */
+	 
+}
+
+
+
+/* CENTRAL SHRINE */
+create_object PAGAN_SHRINE
+{
+    number_of_objects          1
+	set_gaia_object_only
+	make_indestructible
+	set_building_capturable
+	actor_area_to_place_in 5050 /* MIDDLE OF THE MAP */
+	find_closest_to_map_center
+	actor_area 2222
+	actor_area_radius 3
+}
+
+create_object UNBUILDABLE_TERRAIN
+{    
+     number_of_objects          9999
+	 set_gaia_object_only
+	 actor_area_to_place_in 2222 /* PAGAN_SHRINE */
+	 
 }
 
 
@@ -602,14 +635,24 @@ create_object TREE_MONKEY_PUZZLE
 /* neutral food */
 
 create_object PAPAYA_TREE
-{    
+{    number_of_groups 5
      number_of_objects          6
      group_placement_radius     1
+	 place_on_specific_land_id 99
      set_tight_grouping
+	 find_closest
      set_gaia_object_only
-     set_place_for_every_player
-     max_distance_to_players    1
-	 actor_area_to_place_in 1015 /* neutral land actor area */
+	 set_circular_placement enable_tile_shuffling
+     temp_min_distance_group_placement 10
+	 avoid_forest_zone 6
+	 min_distance_to_players 9
+     actor_area_to_place_in 1515 /* neutral land actor area */
+	 avoid_actor_area 2222
+	 avoid_actor_area 2525
+	 avoid_actor_area 9876
+	 actor_area 33
+	 actor_area_radius 3
+	 
 
 }
 
@@ -667,15 +710,25 @@ create_object STONE
 	 avoid_actor_area 0909
 
 }
-#const MONKEY_TREE 2585
 
-create_object MONKEY_TREE
-{
-     number_of_objects          1
+create_object GOLD
+{    number_of_groups 2
+     number_of_objects          2
+     group_placement_radius     1
+	 place_on_specific_land_id 99
+     set_tight_grouping
 	 set_gaia_object_only
-	 min_distance_group_placement 2
-     actor_area_to_place_in 6789 /* central area */
-	 find_closest_to_map_center
+	 find_closest
+	 set_circular_placement enable_tile_shuffling
+     temp_min_distance_group_placement 10
+	 min_distance_to_players 9
+	 actor_area_to_place_in 1515 /* neutral land actor area */
+	 avoid_actor_area 2222
+	 avoid_actor_area 2525
+	 avoid_actor_area 9876
+	 avoid_actor_area 33
+	 
+
 }
 
 /* CENTRAL GOLD */
@@ -735,10 +788,10 @@ create_object RELIC
 	 find_closest_to_map_center
 }
 create_object RELIC
-{ terrain_to_place_on DLC_ROCK
+{ find_closest
   set_gaia_object_only
   place_on_specific_land_id 99
-  min_distance_group_placement 6
+  min_distance_group_placement 3
   ignore_terrain_restrictions
   actor_area_to_place_in 1515
   
@@ -752,37 +805,17 @@ create_object WILD_MONKEY
      actor_area_to_place_in 9876 /* central area */
 	 find_closest_to_map_center
 }
-/*
-create_object BLACK_PANTHER
-{
-     number_of_objects 999
-     set_scaling_to_map_size
-     set_gaia_object_only
-     temp_min_distance_group_placement 30
-	 avoid_actor_area 2525
-}
-*/
+
 create_object FLAMINGO
 {
      number_of_objects 6
      set_scaling_to_map_size
 }
 
-create_object NESSIE
-{
- number_of_objects 1
- terrain_to_place_on WATER2D
- set_gaia_object_only
-}
-
-create_object OYSTERS
-{ terrain_to_place_on WATER
-number_of_objects 6
-temp_min_distance_group_placement 7
-
-}
 
 /* **************************************** */
+
+
 <ELEVATION_GENERATION>
 
 
