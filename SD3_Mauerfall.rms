@@ -1,20 +1,20 @@
-if ANTIQUITY_MODE
-#define ADMIN_RESTART
-elseif RANDOM_MAP
-if REGICIDE
-#define ADMIN_RESTART
-elseif EMPIRE_WARS
-#define ADMIN_RESTART
-elseif SUDDEN_DEATH
-#define ADMIN_RESTART
-endif
-else
-#define ADMIN_RESTART
-endif
-if ADMIN_RESTART
+/* if ANTIQUITY_MODE */
+/* #define ADMIN_RESTART */
+/* elseif RANDOM_MAP */
+/* if REGICIDE */
+/* #define ADMIN_RESTART */
+/* elseif EMPIRE_WARS */
+/* #define ADMIN_RESTART */
+/* elseif SUDDEN_DEATH */
+/* #define ADMIN_RESTART */
+/* endif */
+/* else */
+/* #define ADMIN_RESTART */
+/* endif */
+/* if ADMIN_RESTART */
 <PLAYER_SETUP>
-guard_state SABOTEUR AMOUNT_GOLD 0 1
-endif
+/* guard_state SABOTEUR AMOUNT_GOLD 0 1 */
+/* endif */
 #const HARE_A 2098
 #const HARE_B 2099
 #const HARE_ARCTIC 2100
