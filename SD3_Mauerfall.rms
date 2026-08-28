@@ -3053,6 +3053,7 @@ create_actor_area 100 15 20000 20
 create_actor_area 20 55 20001 20
 create_actor_area 60 55 20001 20
 create_actor_area 100 55 20001 20
+
 create_object HAWK {
 number_of_objects 6
 set_scaling_to_map_size
@@ -3081,6 +3082,11 @@ number_of_objects 8192
 create_object TOWN_CENTER {
 set_place_for_every_player
 max_distance_to_players 0
+}
+create_object VILLAGER {
+set_place_for_every_player
+min_distance_to_players 5
+max_distance_to_players 6
 }
 create_object PHON {
 set_place_for_every_player
@@ -3732,72 +3738,72 @@ avoid_actor_area 20078
 actor_area 20079
 actor_area_radius 0
 }
-create_object PHOFF {
-set_place_for_every_player
-actor_area_to_place_in 20076
-avoid_actor_area 20004
-avoid_actor_area 20080
-avoid_actor_area 20075
-avoid_actor_area 20079
-actor_area 20080
-actor_area_radius 0
-second_object SHEP0
-}
-create_object PHOFF {
-set_place_for_every_player
-actor_area_to_place_in 20076
-avoid_actor_area 20004
-avoid_actor_area 20080
-avoid_actor_area 20075
-avoid_actor_area 20079
-actor_area 20080
-actor_area_radius 0
-second_object SHEP1
-}
-create_object PHOFF {
-set_place_for_every_player
-actor_area_to_place_in 20076
-avoid_actor_area 20004
-avoid_actor_area 20080
-avoid_actor_area 20075
-avoid_actor_area 20079
-actor_area 20080
-actor_area_radius 0
-second_object SHEP2
-}
-create_object PHOFF {
-set_place_for_every_player
-actor_area_to_place_in 20076
-avoid_actor_area 20004
-avoid_actor_area 20080
-avoid_actor_area 20075
-avoid_actor_area 20079
-actor_area 20080
-actor_area_radius 0
-second_object SHEP3
-}
-create_object PHOFF {
-set_place_for_every_player
-actor_area_to_place_in 20076
-avoid_actor_area 20004
-avoid_actor_area 20080
-avoid_actor_area 20075
-avoid_actor_area 20079
-actor_area 20080
-actor_area_radius 0
-second_object SHEP4
-}
-create_object PHOFF {
-set_place_for_every_player
-actor_area_to_place_in 20076
-avoid_actor_area 20004
-avoid_actor_area 20080
-avoid_actor_area 20075
-avoid_actor_area 20079
-actor_area 20080
-actor_area_radius 0
-second_object SHEP5
-}
+/* create_object PHOFF { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20076 */
+/* avoid_actor_area 20004 */
+/* avoid_actor_area 20080 */
+/* avoid_actor_area 20075 */
+/* avoid_actor_area 20079 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* second_object SHEP0 */
+/* } */
+/* create_object PHOFF { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20076 */
+/* avoid_actor_area 20004 */
+/* avoid_actor_area 20080 */
+/* avoid_actor_area 20075 */
+/* avoid_actor_area 20079 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* second_object SHEP1 */
+/* } */
+/* create_object PHOFF { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20076 */
+/* avoid_actor_area 20004 */
+/* avoid_actor_area 20080 */
+/* avoid_actor_area 20075 */
+/* avoid_actor_area 20079 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* second_object SHEP2 */
+/* } */
+/* create_object PHOFF { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20076 */
+/* avoid_actor_area 20004 */
+/* avoid_actor_area 20080 */
+/* avoid_actor_area 20075 */
+/* avoid_actor_area 20079 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* second_object SHEP3 */
+/* } */
+/* create_object PHOFF { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20076 */
+/* avoid_actor_area 20004 */
+/* avoid_actor_area 20080 */
+/* avoid_actor_area 20075 */
+/* avoid_actor_area 20079 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* second_object SHEP4 */
+/* } */
+/* create_object PHOFF { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20076 */
+/* avoid_actor_area 20004 */
+/* avoid_actor_area 20080 */
+/* avoid_actor_area 20075 */
+/* avoid_actor_area 20079 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* second_object SHEP5 */
+/* } */
 create_object PHON {
 number_of_objects 2
 set_gaia_object_only
@@ -3838,15 +3844,15 @@ max_distance_to_players 7
 actor_area 20082
 actor_area_radius 0
 }
-create_object HOUSE {
-number_of_objects 2
-temp_min_distance_group_placement 7
-set_place_for_every_player
-avoid_forest_zone 2
-actor_area_to_place_in 20082
-actor_area 20084
-actor_area_radius 0
-}
+/* create_object HOUSE { */
+/* number_of_objects 2 */
+/* temp_min_distance_group_placement 7 */
+/* set_place_for_every_player */
+/* avoid_forest_zone 2 */
+/* actor_area_to_place_in 20082 */
+/* actor_area 20084 */
+/* actor_area_radius 0 */
+/* } */
 create_object PHON {
 number_of_objects 2
 set_place_for_every_player
@@ -4032,24 +4038,24 @@ avoid_actor_area 20100
 actor_area 20100
 actor_area_radius 2
 }
-create_object LUMBERJACK0 {
-set_place_for_every_player
-actor_area_to_place_in 20099
-actor_area 20080
-actor_area_radius 0
-}
-create_object LUMBERJACK1 {
-set_place_for_every_player
-actor_area_to_place_in 20099
-actor_area 20080
-actor_area_radius 0
-}
-create_object LUMBERJACK2 {
-set_place_for_every_player
-actor_area_to_place_in 20099
-actor_area 20080
-actor_area_radius 0
-}
+/* create_object LUMBERJACK0 { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20099 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* } */
+/* create_object LUMBERJACK1 { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20099 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* } */
+/* create_object LUMBERJACK2 { */
+/* set_place_for_every_player */
+/* actor_area_to_place_in 20099 */
+/* actor_area 20080 */
+/* actor_area_radius 0 */
+/* } */
 create_object PHON {
 number_of_objects 9
 set_place_for_every_player
