@@ -5,6 +5,11 @@
 /* v3 changes: remove castle ruins and moat. Changed to 4 places where Petards can be trained. Added Papayas and gold to the neutral side land between players */
 
 <PLAYER_SETUP>
+guard_state TOWN_CENTER AMOUNT_GOLD 0 1
+#const TC_TECH 187
+#const CUMAN_TC  218
+effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
+effect_amount MOD_RESOURCE CUMAN_TC  ATTR_DISABLE 0
  random_placement  
 behavior_version 1
 
