@@ -1,0 +1,837 @@
+/* Thin Ice (8-27-26) by TheMadCADer */
+/* Changes from 1.0: new layout */
+
+#const TEMP 278
+#const SAB 706
+#const BLOCKER 1776
+#const BUILDING 1639
+#const BUILDING2 1641
+#const MAP_REVEALER2 1775
+#const LUMBER 1320
+#const OFF_GRID 647
+#const ON_GRID 1291
+#const FLARE 112
+#const DARK_GRAVEL 81
+#const TERRAIN_BLOCKER 1613
+#const BUSH_C 1054
+
+#const MID_RELIC_AREA 100
+
+/* #const ICE_TERRAIN 35  solid */
+#const ICE_TERRAIN 26 /* navigable */
+
+<PLAYER_SETUP>
+guard_state TOWN_CENTER AMOUNT_GOLD 0 1
+#const TC_TECH 187
+#const CUMAN_TC 218
+effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
+effect_amount MOD_RESOURCE CUMAN_TC ATTR_DISABLE 0
+random_placement
+behavior_version 1
+
+effect_amount SET_ATTRIBUTE TEMP ATTR_TERRAIN_ID 10
+effect_amount SET_ATTRIBUTE DEER ATTR_TERRAIN_ID 10
+effect_amount SET_ATTRIBUTE RELIC ATTR_TERRAIN_ID 10
+effect_amount SET_ATTRIBUTE TREE_CLASS ATTR_TERRAIN_ID 13
+
+effect_amount SET_ATTRIBUTE BAMBOO_TREE ATTR_STORAGE_VALUE 200
+effect_amount SET_ATTRIBUTE BAMBOO_TREE ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE LUMBER ATTR_RADIUS_1 0
+effect_amount SET_ATTRIBUTE LUMBER ATTR_RADIUS_2 0
+effect_amount GAIA_SET_ATTRIBUTE FLARE ATTR_DEAD_ID 348
+effect_percent GAIA_SET_ATTRIBUTE FLARE ATTR_RADIUS_1 0
+effect_percent GAIA_SET_ATTRIBUTE FLARE ATTR_RADIUS_2 0
+
+effect_amount SET_ATTRIBUTE SAB ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE SAB ATTR_BLAST_LEVEL 0
+effect_amount SET_ATTRIBUTE SAB ATTR_MAX_RANGE 2
+effect_amount SET_ATTRIBUTE SAB ATTR_BLAST_RADIUS 1
+effect_amount SET_ATTRIBUTE SAB ATTR_POPULATION 0
+effect_amount ADD_ATTRIBUTE SAB ATTR_ATTACK 1124
+effect_amount ADD_ATTRIBUTE SAB ATTR_ATTACK 3583
+effect_amount ADD_ATTRIBUTE SAB ATTR_STANDING_GRAPHIC 1751
+
+effect_amount SET_ATTRIBUTE MAP_REVEALER ATTR_DEAD_ID 706
+effect_amount SET_ATTRIBUTE BLOCKER ATTR_HITPOINTS 30000
+/* effect_amount SET_ATTRIBUTE TOWN_CENTER ATTR_BLOOD_ID 706
+effect_amount SET_ATTRIBUTE TOWN_CENTER_F ATTR_BLOOD_ID 706
+effect_amount SET_ATTRIBUTE TOWN_CENTER_C ATTR_BLOOD_ID 706
+effect_amount SET_ATTRIBUTE TOWN_CENTER_I ATTR_BLOOD_ID 706 */
+
+/* Makes Dock destruction destroy the ice. */
+#const HARBOR 1189
+/* effect_amount SET_ATTRIBUTE DOCK ATTR_DEAD_ID 706
+effect_amount SET_ATTRIBUTE DOCK_F ATTR_DEAD_ID 706
+effect_amount SET_ATTRIBUTE DOCK_C ATTR_DEAD_ID 706
+effect_amount SET_ATTRIBUTE DOCK_I ATTR_DEAD_ID 706
+effect_amount SET_ATTRIBUTE HARBOR ATTR_DEAD_ID 706 */
+/* Using the Blood ID instead of the dead ID makes the explosion instant. */
+effect_amount SET_ATTRIBUTE DOCK ATTR_BLOOD_ID 706
+effect_amount SET_ATTRIBUTE DOCK_F ATTR_BLOOD_ID 706
+effect_amount SET_ATTRIBUTE DOCK_C ATTR_BLOOD_ID 706
+effect_amount SET_ATTRIBUTE DOCK_I ATTR_BLOOD_ID 706
+effect_amount SET_ATTRIBUTE HARBOR ATTR_BLOOD_ID 706
+
+effect_percent SET_ATTRIBUTE BUILDING ATTR_RADIUS_1 50
+effect_percent SET_ATTRIBUTE BUILDING ATTR_RADIUS_2 50
+effect_amount SET_ATTRIBUTE BUILDING ATTR_FOUNDATION_TERRAIN 22
+effect_amount SET_ATTRIBUTE BUILDING ATTR_DEAD_ID 1776
+
+effect_percent SET_ATTRIBUTE BUILDING2 ATTR_RADIUS_1 50
+effect_percent SET_ATTRIBUTE BUILDING2 ATTR_RADIUS_2 50
+effect_amount SET_ATTRIBUTE BUILDING2 ATTR_FOUNDATION_TERRAIN 23
+effect_amount SET_ATTRIBUTE BUILDING2 ATTR_DEAD_ID 1776
+
+effect_amount SET_ATTRIBUTE FLAG_A ATTR_STANDING_GRAPHIC 1751
+effect_amount SET_ATTRIBUTE FLAG_B ATTR_STANDING_GRAPHIC 1751
+effect_amount SET_ATTRIBUTE FLAG_C ATTR_STANDING_GRAPHIC 1751
+effect_amount SET_ATTRIBUTE FLAG_A ATTR_DEAD_ID 1639
+effect_amount SET_ATTRIBUTE FLAG_B ATTR_DEAD_ID 1641
+effect_amount SET_ATTRIBUTE FLAG_C ATTR_DEAD_ID 112
+effect_amount SET_ATTRIBUTE FLAG_C ATTR_LINE_OF_SIGHT 0
+
+/* effect_amount SET_ATTRIBUTE DOCK ATTR_GARRISON_TYPE 1
+effect_amount SET_ATTRIBUTE DOCK_F ATTR_GARRISON_TYPE 1
+effect_amount SET_ATTRIBUTE DOCK_C ATTR_GARRISON_TYPE 1
+effect_amount SET_ATTRIBUTE DOCK_I ATTR_GARRISON_TYPE 1
+effect_amount SET_ATTRIBUTE HARBOR ATTR_GARRISON_TYPE 1 */
+
+#define DISABLE_SHIPS
+if DISABLE_SHIPS
+	#const FSHSP 13
+	#const COGXX 17
+	#const GALLY 21
+	#const HLEIF 106
+	#const HVASCO 203
+	#const LNGBT 250
+	#const CANGA 420
+	#const WARGA 442
+	#const RMSHP 527
+	#const CRMSH 528
+	#const FRGAL 529
+	#const HFGAL 532
+	#const ULNGB 533
+	#const SGALY 539
+	#const XPORT 545
+	#const CNGAU 691
+	#const TURTL 831
+	#const UTURT 832
+	#const HYI 844
+	#const CARAV 1004
+	#const ECARAV 1006
+	#const MONKBT 1022
+	#const SFRGAL 1103
+	#const SDGAL 1104
+	#const DRAGS 1302
+	#const HMBRK 1631
+	#const THIRISADAI 1750
+	#const DROMON 1795
+	#const LOUCHUAN 1948
+	#const ANT_FSHIP 2356
+	#const HULK 2626
+	#const WARHULK 2627
+	#const CARRACK 2628
+	#const WHALING_SHIP 2630
+	#const CATAGA 2633
+
+	/* effect_amount SET_ATTRIBUTE FSHSP ATTR_TRAIN_LOCATION 0 */
+	/* effect_amount SET_ATTRIBUTE COGXX ATTR_TRAIN_LOCATION 0 */
+	effect_amount SET_ATTRIBUTE GALLY ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE HLEIF ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE HVASCO ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE LNGBT ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE CANGA ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE WARGA ATTR_TRAIN_LOCATION 0
+	/* effect_amount SET_ATTRIBUTE RMSHP ATTR_TRAIN_LOCATION 0 */
+	/* effect_amount SET_ATTRIBUTE CRMSH ATTR_TRAIN_LOCATION 0 */
+	effect_amount SET_ATTRIBUTE FRGAL ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE HFGAL ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE ULNGB ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE SGALY ATTR_TRAIN_LOCATION 0
+	/* effect_amount SET_ATTRIBUTE XPORT ATTR_TRAIN_LOCATION 0 */
+	effect_amount SET_ATTRIBUTE CNGAU ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE TURTL ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE UTURT ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE HYI ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE CARAV ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE ECARAV ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE MONKBT ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE SFRGAL ATTR_TRAIN_LOCATION 0
+	/* effect_amount SET_ATTRIBUTE SDGAL ATTR_TRAIN_LOCATION 0 */
+	effect_amount SET_ATTRIBUTE DRAGS ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE HMBRK ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE THIRISADAI ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE DROMON ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE LOUCHUAN ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE ANT_FSHIP ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE HULK ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE WARHULK ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE CARRACK ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE WHALING_SHIP ATTR_TRAIN_LOCATION 0
+	effect_amount SET_ATTRIBUTE CATAGA ATTR_TRAIN_LOCATION 0
+
+	#const MED_WSHIP 34
+	#const HEAVY_WSHIP 35
+	#const GILLNETS 65
+	#const HDEMO 244
+	#const ELBOAT 372
+	#const ECG 376
+	#const ETS 448
+	#const ECG 597
+	#const DEMO 905
+	#const FL 906
+	#const DS 1010
+
+	effect_amount MODIFY_TECH MED_WSHIP ATTR_SET_LOCATION 0
+	effect_amount MODIFY_TECH HEAVY_WSHIP ATTR_SET_LOCATION 0
+	/* effect_amount MODIFY_TECH GILLNETS ATTR_SET_LOCATION 0 */
+	/* effect_amount MODIFY_TECH HDEMO ATTR_SET_LOCATION 0 */
+	effect_amount MODIFY_TECH ELBOAT ATTR_SET_LOCATION 0
+	effect_amount MODIFY_TECH ECG ATTR_SET_LOCATION 0
+	effect_amount MODIFY_TECH ETS ATTR_SET_LOCATION 0
+	effect_amount MODIFY_TECH ECG ATTR_SET_LOCATION 0
+	/* effect_amount MODIFY_TECH DEMO ATTR_SET_LOCATION 0 */
+	/* effect_amount MODIFY_TECH FL ATTR_SET_LOCATION 0 */
+	effect_amount MODIFY_TECH DS ATTR_SET_LOCATION 0
+endif
+
+/* Disables the construction of Docks. */
+effect_amount SET_ATTRIBUTE DOCK ATTR_TRAIN_LOCATION 0
+effect_amount SET_ATTRIBUTE DOCK_F ATTR_TRAIN_LOCATION 0
+effect_amount SET_ATTRIBUTE DOCK_C ATTR_TRAIN_LOCATION 0
+effect_amount SET_ATTRIBUTE DOCK_I ATTR_TRAIN_LOCATION 0
+effect_amount SET_ATTRIBUTE HARBOR ATTR_TRAIN_LOCATION 0
+
+/* Allow Mills and Mining Camps on Ice (and the surrounding hill). */
+effect_amount SET_ATTRIBUTE MILL ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE MILL_F ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE MILL_C ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE MILL_I ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE FOLWARK ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE FOLWARK_F ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE FOLWARK_C ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE SETTLEMENT ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE SETTLEMENT_F ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE SETTLEMENT_C ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE MINING_CAMP ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE MINING_CAMP_F ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE MINING_CAMP_C ATTR_TERRAIN_ID 0
+effect_amount SET_ATTRIBUTE MINING_CAMP_I ATTR_TERRAIN_ID 0
+
+<LAND_GENERATION>
+base_terrain DLC_ROCK
+create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size 12 number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 1 land_id 1 }
+create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size 12 number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 2 land_id 1 }
+
+create_land { terrain_type GRASS zone 3 other_zone_avoidance_distance 5 base_size 11 land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 1 }
+create_land { terrain_type GRASS zone 4 other_zone_avoidance_distance 5 base_size 11 land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 2 }
+
+<ELEVATION_GENERATION>
+create_elevation 15
+{
+	base_terrain GRASS
+	number_of_tiles 10000
+	number_of_clumps 1000
+	set_scale_by_size
+	spacing 6
+}
+
+<TERRAIN_GENERATION>
+create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
+create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
+create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
+
+create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
+create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
+create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
+create_terrain ICE_TERRAIN
+{
+	base_terrain DLC_ROCK
+	land_percent 5
+	number_of_clumps 24
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain DARK_GRAVEL
+{
+	base_terrain DLC_ROCK
+	land_percent 100
+	number_of_clumps 10000
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain ICE_TERRAIN
+{
+	base_terrain DLC_ROCK
+	land_percent 100
+	number_of_clumps 10000
+	set_scale_by_groups
+	spacing_to_other_terrain_types 4
+}
+create_terrain MED_WATER
+{
+	base_terrain ICE_TERRAIN
+	land_percent 5
+	number_of_clumps 24
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain WATER
+{
+	base_terrain ICE_TERRAIN
+	land_percent 2
+	number_of_clumps 24
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain PINE_FOREST
+{
+	base_terrain GRASS
+	land_percent 14
+	number_of_clumps 48
+	set_scale_by_groups
+	set_avoid_player_start_areas 15
+	spacing_to_other_terrain_types 4
+	terrain_mask 2
+}
+create_terrain SNOW_FOREST
+{
+	base_terrain PINE_FOREST
+	land_percent 8
+	number_of_clumps 100
+	set_scale_by_groups
+	terrain_mask 2
+}
+create_terrain SNOW_SOFT
+{
+	base_terrain GRASS
+	land_percent 12
+	number_of_clumps 64
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain SNOW_SOFT_LIGHT
+{
+	base_terrain GRASS
+	land_percent 12
+	number_of_clumps 64
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain SNOW_SOFT_STRONG
+{
+	base_terrain GRASS
+	land_percent 12
+	number_of_clumps 64
+	set_scale_by_groups
+	terrain_mask 1
+}
+create_terrain DARK_GRAVEL
+{
+	base_terrain GRASS
+	land_percent 6
+	number_of_clumps 24
+	set_scale_by_groups
+	terrain_mask 1
+}
+
+<OBJECTS_GENERATION>
+if TINY_MAP	#const MAP_LENGTH	120
+elseif SMALL_MAP #const MAP_LENGTH	144
+elseif MEDIUM_MAP #const MAP_LENGTH	168
+elseif LARGE_MAP #const MAP_LENGTH	200
+elseif HUGE_MAP #const MAP_LENGTH	220
+elseif GIGANTIC_MAP #const MAP_LENGTH	240
+endif
+
+/* Central Relic */
+create_actor_area (MAP_LENGTH / 2) (MAP_LENGTH / 2) MID_RELIC_AREA 5
+
+/* Generated with MadLands v5.12.xlsm: I: 5 R: 28 XO: 0 YO: 0 OA: 0 XS: 1 YS: 1 A: 0 F: 0 SF: 0 */
+create_actor_area (78 * MAP_LENGTH / 100) (50 * MAP_LENGTH / 100) 4 2
+create_actor_area (77.89 * MAP_LENGTH / 100) (52.44 * MAP_LENGTH / 100) 4 2
+create_actor_area (77.57 * MAP_LENGTH / 100) (54.86 * MAP_LENGTH / 100) 4 2
+create_actor_area (77.05 * MAP_LENGTH / 100) (57.25 * MAP_LENGTH / 100) 4 2
+create_actor_area (76.31 * MAP_LENGTH / 100) (59.58 * MAP_LENGTH / 100) 4 2
+create_actor_area (75.38 * MAP_LENGTH / 100) (61.83 * MAP_LENGTH / 100) 4 2
+create_actor_area (74.25 * MAP_LENGTH / 100) (64 * MAP_LENGTH / 100) 4 2
+create_actor_area (72.94 * MAP_LENGTH / 100) (66.06 * MAP_LENGTH / 100) 4 2
+create_actor_area (71.45 * MAP_LENGTH / 100) (68 * MAP_LENGTH / 100) 4 2
+create_actor_area (69.8 * MAP_LENGTH / 100) (69.8 * MAP_LENGTH / 100) 4 2
+create_actor_area (68 * MAP_LENGTH / 100) (71.45 * MAP_LENGTH / 100) 4 2
+create_actor_area (66.06 * MAP_LENGTH / 100) (72.94 * MAP_LENGTH / 100) 4 2
+create_actor_area (64 * MAP_LENGTH / 100) (74.25 * MAP_LENGTH / 100) 4 2
+create_actor_area (61.83 * MAP_LENGTH / 100) (75.38 * MAP_LENGTH / 100) 4 2
+create_actor_area (59.58 * MAP_LENGTH / 100) (76.31 * MAP_LENGTH / 100) 4 2
+create_actor_area (57.25 * MAP_LENGTH / 100) (77.05 * MAP_LENGTH / 100) 4 2
+create_actor_area (54.86 * MAP_LENGTH / 100) (77.57 * MAP_LENGTH / 100) 4 2
+create_actor_area (52.44 * MAP_LENGTH / 100) (77.89 * MAP_LENGTH / 100) 4 2
+create_actor_area (50 * MAP_LENGTH / 100) (78 * MAP_LENGTH / 100) 4 2
+create_actor_area (47.56 * MAP_LENGTH / 100) (77.89 * MAP_LENGTH / 100) 4 2
+create_actor_area (45.14 * MAP_LENGTH / 100) (77.57 * MAP_LENGTH / 100) 4 2
+create_actor_area (42.75 * MAP_LENGTH / 100) (77.05 * MAP_LENGTH / 100) 4 2
+create_actor_area (40.42 * MAP_LENGTH / 100) (76.31 * MAP_LENGTH / 100) 4 2
+create_actor_area (38.17 * MAP_LENGTH / 100) (75.38 * MAP_LENGTH / 100) 4 2
+create_actor_area (36 * MAP_LENGTH / 100) (74.25 * MAP_LENGTH / 100) 4 2
+create_actor_area (33.94 * MAP_LENGTH / 100) (72.94 * MAP_LENGTH / 100) 4 2
+create_actor_area (32 * MAP_LENGTH / 100) (71.45 * MAP_LENGTH / 100) 4 2
+create_actor_area (30.2 * MAP_LENGTH / 100) (69.8 * MAP_LENGTH / 100) 4 2
+create_actor_area (28.55 * MAP_LENGTH / 100) (68 * MAP_LENGTH / 100) 4 2
+create_actor_area (27.06 * MAP_LENGTH / 100) (66.06 * MAP_LENGTH / 100) 4 2
+create_actor_area (25.75 * MAP_LENGTH / 100) (64 * MAP_LENGTH / 100) 4 2
+create_actor_area (24.62 * MAP_LENGTH / 100) (61.83 * MAP_LENGTH / 100) 4 2
+create_actor_area (23.69 * MAP_LENGTH / 100) (59.58 * MAP_LENGTH / 100) 4 2
+create_actor_area (22.95 * MAP_LENGTH / 100) (57.25 * MAP_LENGTH / 100) 4 2
+create_actor_area (22.43 * MAP_LENGTH / 100) (54.86 * MAP_LENGTH / 100) 4 2
+create_actor_area (22.11 * MAP_LENGTH / 100) (52.44 * MAP_LENGTH / 100) 4 2
+create_actor_area (22 * MAP_LENGTH / 100) (50 * MAP_LENGTH / 100) 4 2
+create_actor_area (22.11 * MAP_LENGTH / 100) (47.56 * MAP_LENGTH / 100) 4 2
+create_actor_area (22.43 * MAP_LENGTH / 100) (45.14 * MAP_LENGTH / 100) 4 2
+create_actor_area (22.95 * MAP_LENGTH / 100) (42.75 * MAP_LENGTH / 100) 4 2
+create_actor_area (23.69 * MAP_LENGTH / 100) (40.42 * MAP_LENGTH / 100) 4 2
+create_actor_area (24.62 * MAP_LENGTH / 100) (38.17 * MAP_LENGTH / 100) 4 2
+create_actor_area (25.75 * MAP_LENGTH / 100) (36 * MAP_LENGTH / 100) 4 2
+create_actor_area (27.06 * MAP_LENGTH / 100) (33.94 * MAP_LENGTH / 100) 4 2
+create_actor_area (28.55 * MAP_LENGTH / 100) (32 * MAP_LENGTH / 100) 4 2
+create_actor_area (30.2 * MAP_LENGTH / 100) (30.2 * MAP_LENGTH / 100) 4 2
+create_actor_area (32 * MAP_LENGTH / 100) (28.55 * MAP_LENGTH / 100) 4 2
+create_actor_area (33.94 * MAP_LENGTH / 100) (27.06 * MAP_LENGTH / 100) 4 2
+create_actor_area (36 * MAP_LENGTH / 100) (25.75 * MAP_LENGTH / 100) 4 2
+create_actor_area (38.17 * MAP_LENGTH / 100) (24.62 * MAP_LENGTH / 100) 4 2
+create_actor_area (40.42 * MAP_LENGTH / 100) (23.69 * MAP_LENGTH / 100) 4 2
+create_actor_area (42.75 * MAP_LENGTH / 100) (22.95 * MAP_LENGTH / 100) 4 2
+create_actor_area (45.14 * MAP_LENGTH / 100) (22.43 * MAP_LENGTH / 100) 4 2
+create_actor_area (47.56 * MAP_LENGTH / 100) (22.11 * MAP_LENGTH / 100) 4 2
+create_actor_area (50 * MAP_LENGTH / 100) (22 * MAP_LENGTH / 100) 4 2
+create_actor_area (52.44 * MAP_LENGTH / 100) (22.11 * MAP_LENGTH / 100) 4 2
+create_actor_area (54.86 * MAP_LENGTH / 100) (22.43 * MAP_LENGTH / 100) 4 2
+create_actor_area (57.25 * MAP_LENGTH / 100) (22.95 * MAP_LENGTH / 100) 4 2
+create_actor_area (59.58 * MAP_LENGTH / 100) (23.69 * MAP_LENGTH / 100) 4 2
+create_actor_area (61.83 * MAP_LENGTH / 100) (24.62 * MAP_LENGTH / 100) 4 2
+create_actor_area (64 * MAP_LENGTH / 100) (25.75 * MAP_LENGTH / 100) 4 2
+create_actor_area (66.06 * MAP_LENGTH / 100) (27.06 * MAP_LENGTH / 100) 4 2
+create_actor_area (68 * MAP_LENGTH / 100) (28.55 * MAP_LENGTH / 100) 4 2
+create_actor_area (69.8 * MAP_LENGTH / 100) (30.2 * MAP_LENGTH / 100) 4 2
+create_actor_area (71.45 * MAP_LENGTH / 100) (32 * MAP_LENGTH / 100) 4 2
+create_actor_area (72.94 * MAP_LENGTH / 100) (33.94 * MAP_LENGTH / 100) 4 2
+create_actor_area (74.25 * MAP_LENGTH / 100) (36 * MAP_LENGTH / 100) 4 2
+create_actor_area (75.38 * MAP_LENGTH / 100) (38.17 * MAP_LENGTH / 100) 4 2
+create_actor_area (76.31 * MAP_LENGTH / 100) (40.42 * MAP_LENGTH / 100) 4 2
+create_actor_area (77.05 * MAP_LENGTH / 100) (42.75 * MAP_LENGTH / 100) 4 2
+create_actor_area (77.57 * MAP_LENGTH / 100) (45.14 * MAP_LENGTH / 100) 4 2
+create_actor_area (77.89 * MAP_LENGTH / 100) (47.56 * MAP_LENGTH / 100) 4 2
+
+create_object_group TREE_GROUP {
+	add_object SNOW_PINE_TREE 20
+	add_object PINETREE 20
+	add_object BUSH_C 20
+	add_object BIRCH_TREE 20
+	add_object DLC_AUTUMNSNOWTREE 20
+}
+
+/* Map's 5th Relic */
+create_object ON_GRID {
+	actor_area_to_place_in MID_RELIC_AREA
+	min_distance_group_placement 3
+	terrain_to_place_on DLC_ROCK
+	second_object RELIC
+}
+
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 10 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 11 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 12 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 13 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 14 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 15 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 16 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 17 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 18 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 19 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 20 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 21 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 22 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 23 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 24 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 25 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 26 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 27 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 28 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 29 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 30 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 31 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 32 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 33 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 34 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 35 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 36 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 37 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 38 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 39 actor_area 4 actor_area_radius 2 }
+create_object OFF_GRID { set_place_for_every_player find_closest_to_map_center set_circular_placement max_distance_to_players 40 actor_area 4 actor_area_radius 2 }
+
+create_object TERRAIN_BLOCKER {
+	number_of_objects 9999
+	set_scaling_to_map_size
+	terrain_to_place_on PINE_FOREST
+	avoid_actor_area 4
+	second_object TREE_GROUP
+}
+
+create_object TERRAIN_BLOCKER {
+	number_of_objects 9999
+	set_scaling_to_map_size
+	terrain_to_place_on SNOW_FOREST
+	avoid_actor_area 4
+	second_object TREE_GROUP
+}
+
+create_object FLAG_C {
+	number_of_objects 9999
+	set_place_for_every_player
+	set_scaling_to_map_size
+	terrain_to_place_on ICE_TERRAIN
+}
+
+create_object MAP_REVEALER {
+	number_of_objects 9999
+	set_scaling_to_map_size
+	terrain_to_place_on ICE_TERRAIN
+	layer_to_place_on MED_WATER
+	second_object FLAG_A
+	actor_area 1
+	actor_area_radius 0
+}
+
+create_object MAP_REVEALER {
+	number_of_objects 9999
+	set_scaling_to_map_size
+	terrain_to_place_on ICE_TERRAIN
+	second_object FLAG_B
+	avoid_actor_area 1
+}
+
+create_object OFF_GRID {
+	set_place_for_every_player
+	max_distance_to_players 0
+	second_object TOWN_CENTER
+}
+
+create_object FLARE {
+	set_place_for_every_player
+	max_distance_to_players 0
+	set_gaia_object_only
+	resource_delta -6
+}
+
+create_object OFF_GRID {
+	set_place_for_every_player
+	max_distance_to_players 0
+	second_object LUMBER
+}
+
+create_object OFF_GRID {
+	number_of_objects 9999
+	set_place_for_every_player
+	set_scaling_to_map_size
+	terrain_to_place_on DLC_ROCK
+	actor_area 2
+	actor_area_radius 2
+}
+
+create_object OFF_GRID {
+	number_of_objects 9999
+	set_place_for_every_player
+	set_scaling_to_map_size
+	terrain_to_place_on DLC_ROCK
+	actor_area 3
+	actor_area_radius 3
+}
+
+create_object SCOUT {
+	set_place_for_every_player
+	min_distance_to_players 7
+	max_distance_to_players 9
+}
+
+create_object VILLAGER {
+	set_place_for_every_player
+	min_distance_to_players 6
+	max_distance_to_players 6
+}
+
+create_object HOUSE {
+	set_place_for_every_player
+	min_distance_to_players 8
+	max_distance_to_players 8
+}
+
+create_object DOCK {
+	place_on_specific_land_id 1
+	max_distance_to_players 0
+	min_distance_group_placement 2
+}
+
+create_object ON_GRID {
+	place_on_specific_land_id 1
+	set_gaia_object_only
+	max_distance_to_players 3
+	min_distance_group_placement 1
+	temp_min_distance_group_placement 2
+	second_object SHORE_FISH
+	number_of_objects 3
+}
+
+/* create_object ON_GRID
+{
+	place_on_specific_land_id 1
+	set_gaia_object_only
+	min_distance_to_players 0
+	max_distance_to_players 0
+	second_object MARLIN1
+	min_distance_group_placement 2
+} */
+create_object FISHING_SHIP {
+	number_of_objects 3
+	place_on_specific_land_id 1
+	set_circular_placement
+	min_distance_to_players 6
+	max_distance_to_players 7
+	temp_min_distance_group_placement 4
+}
+
+if REGICIDE /* regicide objects */
+	create_object VILLAGER {
+		number_of_objects 7
+		set_place_for_every_player
+		min_distance_to_players 6
+		max_distance_to_players 6
+	}
+	
+	create_object KING {
+		set_place_for_every_player
+		min_distance_to_players 6
+		max_distance_to_players 6
+	}
+	
+	create_object CASTLE {
+		set_place_for_every_player
+		min_distance_to_players 10
+		max_distance_to_players 10
+	}
+endif
+
+create_object OFF_GRID {
+	number_of_objects 9999
+	set_place_for_every_player
+	actor_area_to_place_in 3
+	avoid_actor_area 2
+	actor_area 5
+	actor_area_radius 0
+}
+
+create_object TEMP {
+	number_of_objects 9999
+	set_place_for_every_player
+	actor_area_to_place_in 5
+	avoid_actor_area 4
+	second_object DLC_FORTIFIED_PALISADE_WALL
+	actor_area 6
+	actor_area_radius 1
+}
+
+create_object OFF_GRID {
+	number_of_objects 9999
+	set_place_for_every_player
+	actor_area_to_place_in 5
+	avoid_actor_area 6
+	actor_area 7
+	actor_area_radius 0
+}
+create_object OUTPOST
+{
+	number_of_objects 9999
+	set_place_for_every_player
+	actor_area_to_place_in 5
+	avoid_actor_area 7
+	temp_min_distance_group_placement 1
+}
+create_object TERRAIN_BLOCKER
+{
+	number_of_objects 9999
+	set_place_for_every_player
+	set_gaia_object_only
+	actor_area_to_place_in 6
+}
+create_object GOLD
+{
+	number_of_objects 4
+	number_of_groups 2
+	set_tight_grouping
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 25
+	max_distance_to_players 30
+	set_circular_placement
+	min_distance_group_placement 5
+	temp_min_distance_group_placement 15
+	max_distance_to_other_zones 5
+	avoid_forest_zone 2
+}
+create_object STONE
+{
+	number_of_objects 3
+	number_of_groups 2
+	set_tight_grouping
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_group_placement 5
+	min_distance_to_players 25
+	max_distance_to_players 30
+	set_circular_placement
+	temp_min_distance_group_placement 15
+	max_distance_to_other_zones 5
+	avoid_forest_zone 2
+}
+create_object GOLD
+{
+	number_of_objects 4
+	number_of_groups 2
+	set_tight_grouping
+	place_on_specific_land_id 1
+	ignore_terrain_restrictions
+	set_gaia_object_only
+	min_distance_to_players 25
+	max_distance_to_players 30
+	set_circular_placement
+	min_distance_group_placement 5
+	temp_min_distance_group_placement 15
+	max_distance_to_other_zones 5
+	avoid_forest_zone 2
+	terrain_to_place_on GRASS
+}
+create_object STONE
+{
+	number_of_objects 3
+	number_of_groups 2
+	set_tight_grouping
+	place_on_specific_land_id 1
+	ignore_terrain_restrictions
+	set_gaia_object_only
+	min_distance_group_placement 5
+	min_distance_to_players 25
+	max_distance_to_players 30
+	set_circular_placement
+	temp_min_distance_group_placement 15
+	max_distance_to_other_zones 5
+	avoid_forest_zone 2
+	terrain_to_place_on GRASS
+}
+if DEATH_MATCH
+else
+  create_object SHEEP /* primary */
+  {
+  	number_of_objects 4
+  	set_gaia_object_only
+  	set_loose_grouping
+  	set_place_for_every_player
+  	min_distance_to_players 8
+  	find_closest
+  }
+  create_object SHEEP /* secondary */
+  {
+  	number_of_objects 2
+  	number_of_groups 2
+  	set_loose_grouping
+  	set_gaia_object_only
+  	set_place_for_every_player
+  	min_distance_to_players 14
+  	max_distance_to_players 20
+  	max_distance_to_other_zones 7
+  	terrain_to_place_on GRASS
+  }
+  create_object BOAR
+  {
+  	number_of_objects 2
+  	set_place_for_every_player
+  	set_gaia_object_only
+  	min_distance_to_players 16
+  	max_distance_to_players 22
+  	set_circular_placement
+  	max_distance_to_other_zones 7
+  	avoid_forest_zone 1
+  	terrain_to_place_on GRASS
+  }
+  create_object DEER
+  {
+  	number_of_objects 5
+  	number_of_groups 5
+  	set_place_for_every_player
+  	set_gaia_object_only
+  	min_distance_to_players 25
+  	max_distance_to_players 35
+  	set_circular_placement
+  	temp_min_distance_group_placement 15
+  	max_distance_to_other_zones 5
+  	avoid_forest_zone 1
+  	terrain_to_place_on GRASS
+  }
+  create_object SNOW_PINE_TREE /* straggler trees */
+  {
+  	number_of_objects 2
+  	set_gaia_object_only
+  	set_place_for_every_player
+  	min_distance_to_players 4
+  	max_distance_to_players 5
+  	min_distance_group_placement 2
+  }
+  create_object SNOW_PINE_TREE
+  {
+  	number_of_objects 3
+  	set_gaia_object_only
+  	set_place_for_every_player
+  	min_distance_to_players 6
+  	max_distance_to_players 8
+  	min_distance_group_placement 2
+  }
+endif
+
+create_object OYSTERS {
+	number_of_objects 8
+	place_on_specific_land_id 1
+	set_gaia_object_only
+	min_distance_to_players 5
+	max_distance_to_players 6
+	set_circular_placement
+	min_distance_group_placement 2
+}
+
+create_object SALMON {
+	number_of_objects 5
+	place_on_specific_land_id 1
+	set_gaia_object_only
+	min_distance_to_players 9
+	max_distance_to_players 11
+	set_circular_placement
+	ignore_terrain_restrictions
+	temp_min_distance_group_placement 8
+	min_distance_group_placement 3
+}
+
+create_object ON_GRID {
+	number_of_objects 9999
+	set_scaling_to_map_size
+	set_gaia_object_only
+	temp_min_distance_group_placement 4
+	terrain_to_place_on ICE_TERRAIN
+	second_object SHORE_FISH
+}
+
+/* Per-player Relics on each half of the map. */
+create_object RELIC {
+	number_of_objects 2
+	set_place_for_every_player
+	set_gaia_object_only
+	min_distance_to_players 25
+	temp_min_distance_group_placement 25
+	max_distance_to_other_zones 5
+}
