@@ -4155,7 +4155,7 @@ max_distance_to_other_zones 8
 actor_area 20110
 actor_area_radius 6
 }
-create_object GOLD {
+/* create_object GOLD {
 set_place_for_every_player
 number_of_objects 2
 number_of_groups 2
@@ -4186,7 +4186,7 @@ min_distance_to_map_edge 3
 actor_area 20110
 actor_area_radius 6
 avoid_actor_area 20110
-}
+} */
 create_object BOAR {
 set_place_for_every_player
 number_of_objects 2
@@ -4217,11 +4217,23 @@ set_loose_grouping
 avoid_forest_zone 2
 set_place_for_every_player
 set_gaia_object_only
+min_distance_to_players 16
+max_distance_to_players 22
+set_circular_placement
+max_distance_to_other_zones 12
+temp_min_distance_group_placement 10
+}
+create_object RED_FOX {
+number_of_objects 3
+number_of_groups 3
+set_loose_grouping
+avoid_forest_zone 2
+set_place_for_every_player
+set_gaia_object_only
 min_distance_to_players 24
 max_distance_to_players 32
 set_circular_placement
 max_distance_to_other_zones 12
-avoid_actor_area deer
 temp_min_distance_group_placement 20
 }
 create_object DLC_AUTUMNTREE {
