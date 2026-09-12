@@ -3089,12 +3089,35 @@ number_of_tiles 64
 number_of_clumps 64
 }
 <OBJECTS_GENERATION>
+if TOP
+create_actor_area 20 104 20000 20
+create_actor_area 60 104 20000 20
+create_actor_area 100 104 20000 20
+create_actor_area 20 64 20001 20
+create_actor_area 60 64 20001 20
+create_actor_area 100 64 20001 20
+elseif RIGHT
+create_actor_area 15 20 20000 20
+create_actor_area 15 60 20000 20
+create_actor_area 15 100 20000 20
+create_actor_area 55 20 20001 20
+create_actor_area 55 60 20001 20
+create_actor_area 55 100 20001 20
+elseif BOTTOM
 create_actor_area 20 15 20000 20
 create_actor_area 60 15 20000 20
 create_actor_area 100 15 20000 20
 create_actor_area 20 55 20001 20
 create_actor_area 60 55 20001 20
 create_actor_area 100 55 20001 20
+elseif LEFT
+create_actor_area 104 20 20000 20
+create_actor_area 104 60 20000 20
+create_actor_area 104 100 20000 20
+create_actor_area 64 20 20001 20
+create_actor_area 64 60 20001 20
+create_actor_area 64 100 20001 20
+endif
 
 create_object HAWK {
 number_of_objects 6
