@@ -3,13 +3,9 @@
 /* Only working for 1v1 games as of now */
 /* v2 changes: corrected an error where extra outside berries did not spawn for one of the players in rare cases */
 /* v3 changes: remove castle ruins and moat. Changed to 4 places where Petards can be trained. Added Papayas and gold to the neutral side land between players */
+/* v4 changes: changed petard training building graphics and petard training time to 55 seconds */
 
 <PLAYER_SETUP>
-guard_state TOWN_CENTER AMOUNT_GOLD 0 1
-#const TC_TECH 187
-#const CUMAN_TC  218
-effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
-effect_amount MOD_RESOURCE CUMAN_TC  ATTR_DISABLE 0
  random_placement  
 behavior_version 1
 
@@ -29,12 +25,13 @@ behavior_version 1
 #const MSK3 100 /* MUDDY_SHALLOW */
 #const FOREST2 113 /* lush bamboo */
 #const WATER2D 15
+#const TERRAIN_BLOCKER 1613
 
 #const MONKEY_TREE 2585
 
 #const UNBUILDABLE_TERRAIN 1639
 
-#const PAGAN_SHRINE 1712
+#const PETARD_BUILDING 2414
 
 
 effect_percent SET_ATTRIBUTE UNBUILDABLE_TERRAIN ATTR_RADIUS_1 50 /* make it a 1x1 object */
@@ -52,12 +49,16 @@ effect_amount GAIA_SET_ATTRIBUTE LUSH_BAMBOO_TREE ATTR_TERRAIN_ID 13
 #const PETARD2 440
 
 
+effect_amount SET_ATTRIBUTE PETARD_BUILDING ATTR_WORK_RATE 1
+effect_amount SET_ATTRIBUTE PETARD_BUILDING ATTR_FOUNDATION_TERRAIN 40 /* DLC_ROCK */
+effect_amount SET_ATTRIBUTE PETARD_BUILDING ATTR_NAME_ID 21005
+effect_amount SET_ATTRIBUTE PETARD_BUILDING ATTR_ICON_ID 76
 effect_amount ENABLE_OBJECT PETARD2 ATTR_ENABLE 0
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_LOCATIONS_TOTAL_NUM 3
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_LOCATIONS_ENTRY_MOD 2
-effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_LOCATION PAGAN_SHRINE
+effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_LOCATION PETARD_BUILDING
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_TRAIN_BUTTON 3
-effect_amount SET_ATTRIBUTE PETARD2 ATTR_CREATION_TIME 40
+effect_amount SET_ATTRIBUTE PETARD2 ATTR_CREATION_TIME 55
 effect_amount SET_ATTRIBUTE PETARD2 ATTR_BUTTON_ID 0
 
 /* ************************************ */
@@ -557,7 +558,7 @@ create_object ON_GRID
 
 }
 
-create_object PAGAN_SHRINE
+create_object PETARD_BUILDING
 { 
   set_gaia_object_only
   place_on_specific_land_id 99
@@ -567,11 +568,13 @@ create_object PAGAN_SHRINE
 	actor_area 2222
 	actor_area_radius 3  
 }
+
 create_object UNBUILDABLE_TERRAIN
 {    place_on_specific_land_id 99
      number_of_objects          9999
 	 set_gaia_object_only
-	 actor_area_to_place_in 2222 /* PAGAN_SHRINE */
+	 actor_area_to_place_in 2222 /* PETARD_BUILDING */
+	 
 	 
 }
 
@@ -590,7 +593,7 @@ create_object ON_GRID
 }
 
 /* PLAYERS OUTSIDE LAND SHRINE */
-create_object PAGAN_SHRINE
+create_object PETARD_BUILDING
 { 	
         number_of_objects          1
 	set_gaia_object_only
@@ -607,14 +610,14 @@ create_object UNBUILDABLE_TERRAIN
 {    set_place_for_every_player
      number_of_objects          9999
 	 set_gaia_object_only
-	 actor_area_to_place_in 3030 /* PAGAN_SHRINE */
+	 actor_area_to_place_in 3030 /* PETARD_BUILDING */
 	 
 }
 
 
 
 /* CENTRAL SHRINE */
-create_object PAGAN_SHRINE
+create_object PETARD_BUILDING
 {
     number_of_objects          1
 	set_gaia_object_only
@@ -630,7 +633,8 @@ create_object UNBUILDABLE_TERRAIN
 {    
      number_of_objects          9999
 	 set_gaia_object_only
-	 actor_area_to_place_in 2222 /* PAGAN_SHRINE */
+	 actor_area_to_place_in 2222 /* PETARD_BUILDING */
+	 
 	 
 }
 

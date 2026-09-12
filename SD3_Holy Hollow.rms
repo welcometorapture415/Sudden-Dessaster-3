@@ -2420,11 +2420,11 @@ if NOMAD_START
 				#include_drs includes/herdable_starting.inc
 				#include_drs includes/herdable.inc
 
-				start_random
-					percent_chance 50 #define GAME_HUNTABLE
-					percent_chance 50 #define GAME_CHICKEN
-				end_random
-
+				/* start_random */
+					/* percent_chance 50 #define GAME_HUNTABLE */
+					/* percent_chance 50 #define GAME_CHICKEN */
+				/* end_random */
+				#define GAME_HUNTABLE
 				if GAME_HUNTABLE
 					start_random
 						percent_chance 20
