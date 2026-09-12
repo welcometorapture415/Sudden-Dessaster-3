@@ -20,7 +20,6 @@ effect_amount MOD_RESOURCE CUMAN_TC  ATTR_DISABLE 0
 #const PHOFF 1902
 #const PHON 1543
 #const TERRAIN_BLOCKER 1613
-#const TEMPORARY_REVEALER 651
 start_random
 percent_chance 50 #const SHEP0 590
 percent_chance 50 #const SHEP0 592
@@ -57,16 +56,16 @@ start_random
 percent_chance 50 #const LUMBERJACK2 123
 percent_chance 50 #const LUMBERJACK2 218
 end_random
+start_random
+percent_chance 25 #define TOP
+percent_chance 25 #define RIGHT
+percent_chance 25 #define BOTTOM
+percent_chance 25 #define LEFT
+end_random
 <PLAYER_SETUP>
 direct_placement
 behavior_version 2
 ai_info_map_type ARABIA 0 0 0
-effect_amount GAIA_SET_ATTRIBUTE HERDABLE_A ATTR_HITPOINTS 0
-effect_amount SET_ATTRIBUTE TEMPORARY_REVEALER ATTR_DEAD_ID -1
-effect_amount SET_ATTRIBUTE TEMPORARY_REVEALER ATTR_HITPOINTS 0
-effect_amount SET_ATTRIBUTE TEMPORARY_REVEALER ATTR_LINE_OF_SIGHT 18
-effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD -30
-effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD -90
 effect_amount SET_ATTRIBUTE HERDABLE_A ATTR_TERRAIN_ID 4
 effect_amount SET_ATTRIBUTE HERDABLE_B ATTR_TERRAIN_ID 4
 effect_amount SET_ATTRIBUTE DEER ATTR_TERRAIN_ID 4
@@ -81,32 +80,86 @@ effect_amount SET_ATTRIBUTE HARE_ARCTIC ATTR_TERRAIN_ID 4
 enable_waves 0
 base_terrain ICYSHORE
 create_land {
+if TOP
+land_position 25 25
+top_border -15
+right_border 50
+bottom_border 55
+elseif RIGHT
+land_position 75 25
+top_border -15
+right_border -15
+bottom_border 50
+left_border 55
+elseif BOTTOM
 land_position 25 75
-terrain_type DLC_DRYGRASS
-assign_to AT_TEAM -10 0 0
 top_border 55
 right_border 50
 bottom_border -15
+elseif LEFT
+land_position 25 25
+top_border -15
+right_border 55
+bottom_border 50
+left_border -15
+endif
+terrain_type DLC_DRYGRASS
+assign_to AT_TEAM -10 0 0
 border_fuzziness 50
 }
 create_land {
+if TOP
+land_position 75 25
+top_border -15
+left_border 50
+bottom_border 55
+elseif RIGHT
 land_position 75 75
-terrain_type DIRT
-assign_to AT_TEAM -10 0 0
+top_border 50
+right_border -15
+bottom_border -15
+left_border 55
+elseif BOTTOM
+land_position 75 75
 top_border 55
 left_border 50
 bottom_border -15
+elseif LEFT
+land_position 25 75
+top_border 50
+right_border 55
+bottom_border -15
+left_border -15
+endif
+terrain_type DIRT
+assign_to AT_TEAM -10 0 0
 border_fuzziness 50
 }
 create_land {
+if TOP
+land_position 1 99
+elseif RIGHT
 land_position 1 1
+elseif BOTTOM
+land_position 1 1
+elseif LEFT
+land_position 99 1
+endif
 terrain_type DLC_JUNGLELEAVES
 set_circular_base
 number_of_tiles 175
 base_size 10
 }
 create_land {
+if TOP
+land_position 99 99
+elseif RIGHT
+land_position 1 99
+elseif BOTTOM
 land_position 99 1
+elseif LEFT
+land_position 99 99
+endif
 terrain_type DLC_JUNGLELEAVES
 set_circular_base
 number_of_tiles 175
@@ -3665,12 +3718,6 @@ actor_area_to_place_in 20010
 actor_area 20073
 actor_area_radius 63
 }
-create_object TEMPORARY_REVEALER {
-number_of_objects 4
-actor_area_to_place_in 20010
-set_place_for_every_player
-max_distance_to_players 2
-}
  create_object PHON {
 set_place_for_every_player
 set_gaia_object_only
@@ -3687,7 +3734,6 @@ set_gaia_object_only
 min_distance_to_players 1
 max_distance_to_players 1
 find_closest
-second_object HERDABLE_A
 actor_area 20075
 actor_area_radius 0
 avoid_actor_area 20074
@@ -4124,7 +4170,7 @@ max_distance_to_players 9
 set_circular_placement
 }
 create_object HERDABLE_A {
-number_of_objects 3
+number_of_objects 4
 set_loose_grouping
 set_place_for_every_player
 min_distance_to_players 7
@@ -4202,6 +4248,8 @@ temp_min_distance_group_placement 10
 create_object HERDABLE_B {
 set_place_for_every_player
 number_of_objects 2
+number_of_groups 2
+temp_min_distance_group_placement 8
 set_loose_grouping
 set_gaia_object_only
 min_distance_to_players 22
