@@ -1207,14 +1207,14 @@ endif
     }
 create_object FORT_WALL
 {
-	number_of_objects 9999
+	/* number_of_objects 9999 */
 	set_place_for_every_player
 	min_distance_to_players 20
 	max_distance_to_players 20
+	generate_for_first_land_only
 }
 
     create_object VILLAGER {
-        number_of_objects 3
         set_tight_grouping
         set_place_for_every_player
         min_distance_to_players 6
@@ -1222,11 +1222,6 @@ create_object FORT_WALL
     }
 
     create_object SCOUT {
-        set_place_for_every_player
-        min_distance_to_players 7
-        max_distance_to_players 9
-    }
-    create_object KING {
         set_place_for_every_player
         min_distance_to_players 7
         max_distance_to_players 9
@@ -1297,9 +1292,9 @@ min_distance_group_placement 5
     }
    create_object WOODEN_FORT {
         set_place_for_every_player
-		min_distance_to_players 10
-		max_distance_to_players 11
-		find_closest_to_map_center
+		min_distance_to_players 6
+		max_distance_to_players 9
+		find_closest
 		avoid_forest_zone 4
 		layer_to_place_on GRAVEL
     }
