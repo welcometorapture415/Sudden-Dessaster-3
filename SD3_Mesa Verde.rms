@@ -692,10 +692,11 @@ create_object TURKEY {
 	avoid_actor_area AA_LUMBER_CAMP
 }
 
-start_random 
+#define PUSHABLE_HUNT
+/* start_random 
 	percent_chance 50 #define PUSHABLE_HUNT
 	percent_chance 50 #define UNPUSHABLE_HUNT
-end_random
+end_random */
 
 if PUSHABLE_HUNT	create_object DEER
 elseif UNPUSHABLE_HUNT	create_object HARE_HUNT
