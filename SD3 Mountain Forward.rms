@@ -1,13 +1,65 @@
 /* Based on my map Lamar River Valley (Yellowstone), previously submitted to the 2026 USA Cup map contest */
 
+/* Constants for inserting the Sudden Death Game Mode. */
+#const TC_TECH 187
+#const CUMAN_TC 218
+
+/*
+ * Checks conditions to defeat players if the game mode is not set
+ * to random map. Includes a check for the secondary game mode checkboxes.
+ */
+if ANTIQUITY_MODE
+  #define ADMIN_RESTART
+elseif RANDOM_MAP
+  if REGICIDE
+    #define ADMIN_RESTART
+  elseif EMPIRE_WARS
+    #define ADMIN_RESTART
+  elseif SUDDEN_DEATH
+    #define ADMIN_RESTART
+  endif
+else
+  #define ADMIN_RESTART
+endif
+if TINY_MAP
+else
+  #define ADMIN_RESTART
+endif
+if DEFAULT_RESOURCES
+else
+  #define ADMIN_RESTART
+endif
+if DARK_AGE_START
+else
+  #define ADMIN_RESTART
+endif
+if TURBO_MODE
+  #define ADMIN_RESTART
+endif
+/*
+ * If the lobby settings are detected as incorrect, the guard state is set to a
+ * Saboteur, which is a unit with which players do not start the game and hence
+ * are instantly defeated.
+ * Otherwise sets the guard state object to a Town Center, enforcing the
+ * Sudden Death condition.
+ */
+if ADMIN_RESTART
+  #const GUARD_STATE_OBJECT SABOTEUR
+else
+  #const GUARD_STATE_OBJECT TOWN_CENTER
+endif
 
 <PLAYER_SETUP>
-guard_state TOWN_CENTER AMOUNT_GOLD 0 1
-#const TC_TECH 187
-#const CUMAN_TC  218
+/*
+ * Sets the Sudden Death Game Mode, or defeats players with incorrect
+ * lobby settings.
+ */
+guard_state GUARD_STATE_OBJECT AMOUNT_GOLD 0 1 else
+/* Disables the ability to construct additional Town Centers. */
 effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
-effect_amount MOD_RESOURCE CUMAN_TC  ATTR_DISABLE 0
-    direct_placement
+effect_amount MOD_RESOURCE CUMAN_TC ATTR_DISABLE 0
+
+direct_placement
 
 <LAND_GENERATION>
 
@@ -50,7 +102,7 @@ effect_amount MOD_RESOURCE CUMAN_TC  ATTR_DISABLE 0
         percent_chance 12
 		#define OPTIONA
 		if OPTIONA
-			
+
             create_land {
                 terrain_type GRASS
                 land_percent 100
@@ -151,7 +203,7 @@ endif
 
             /* END: meandres */
 		#define OPTIONB
-		if OPTIONB            
+		if OPTIONB
         percent_chance 13
 
             create_land {
@@ -357,7 +409,7 @@ endif
 endif
 
 		#define OPTIOND
-		if OPTIOND           
+		if OPTIOND
         percent_chance 13
 
             create_land {
@@ -458,7 +510,7 @@ endif
 
             /* END: meandres */
 endif
-		
+
 #define OPTIONE
 if OPTIONE
         percent_chance 12
@@ -563,7 +615,7 @@ if OPTIONE
 endif
 
 		#define OPTIONF
-		if OPTIONF            
+		if OPTIONF
         percent_chance 13
 
             create_land {
@@ -770,7 +822,7 @@ endif
 
 		#define OPTIONH
 		if OPTIONH
-            
+
         percent_chance 13
 
             create_land {
@@ -881,7 +933,7 @@ endif
                 base_elevation 2
 				base_size 1
             }
-			
+
  create_land {
                 terrain_type PINE_FOREST
                 land_percent 1
@@ -889,7 +941,7 @@ endif
                 base_elevation 2
 				base_size 1
             }
-			
+
  create_land {
                 terrain_type PINE_FOREST
                 land_percent 1
@@ -897,7 +949,7 @@ endif
                 base_elevation 2
 				base_size 1
             }
-			
+
  create_land {
                 terrain_type PINE_FOREST
                 land_percent 1
@@ -939,7 +991,7 @@ endif
         spacing_to_other_terrain_types 0
 		terrain_mask 0
     }
-	
+
 	    create_terrain WATER {
         base_terrain DLC_GRAVELBEACH
         land_percent 100
@@ -982,7 +1034,7 @@ endif
         spacing_to_other_terrain_types 0
 		terrain_mask 1
     }
-	
+
 	    create_terrain GRASS {
         base_terrain GRAVEL
         land_percent 100
@@ -995,7 +1047,7 @@ endif
         spacing_to_other_terrain_types 0
 		terrain_mask 2
     }
-	
+
 	create_terrain SHALLOW {
         base_terrain MED_WATER
 		number_of_clumps 9999
@@ -1027,7 +1079,7 @@ endif
 		terrain_mask 0
 		set_avoid_player_start_areas 32
     }
-	
+
 	create_terrain PASTURE1 {
         base_terrain DIRT
 		number_of_clumps 3200
@@ -1044,7 +1096,7 @@ endif
 		terrain_mask 0
 		set_avoid_player_start_areas 0
     }
-	
+
 	create_terrain PASTURE1 {
         base_terrain GRASS
 		number_of_clumps 3200
@@ -1052,7 +1104,7 @@ endif
         spacing_to_other_terrain_types 0
 		terrain_mask 0
     }
-	
+
 	create_terrain PASTURE3 {
         base_terrain PASTURE1
 		number_of_clumps 12
@@ -1074,7 +1126,7 @@ endif
         spacing_to_other_terrain_types 0
 		terrain_mask 1
     }
-	
+
 	create_terrain LEAVES {
         base_terrain GRASS
 		number_of_clumps 3200
@@ -1096,7 +1148,7 @@ endif
         spacing_to_other_terrain_types 0
 		terrain_mask 0
     }
-	
+
 	create_terrain GRAVEL {
         base_terrain PASTURE1
 		number_of_clumps 1200
@@ -1105,7 +1157,7 @@ endif
 		terrain_mask 1
 		height_limits 2 9
     }
-	
+
 	create_terrain DIRT_MUD {
         base_terrain PASTURE1
 		number_of_clumps 16
@@ -1127,7 +1179,7 @@ endif
         spacing_to_other_terrain_types 0
 		terrain_mask 1
     }
-	
+
 	create_terrain ICE {
         base_terrain WATER
 		number_of_clumps 9999
@@ -1149,7 +1201,7 @@ endif
         spacing_to_other_terrain_types 0
 		terrain_mask 0
     }
-	
+
 		create_terrain SNOW {
         base_terrain ICE
 		number_of_clumps 9999
@@ -1182,7 +1234,7 @@ endif
 		terrain_to_place_on SNOW
     }
 
-	
+
     create_object DLC_BEAR {
         number_of_objects 1
         number_of_groups 99
@@ -1226,7 +1278,7 @@ create_object FORT_WALL
         min_distance_to_players 7
         max_distance_to_players 9
     }
-	
+
 	create_object RELIC {
         number_of_objects 5
 		temp_min_distance_group_placement 45
@@ -1363,7 +1415,7 @@ min_distance_group_placement 5
 		avoid_forest_zone 2
 		avoid_actor_area 102
     }
-	
+
 
    create_object YURT_A {
         set_place_for_every_player
@@ -1422,7 +1474,7 @@ min_distance_group_placement 5
         min_distance_to_players 30
 		temp_min_distance_group_placement 35
     }
-	
+
     create_object FOX {
         number_of_groups 8
 		number_of_objects 4
@@ -1433,7 +1485,7 @@ min_distance_group_placement 5
 		actor_area 27
 		actor_area_radius 8
     }
-	
+
     create_object HARE {
         number_of_groups 8
 		number_of_objects 8
@@ -1462,8 +1514,8 @@ min_distance_group_placement 5
         terrain_to_place_on MED_WATER
         temp_min_distance_group_placement 9
     }
-	
-	
+
+
     create_object GOLD {
 		number_of_groups 4
         number_of_objects 7
@@ -1491,18 +1543,18 @@ min_distance_group_placement 5
 	create_object HAWK {
         number_of_objects 6
 		temp_min_distance_group_placement 60
-    }	
+    }
 	create_object OWL {
         number_of_objects 6
 		temp_min_distance_group_placement 60
     }
-	
-	
+
+
 	create_object PLANT_FLOWERS {
         number_of_objects 24
 		temp_min_distance_group_placement 16
-    }	
-	
+    }
+
 	create_object PLANT_SHRUB_DRY {
         number_of_objects 24
 		temp_min_distance_group_placement 16
@@ -1519,18 +1571,18 @@ min_distance_group_placement 5
         number_of_objects 24
 		temp_min_distance_group_placement 16
 		place_on_forest_zone
-    }	
+    }
 
 	create_object SEA_ROCK_A {
         number_of_objects 24
 		temp_min_distance_group_placement 16
 		terrain_to_place_on WATER
-    }	
+    }
 	create_object SEA_ROCK_B {
         number_of_objects 24
 		temp_min_distance_group_placement 16
 		terrain_to_place_on WATER
-    }	
+    }
 
 
 <CONNECTION_GENERATION>

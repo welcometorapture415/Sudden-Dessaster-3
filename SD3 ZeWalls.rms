@@ -7,6 +7,56 @@ Bazidrown#6779 on Discord
 
 Most recent update: 02. May 2026
 */
+
+/* Constants for inserting the Sudden Death Game Mode. */
+#const TC_TECH 187
+#const CUMAN_TC 218
+
+/*
+ * Checks conditions to defeat players if the game mode is not set
+ * to random map. Includes a check for the secondary game mode checkboxes.
+ */
+if ANTIQUITY_MODE
+  #define ADMIN_RESTART
+elseif RANDOM_MAP
+  if REGICIDE
+    #define ADMIN_RESTART
+  elseif EMPIRE_WARS
+    #define ADMIN_RESTART
+  elseif SUDDEN_DEATH
+    #define ADMIN_RESTART
+  endif
+else
+  #define ADMIN_RESTART
+endif
+if TINY_MAP
+else
+  #define ADMIN_RESTART
+endif
+if DEFAULT_RESOURCES
+else
+  #define ADMIN_RESTART
+endif
+if DARK_AGE_START
+else
+  #define ADMIN_RESTART
+endif
+if TURBO_MODE
+  #define ADMIN_RESTART
+endif
+/*
+ * If the lobby settings are detected as incorrect, the guard state is set to a
+ * Saboteur, which is a unit with which players do not start the game and hence
+ * are instantly defeated.
+ * Otherwise sets the guard state object to a Town Center, enforcing the
+ * Sudden Death condition.
+ */
+if ADMIN_RESTART
+  #const GUARD_STATE_OBJECT SABOTEUR
+else
+  #const GUARD_STATE_OBJECT TOWN_CENTER
+endif
+
 start_random
 percent_chance 5 #define PH_ALPINE
 percent_chance 5 #define PH_ALPINE_B
@@ -30,19 +80,27 @@ percent_chance 5 #define PH_AFRICAN_D
 percent_chance 5 #define PH_AFRICAN_E
 end_random
 
-
 #include_drs F_seasons.inc
 
 <PLAYER_SETUP>
+/*
+ * Sets the Sudden Death Game Mode, or defeats players with incorrect
+ * lobby settings.
+ */
+guard_state GUARD_STATE_OBJECT AMOUNT_GOLD 0 1 else
+/* Disables the ability to construct additional Town Centers. */
+effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
+effect_amount MOD_RESOURCE CUMAN_TC ATTR_DISABLE 0
+
 direct_placement
-ai_info_map_type ARENA 0 0 0 
+ai_info_map_type ARENA 0 0 0
 behavior_version 1
 
 override_map_size 168
 
 start_random
 	percent_chance 50 #define X
-	percent_chance 50 #define PLUS 
+	percent_chance 50 #define PLUS
 end_random
 
 <LAND_GENERATION>
@@ -275,7 +333,7 @@ if X
 	create_land { number_of_tiles 1 base_size 0 land_position 97 50 terrain_type DIRT2 base_elevation 0 }
 	create_land { number_of_tiles 1 base_size 0 land_position 98 50 terrain_type DIRT2 base_elevation 0 }
 	create_land { number_of_tiles 1 base_size 1 land_position 99 50 terrain_type DIRT2 base_elevation 0 }
-	
+
 elseif PLUS
 	#const WALL_TYPE 119
 	start_random
@@ -550,7 +608,7 @@ create_terrain WOODIES
   number_of_clumps               9319
   set_avoid_player_start_areas    24
   set_scale_by_groups
- 
+
 }
 /* PRIMARY PATCH */
 
@@ -652,7 +710,7 @@ create_object SCOUT
   set_place_for_every_player
   min_distance_to_players       7
   max_distance_to_players       9
-  
+
  }
 
 create_object FORAGE
@@ -724,8 +782,8 @@ create_object GOLD
 create_object STONE
 {
   number_of_objects          5
-  group_placement_radius     2  
-  set_tight_grouping 
+  group_placement_radius     2
+  set_tight_grouping
   set_gaia_object_only
   set_place_for_every_player
   min_distance_to_players    14
@@ -741,8 +799,8 @@ create_object STONE
 create_object STONE
 {
   number_of_objects          4
-  group_placement_radius     2  
-  set_tight_grouping 
+  group_placement_radius     2
+  set_tight_grouping
   set_gaia_object_only
   set_place_for_every_player
   min_distance_to_players    20
@@ -788,7 +846,7 @@ create_object PREDATOR_A
   min_distance_to_players    40
   max_distance_to_players    50
   avoid_forest_zone 2
- 
+
 }
 create_object RELIC
 {
@@ -811,7 +869,7 @@ create_object RELIC
 if LARGE_MAP
 create_object FORAGE
 {
-  number_of_groups           1    
+  number_of_groups           1
   number_of_objects          5
   group_placement_radius     3
   set_tight_grouping
@@ -826,7 +884,7 @@ endif
 if HUGE_MAP
 create_object FORAGE
 {
-  number_of_groups           2    
+  number_of_groups           2
   number_of_objects          5
   group_placement_radius     3
   set_tight_grouping
@@ -840,7 +898,7 @@ endif
 if GIGANTIC_MAP
 create_object FORAGE
 {
-  number_of_groups           3    
+  number_of_groups           3
   number_of_objects          5
   group_placement_radius     3
   set_tight_grouping
@@ -860,7 +918,7 @@ endif
 if SMALL_MAP
 create_object GOLD
 {
-  number_of_groups           2    
+  number_of_groups           2
   number_of_objects          3
   group_placement_radius     2
   set_tight_grouping
@@ -873,7 +931,7 @@ endif
 if MEDIUM_MAP
 create_object GOLD
 {
-  number_of_groups           3    
+  number_of_groups           3
   number_of_objects          3
   group_variance             1
   group_placement_radius     2
@@ -881,14 +939,14 @@ create_object GOLD
   set_gaia_object_only
   min_distance_to_players       40
   min_distance_group_placement  9
-  
+
 }
 endif
 
 if LARGE_MAP
 create_object GOLD
 {
-  number_of_groups           3    
+  number_of_groups           3
   number_of_objects          3
   group_variance             1
   group_placement_radius     2
@@ -902,7 +960,7 @@ endif
 if HUGE_MAP
 create_object GOLD
 {
-  number_of_groups           4    
+  number_of_groups           4
   number_of_objects          4
   group_variance             1
   group_placement_radius     2
@@ -916,7 +974,7 @@ endif
 if GIGANTIC_MAP
 create_object GOLD
 {
-  number_of_groups           5    
+  number_of_groups           5
   number_of_objects          4
   group_variance             1
   group_placement_radius     2
@@ -933,7 +991,7 @@ endif
 if SMALL_MAP
 create_object STONE
 {
-  number_of_groups           1    
+  number_of_groups           1
   number_of_objects          4
   group_variance             1
   group_placement_radius     2
@@ -947,7 +1005,7 @@ endif
 if MEDIUM_MAP
 create_object STONE
 {
-  number_of_groups           2    
+  number_of_groups           2
   number_of_objects          4
   group_variance             1
   group_placement_radius     2
@@ -961,7 +1019,7 @@ endif
 if LARGE_MAP
 create_object STONE
 {
-  number_of_groups           3    
+  number_of_groups           3
   number_of_objects          4
   group_variance             1
   group_placement_radius     2
@@ -975,7 +1033,7 @@ endif
 if HUGE_MAP
 create_object STONE
 {
-  number_of_groups           4    
+  number_of_groups           4
   number_of_objects          4
   group_variance             1
   group_placement_radius     2
@@ -989,7 +1047,7 @@ endif
 if GIGANTIC_MAP
 create_object STONE
 {
-  number_of_groups           5    
+  number_of_groups           5
   number_of_objects          4
   group_variance             1
   group_placement_radius     2
@@ -1005,11 +1063,11 @@ endif
 <CONNECTION_GENERATION>
 
 
- 
+
 create_connect_all_players_land {
 
 replace_terrain WOODIES LAYER_B
 
 terrain_size WOODIES 23 3
 
-} 
+}

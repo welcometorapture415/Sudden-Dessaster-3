@@ -5,10 +5,67 @@
 /* v3 changes: remove castle ruins and moat. Changed to 4 places where Petards can be trained. Added Papayas and gold to the neutral side land between players */
 /* v4 changes: changed petard training building graphics and petard training time to 55 seconds */
 
-<PLAYER_SETUP>
- random_placement  
-behavior_version 1
+/* Constants for inserting the Sudden Death Game Mode. */
+#const TC_TECH 187
+#const CUMAN_TC 218
 
+/*
+ * Checks conditions to defeat players if the game mode is not set
+ * to random map. Includes a check for the secondary game mode checkboxes.
+ */
+if ANTIQUITY_MODE
+  #define ADMIN_RESTART
+elseif RANDOM_MAP
+  if REGICIDE
+    #define ADMIN_RESTART
+  elseif EMPIRE_WARS
+    #define ADMIN_RESTART
+  elseif SUDDEN_DEATH
+    #define ADMIN_RESTART
+  endif
+else
+  #define ADMIN_RESTART
+endif
+if TINY_MAP
+else
+  #define ADMIN_RESTART
+endif
+if DEFAULT_RESOURCES
+else
+  #define ADMIN_RESTART
+endif
+if DARK_AGE_START
+else
+  #define ADMIN_RESTART
+endif
+if TURBO_MODE
+  #define ADMIN_RESTART
+endif
+/*
+ * If the lobby settings are detected as incorrect, the guard state is set to a
+ * Saboteur, which is a unit with which players do not start the game and hence
+ * are instantly defeated.
+ * Otherwise sets the guard state object to a Town Center, enforcing the
+ * Sudden Death condition.
+ */
+if ADMIN_RESTART
+  #const GUARD_STATE_OBJECT SABOTEUR
+else
+  #const GUARD_STATE_OBJECT TOWN_CENTER
+endif
+
+<PLAYER_SETUP>
+/*
+ * Sets the Sudden Death Game Mode, or defeats players with incorrect
+ * lobby settings.
+ */
+guard_state GUARD_STATE_OBJECT AMOUNT_GOLD 0 1 else
+/* Disables the ability to construct additional Town Centers. */
+effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
+effect_amount MOD_RESOURCE CUMAN_TC ATTR_DISABLE 0
+
+random_placement
+behavior_version 1
 
 #const BLCKR1 1323 /* rock 2 */
 #const BLCKR2 1308 /* smoke */
@@ -21,7 +78,7 @@ behavior_version 1
 #const T1 81 /* NNWG */
 #const PL1 76 /* DIRT MUD */
 #const MSK1 123 /* GRASS FLOWERS */
-#const MSK2 102 /* DESERT GRAVEL */ 
+#const MSK2 102 /* DESERT GRAVEL */
 #const MSK3 100 /* MUDDY_SHALLOW */
 #const FOREST2 113 /* lush bamboo */
 #const WATER2D 15
@@ -45,7 +102,7 @@ effect_amount GAIA_SET_ATTRIBUTE LUSH_BAMBOO_TREE ATTR_TERRAIN_ID 13
 
 
 
-/* CONFIGURE PETARD */ 
+/* CONFIGURE PETARD */
 #const PETARD2 440
 
 
@@ -69,16 +126,16 @@ effect_amount SET_ATTRIBUTE PETARD2 ATTR_BUTTON_ID 0
 		percent_chance 50 #define ANGLE1
 		percent_chance 50 #define ANGLE2
 	end_random
-	
+
 if ANGLE1
-  #const P1NUMBER 1	
+  #const P1NUMBER 1
   #const P2NUMBER 2
-  
+
 elseif ANGLE2
-  #const P1NUMBER 2	
+  #const P1NUMBER 2
   #const P2NUMBER 1
 endif
-  
+
 base_terrain ICE
 
 
@@ -171,7 +228,7 @@ create_terrain GRASS2
 { base_terrain SNOW
   land_percent 100
   number_of_clumps 999
-  spacing_to_other_terrain_types 6  
+  spacing_to_other_terrain_types 6
 }
 
 create_terrain SOUTH_AMERICAN_FOREST
@@ -187,7 +244,7 @@ create_terrain GRASS2
 { base_terrain DESERT
   land_percent 100
   number_of_clumps 999
-  spacing_to_other_terrain_types 6  
+  spacing_to_other_terrain_types 6
 }
 create_terrain SOUTH_AMERICAN_FOREST
 { base_terrain DESERT
@@ -203,7 +260,7 @@ create_terrain NNWR
 {
      base_terrain ICE
      land_percent 100
-     number_of_clumps 999   
+     number_of_clumps 999
 }
 
 /* REVERTING TERRAIN PLACEHOLDERS */
@@ -240,7 +297,7 @@ create_terrain MSK1 { base_terrain PL1 number_of_clumps 9320 land_percent 100 te
 
 /* **************************************** */
 <OBJECTS_GENERATION>
-/* PLACING BACK FORESTS */ 
+/* PLACING BACK FORESTS */
 
 
 
@@ -249,7 +306,7 @@ create_object_group TREES {
     add_object PEACH_BLOSSOM_TREE 25
     add_object TREE_BRAZILWOOD 25
     add_object DLC_RAINTREE 25
-	
+
 	    }
 
 create_object TREES
@@ -297,7 +354,7 @@ create_object VILLAGER
 	 place_on_specific_land_id 1
 }
 
-create_object SCOUT 
+create_object SCOUT
 {
      number_of_objects 1
      set_place_for_every_player
@@ -326,13 +383,13 @@ endif
 
 create_object WALL
 {
-     
+
      set_place_for_every_player
      min_distance_to_players 14
      max_distance_to_players 14
 	 actor_area 9999
 	 actor_area_radius 2
-	 
+
 }
 
 /* NEAR PAPAYA_TREE */
@@ -369,7 +426,7 @@ create_object GOLD
      place_on_specific_land_id 1
 	 actor_area 1010
 	 actor_area_radius 10
-	 
+
 }
 
 /* FORWARD GOLD */
@@ -450,7 +507,7 @@ create_object STONE
 	 actor_area 1212
 	 actor_area_radius 10
 	 avoid_actor_area 1212 /* outside gold */
-	 avoid_actor_area 9999 /* wall */	 
+	 avoid_actor_area 9999 /* wall */
 }
 
 
@@ -467,7 +524,7 @@ create_object CAPYBARA
     set_circular_placement
     avoid_forest_zone 2
 	place_on_specific_land_id 1
-	actor_area 22 
+	actor_area 22
 	actor_area_radius 2
 }
 
@@ -482,8 +539,8 @@ create_object CAPYBARA
     avoid_forest_zone 2
 	place_on_specific_land_id 1
 	actor_area_to_place_in 22
-		
-  } 
+
+  }
 
 create_object CAPYBARA
 {
@@ -497,10 +554,10 @@ create_object CAPYBARA
      max_distance_to_players    20
 	 avoid_forest_zone 2
 	 place_on_specific_land_id 1
-	 avoid_actor_area 9999 /* wall */	
+	 avoid_actor_area 9999 /* wall */
 }
 
-create_object TAPIR 
+create_object TAPIR
 {
      number_of_objects          1
      set_loose_grouping
@@ -544,7 +601,7 @@ create_object TREE_MONKEY_PUZZLE
 
 /* NEUTRAL SHRINE */
 create_object ON_GRID
-{ 
+{
   number_of_objects 9999
   set_place_for_every_player
   set_gaia_object_only
@@ -554,19 +611,19 @@ create_object ON_GRID
   max_distance_to_players 20
   actor_area 1515
   actor_area_radius 0
-   
+
 
 }
 
 create_object PETARD_BUILDING
-{ 
+{
   set_gaia_object_only
   place_on_specific_land_id 99
   find_closest
   make_indestructible
   set_building_capturable
 	actor_area 2222
-	actor_area_radius 3  
+	actor_area_radius 3
 }
 
 create_object UNBUILDABLE_TERRAIN
@@ -574,8 +631,8 @@ create_object UNBUILDABLE_TERRAIN
      number_of_objects          9999
 	 set_gaia_object_only
 	 actor_area_to_place_in 2222 /* PETARD_BUILDING */
-	 
-	 
+
+
 }
 
 /* creating neutral lands actor areas */
@@ -594,13 +651,13 @@ create_object ON_GRID
 
 /* PLAYERS OUTSIDE LAND SHRINE */
 create_object PETARD_BUILDING
-{ 	
+{
         number_of_objects          1
 	set_gaia_object_only
 	make_indestructible
 	set_building_capturable
 	actor_area 3030
-	actor_area_radius 3  
+	actor_area_radius 3
 
      set_place_for_every_player
      max_distance_to_players    1
@@ -611,7 +668,7 @@ create_object UNBUILDABLE_TERRAIN
      number_of_objects          9999
 	 set_gaia_object_only
 	 actor_area_to_place_in 3030 /* PETARD_BUILDING */
-	 
+
 }
 
 
@@ -630,12 +687,12 @@ create_object PETARD_BUILDING
 }
 
 create_object UNBUILDABLE_TERRAIN
-{    
+{
      number_of_objects          9999
 	 set_gaia_object_only
 	 actor_area_to_place_in 2222 /* PETARD_BUILDING */
-	 
-	 
+
+
 }
 
 
@@ -661,7 +718,7 @@ create_object PAPAYA_TREE
 	 avoid_actor_area 9876
 	 actor_area 33
 	 actor_area_radius 3
-	 
+
 
 }
 
@@ -680,7 +737,7 @@ create_object PEACOCK
 
 
 
-create_object TAPIR 
+create_object TAPIR
 {
    number_of_objects          2
      group_placement_radius     4
@@ -736,7 +793,7 @@ create_object GOLD
 	 avoid_actor_area 2525
 	 avoid_actor_area 9876
 	 avoid_actor_area 33
-	 
+
 
 }
 
@@ -803,7 +860,7 @@ create_object RELIC
   min_distance_group_placement 3
   ignore_terrain_restrictions
   actor_area_to_place_in 1515
-  
+
 }
 
 create_object WILD_MONKEY
@@ -842,11 +899,9 @@ enable_balanced_elevation
 /* **************************************** */
 <CONNECTION_GENERATION>
 
-accumulate_connections 
+accumulate_connections
 
 create_connect_all_lands {
 replace_terrain BEACH BCH
 terrain_size BEACH 961 0
 }
-
-

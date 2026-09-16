@@ -28,9 +28,56 @@ v1.1
 -capped the number of neutral golds at 7 piles and stones at 5 piles for 1v1
 
 Learn about random map scripting: https://docs.google.com/document/d/e/2PACX-1vR_I1I9u-hI2FFm-EYyjoM_-9dNJFOfTaIgr05wXNbdpv9tI18b6r18ARULy3Jqyvlq6-lc2VjX6xP4/pub
-
-
 */
+
+/* Constants for inserting the Sudden Death Game Mode. */
+#const TC_TECH 187
+#const CUMAN_TC 218
+
+/*
+ * Checks conditions to defeat players if the game mode is not set
+ * to random map. Includes a check for the secondary game mode checkboxes.
+ */
+if ANTIQUITY_MODE
+  #define ADMIN_RESTART
+elseif RANDOM_MAP
+  if REGICIDE
+    #define ADMIN_RESTART
+  elseif EMPIRE_WARS
+    #define ADMIN_RESTART
+  elseif SUDDEN_DEATH
+    #define ADMIN_RESTART
+  endif
+else
+  #define ADMIN_RESTART
+endif
+if TINY_MAP
+else
+  #define ADMIN_RESTART
+endif
+if DEFAULT_RESOURCES
+else
+  #define ADMIN_RESTART
+endif
+if DARK_AGE_START
+else
+  #define ADMIN_RESTART
+endif
+if TURBO_MODE
+  #define ADMIN_RESTART
+endif
+/*
+ * If the lobby settings are detected as incorrect, the guard state is set to a
+ * Saboteur, which is a unit with which players do not start the game and hence
+ * are instantly defeated.
+ * Otherwise sets the guard state object to a Town Center, enforcing the
+ * Sudden Death condition.
+ */
+if ADMIN_RESTART
+  #const GUARD_STATE_OBJECT SABOTEUR
+else
+  #const GUARD_STATE_OBJECT TOWN_CENTER
+endif
 
 #const DEAD_FARM 8
 #const GRAVEL 70
@@ -40,22 +87,26 @@ Learn about random map scripting: https://docs.google.com/document/d/e/2PACX-1vR
 /* placeholder objects */
 #const ONGRID_PLACEHOLDER 278
 #const FLARE 112
-#const BLANKOBJECT 647 
+#const BLANKOBJECT 647
 #const TERRAIN_BLOCKER 1613
 
 /* =================================================================================================== */
 <PLAYER_SETUP>
-guard_state TOWN_CENTER AMOUNT_GOLD 0 1
-#const TC_TECH 187
-#const CUMAN_TC  218
-effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
-effect_amount MOD_RESOURCE CUMAN_TC  ATTR_DISABLE 0
 
-random_placement 
+random_placement
 ai_info_map_type CUSTOM 0 0 0
 behavior_version 1
 
 effect_amount GAIA_SET_ATTRIBUTE DLC_BOULDER_A ATTR_OCCLUSION_MODE 2
+
+/*
+ * Sets the Sudden Death Game Mode, or defeats players with incorrect
+ * lobby settings.
+ */
+guard_state GUARD_STATE_OBJECT AMOUNT_GOLD 0 1 else
+/* Disables the ability to construct additional Town Centers. */
+effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
+effect_amount MOD_RESOURCE CUMAN_TC ATTR_DISABLE 0
 
 /* =================================================================================================== */
 <LAND_GENERATION>
@@ -259,12 +310,12 @@ create_object ONGRID_PLACEHOLDER {
 	set_place_for_every_player
 	min_distance_to_players 18
 	max_distance_to_players 19
-	set_circular_placement	
+	set_circular_placement
 	avoid_actor_area 2
 	terrain_to_place_on GRASS2
 	actor_area 6730
 	actor_area_radius 4
-	
+
 }
 create_object ONGRID_PLACEHOLDER {
 	number_of_objects 10
@@ -272,7 +323,7 @@ create_object ONGRID_PLACEHOLDER {
 	set_place_for_every_player
 	min_distance_to_players 18
 	max_distance_to_players 19
-	set_circular_placement	
+	set_circular_placement
 	avoid_actor_area 2
 	terrain_to_place_on BEACH
 	actor_area 6730
@@ -507,7 +558,7 @@ create_object BOAR {
 	avoid_forest_zone 1
 	min_distance_to_players 12
 	max_distance_to_players 16
-	set_circular_placement	
+	set_circular_placement
 }
 
 /* scattered hunt */
@@ -573,7 +624,7 @@ create_object STONE {
 	min_distance_to_players 28
 	set_circular_placement
 	min_distance_group_placement 2
-	
+
 	terrain_to_place_on GRASS2
 	avoid_forest_zone 3
 }
@@ -583,7 +634,3 @@ create_object HAWK {
 	number_of_objects 6
 	set_scaling_to_map_size
 }
-
-
-
-

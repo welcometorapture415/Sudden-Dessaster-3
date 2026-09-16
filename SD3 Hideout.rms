@@ -2,14 +2,67 @@
 
 /* Note: random_map.def is automatically included in every rms script */
 
-<PLAYER_SETUP>
-guard_state TOWN_CENTER AMOUNT_GOLD 0 1
+/* Constants for inserting the Sudden Death Game Mode. */
 #const TC_TECH 187
-#const CUMAN_TC  218
+#const CUMAN_TC 218
+
+/*
+ * Checks conditions to defeat players if the game mode is not set
+ * to random map. Includes a check for the secondary game mode checkboxes.
+ */
+if ANTIQUITY_MODE
+  #define ADMIN_RESTART
+elseif RANDOM_MAP
+  if REGICIDE
+    #define ADMIN_RESTART
+  elseif EMPIRE_WARS
+    #define ADMIN_RESTART
+  elseif SUDDEN_DEATH
+    #define ADMIN_RESTART
+  endif
+else
+  #define ADMIN_RESTART
+endif
+if TINY_MAP
+else
+  #define ADMIN_RESTART
+endif
+if DEFAULT_RESOURCES
+else
+  #define ADMIN_RESTART
+endif
+if DARK_AGE_START
+else
+  #define ADMIN_RESTART
+endif
+if TURBO_MODE
+  #define ADMIN_RESTART
+endif
+/*
+ * If the lobby settings are detected as incorrect, the guard state is set to a
+ * Saboteur, which is a unit with which players do not start the game and hence
+ * are instantly defeated.
+ * Otherwise sets the guard state object to a Town Center, enforcing the
+ * Sudden Death condition.
+ */
+if ADMIN_RESTART
+  #const GUARD_STATE_OBJECT SABOTEUR
+else
+  #const GUARD_STATE_OBJECT TOWN_CENTER
+endif
+
+<PLAYER_SETUP>
+/*
+ * Sets the Sudden Death Game Mode, or defeats players with incorrect
+ * lobby settings.
+ */
+guard_state GUARD_STATE_OBJECT AMOUNT_GOLD 0 1 else
+/* Disables the ability to construct additional Town Centers. */
 effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
-effect_amount MOD_RESOURCE CUMAN_TC  ATTR_DISABLE 0
-  random_placement 
-  ai_info_map_type ARABIA 0 0 0
+effect_amount MOD_RESOURCE CUMAN_TC ATTR_DISABLE 0
+
+random_placement
+ai_info_map_type ARABIA 0 0 0
 
 #include_drs thebr_setup.inc
 
@@ -272,7 +325,7 @@ create_object STRAGGLER
 #define GNR_MAPSTRAGGLE
 
 #define GNR_GIVERELICS
-#define GNR_RELICMODERN_MEDIUM 
+#define GNR_RELICMODERN_MEDIUM
 
 #include_drs GeneratingObjects.inc
 
@@ -300,7 +353,7 @@ elseif GIGANTIC_MAP
 elseif LUDIKRIS_MAP
 else
 
-create_object BLANKOBJECT 
+create_object BLANKOBJECT
 {
   number_of_objects rnd(160,180)
   set_gaia_object_only
@@ -311,7 +364,7 @@ create_object BLANKOBJECT
   actor_area_radius 0
 }
 
-create_object BLANKOBJECT 
+create_object BLANKOBJECT
 {
   number_of_objects rnd(180,220)
   set_gaia_object_only
