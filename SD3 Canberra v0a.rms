@@ -128,7 +128,7 @@ create_land {
 	land_percent 100
 	base_size 0
 	land_position 50 50
-	if TINY_MAP	left_border 46 right_border 46 top_border 46 bottom_border 46
+	if TINY_MAP	left_border 45 top_border 45 right_border 46 bottom_border 46
 	elseif SMALL_MAP	left_border 46 right_border 46 top_border 46 bottom_border 46
 	elseif MEDIUM_MAP	left_border 45 right_border 45 top_border 45 bottom_border 45
 	else	left_border 44 right_border 44 top_border 44 bottom_border 44
@@ -268,6 +268,13 @@ create_connect_to_nonplayer_land {
 
 /* =================================================================================================== */
 <OBJECTS_GENERATION>
+/* infinite fish in the center */
+create_object FISH {
+ 	second_object SEA_ROCKS_2
+ 	place_on_specific_land_id 1
+ 	max_distance_to_players 0
+ 	resource_delta 29800
+}
 
 create_object DLC_BOULDER_A {
 	number_of_objects 9320
@@ -409,14 +416,6 @@ endif
 if EMPIRE_WARS
 /* please contact Zetnus to implement empire wars */
 endif
-
-/* infinite fish in the center */
-create_object FISH {
-	second_object SEA_ROCKS_2
-	place_on_specific_land_id 1
-	max_distance_to_players 0
-	resource_delta 29800
-}
 
 /* by the bushes */
 create_object FORAGE {
@@ -607,6 +606,7 @@ create_object GOLD {
 	temp_min_distance_group_placement 21
 	terrain_to_place_on GRASS2
 	avoid_forest_zone 3
+  max_distance_to_other_zones 4
 }
 
 /* scattered stone */
@@ -624,6 +624,7 @@ create_object STONE {
 	min_distance_to_players 28
 	set_circular_placement
 	min_distance_group_placement 2
+	max_distance_to_other_zones 4
 
 	terrain_to_place_on GRASS2
 	avoid_forest_zone 3
