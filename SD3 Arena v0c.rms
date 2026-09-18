@@ -1668,8 +1668,8 @@ set_gaia_object_only
 require_path 0
 actor_area 20092
 actor_area_radius 2
-min_distance_to_players 14
-max_distance_to_players 20
+min_distance_to_players 13
+max_distance_to_players 18
 avoid_forest_zone 3
 min_distance_to_map_edge 3
 avoid_actor_area 20082
@@ -1685,7 +1685,7 @@ number_of_objects 4
 actor_area_to_place_in 20092
 second_object TERRAIN_BLOCKER
 actor_area 20093
-actor_area_radius 3
+actor_area_radius 2
 }
 create_object LURE {
 set_place_for_every_player
@@ -1769,6 +1769,10 @@ temp_min_distance_group_placement 6
 min_distance_group_placement 3
 avoid_actor_area 20010
 actor_area_to_place_in 20011
+avoid_actor_area 20077
+avoid_actor_area 20081
+avoid_actor_area 20085
+avoid_actor_area 20089
 }
 create_object STRAGGLER {
 set_place_for_every_player
@@ -1777,6 +1781,10 @@ number_of_objects 3
 temp_min_distance_group_placement 5
 avoid_actor_area 20013
 actor_area_to_place_in 20014
+avoid_actor_area 20077
+avoid_actor_area 20081
+avoid_actor_area 20085
+avoid_actor_area 20089
 avoid_forest_zone 1
 }
 create_object TERRAIN_BLOCKER {
