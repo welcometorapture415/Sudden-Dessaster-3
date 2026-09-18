@@ -156,7 +156,7 @@ create_terrain WOODIES_B
   spacing_to_other_terrain_types 0
   land_percent 4
   number_of_clumps 6
-  set_avoid_player_start_areas
+  set_avoid_player_start_areas 25
   set_scale_by_groups
 }
 
@@ -184,7 +184,7 @@ create_terrain WOODIES
   number_of_clumps 10
   spacing_to_other_terrain_types 2
 number_of_tiles 20
-  set_avoid_player_start_areas
+  set_avoid_player_start_areas 25
   set_scale_by_size
 }
 
@@ -290,6 +290,7 @@ create_object STRAGGLER
 #define GNR_GIVEHERD_B
 #define GNR_HERD4CLASSIC_A
 #define GNR_HERD22CLASSIC_B
+#const HERDABLE_DISTANCE 10
 #define GNR_HERDBDIST_CL
 
 #define GNR_GIVEHUNT
