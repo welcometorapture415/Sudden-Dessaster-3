@@ -4,6 +4,11 @@
  */
 #const TC_TECH 187
 #const CUMAN_TC 218
+#const SPRUCE_FOREST 131
+#const SPRUCE_SNOW_FOREST 132
+#const RAVEN 2578
+#const TREE_SPRUCE 2731
+#const ELK 2737
 if ANTIQUITY_MODE
 #define ADMIN_RESTART
 elseif RANDOM_MAP
@@ -56,6 +61,17 @@ endif
 #const GATE_16 673
 #const PLAYER_TERRAIN_PLACEHOLDER ROAD
 #const MIDDLE_TERRAIN_PLACEHOLDER ROAD2
+if WALRUS
+start_random
+percent_chance 14 #define THEME_AFRICAN
+percent_chance 14 #define THEME_ALPINE
+percent_chance 14 #define THEME_EAST_ASIAN
+percent_chance 15 #define THEME_GRASS
+percent_chance 14 #define THEME_MESOAMERICAN
+percent_chance 14 #define THEME_SOUTH_AMERICAN
+percent_chance 15 #define THEME_VIKING
+end_random
+else
 start_random
 percent_chance 17 #define THEME_AFRICAN
 percent_chance 17 #define THEME_ALPINE
@@ -64,6 +80,7 @@ percent_chance 17 #define THEME_GRASS
 percent_chance 16 #define THEME_MESOAMERICAN
 percent_chance 16 #define THEME_SOUTH_AMERICAN
 end_random
+endif
 if THEME_AFRICAN
 #const PRIMARY_FOREST DLC_DRAGONFOREST
 #const SECONDARY_FOREST DLC_BAOBABFOREST
@@ -184,6 +201,27 @@ end_random
 #const FOX RED_FOX
 #const STRAGGLER TREE_BRAZILWOOD
 #const BIRDS FLAMINGO
+elseif THEME_VIKING
+#const PRIMARY_FOREST SPRUCE_FOREST
+#const SECONDARY_FOREST SPRUCE_SNOW_FOREST
+#const MIDDLE_TERRAIN GRASS2
+#const PLAYER_TERRAIN GRASS
+#const MIDDLE_PATCH_0 GRASS
+#const MIDDLE_PATCH_1 GRASS3
+#const MIDDLE_PATCH_2 SNOW_SOFT_LIGHT
+#const PLAYER_PATCH_0 GRASS2
+#const PLAYER_PATCH_1 SNOW_SOFT_LIGHT
+#const BERRIES FORAGE
+#const HERDABLE_A SHEEP
+start_random
+percent_chance 50 #const HUNT DEER
+percent_chance 50 #const HUNT DLC_IBEX
+end_random
+#const LURE ELK
+#const HERDABLE_B SHEEP
+#const FOX ARCTIC_FOX
+#const STRAGGLER TREE_SPRUCE
+#const BIRDS RAVEN
 endif
 #const PHOFF 1902
 #const PHON 1543
@@ -788,6 +826,24 @@ land_percent 1
 number_of_clumps 8
 terrain_mask 1
 }
+if THEME_ALPINE
+create_terrain SNOW_FOREST {
+base_terrain PINE_FOREST
+number_of_tiles 1024
+number_of_clumps 256
+}
+elseif THEME_VIKING
+create_terrain SPRUCE_FOREST {
+base_terrain SPRUCE_SNOW_FOREST
+number_of_tiles 32
+number_of_clumps 32
+}
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SPRUCE_FOREST
+number_of_tiles 1024
+number_of_clumps 256
+}
+endif
 <OBJECTS_GENERATION>
 create_object PHON {
 place_on_specific_land_id 10
