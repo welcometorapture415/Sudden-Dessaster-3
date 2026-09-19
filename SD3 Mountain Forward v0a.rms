@@ -98,7 +98,7 @@ direct_placement
 	#const FELLED_TREE 1539
 	#const FORT_WALL 2678
 	#const WOODEN_FORT 2600
-
+	#const BLOCKER 1613
     base_terrain GRASS
 
     start_random
@@ -1213,16 +1213,61 @@ endif
         spacing_to_other_terrain_types 1
 		terrain_mask 0
     }
-		create_terrain SNOW_FOREST {
+			create_terrain GRASS_SNOW {
         base_terrain SNOW
-		number_of_clumps 15
+		number_of_clumps 100
+        land_percent 3699
+        spacing_to_other_terrain_types 1
+    }
+				create_terrain GRASS_SNOW {
+        base_terrain SNOW
+		number_of_clumps 100
+        land_percent 3699
+        spacing_to_other_terrain_types 1
+    }
+	create_terrain GRASS_SNOW {
+        base_terrain SNOW
+		number_of_clumps 100
+        land_percent 3699
+        spacing_to_other_terrain_types 1
+    }
+	create_terrain GRASS_SNOW {
+        base_terrain SNOW
+		number_of_clumps 100
+        land_percent 3699
+        spacing_to_other_terrain_types 1
+    }
+		create_terrain DLC_ROCK {
+        base_terrain GRASS_SNOW
+		number_of_clumps 3699
+        land_percent 100
+    }
+	create_terrain DLC_WATER4 {
+        base_terrain DLC_ROCK
+		number_of_clumps 20
         land_percent 5
-        spacing_to_other_terrain_types 0
-		terrain_mask 0
+		terrain_mask 1
+		spacing_to_other_terrain_types 1
     }
 
 <OBJECTS_GENERATION>
 
+	create_object RELIC {
+        number_of_objects 5
+		temp_min_distance_group_placement 25
+		min_distance_to_players 20
+        min_distance_to_map_edge 2
+		terrain_to_place_on DLC_ROCK
+		layer_to_place_on DLC_WATER4
+    }
+    create_object BLOCKER {
+        number_of_objects 1
+        number_of_groups 9999
+        set_tight_grouping
+        set_gaia_object_only
+		set_gaia_unconvertible
+		terrain_to_place_on DLC_ROCK
+    }
 #const FORTIFIED_PALISADE_WALL 119
 
     create_actor_area 60 60 1 50
@@ -1269,7 +1314,15 @@ create_object FORT_WALL
 	max_distance_to_players 20
 	generate_for_first_land_only
 }
-
+   create_object WOODEN_FORT {
+        set_place_for_every_player
+		min_distance_to_players 8
+		max_distance_to_players 10
+		find_closest
+		set_tight_grouping
+		avoid_forest_zone 4
+		layer_to_place_on GRAVEL
+    }
     create_object VILLAGER {
         set_tight_grouping
         set_place_for_every_player
@@ -1283,12 +1336,7 @@ create_object FORT_WALL
         max_distance_to_players 9
     }
 
-	create_object RELIC {
-        number_of_objects 5
-		temp_min_distance_group_placement 45
-		min_distance_to_players 30
-        min_distance_to_map_edge 2
-    }
+
 
     create_object TURKEY {
         number_of_objects 4
@@ -1336,7 +1384,7 @@ create_object FORT_WALL
 		actor_area 101
 		actor_area_radius 1
 		terrain_to_place_on PASTURE1
-min_distance_group_placement 5
+		min_distance_group_placement 5
     }
    create_object SETTLEMENT {
         set_place_for_every_player
@@ -1346,14 +1394,7 @@ min_distance_group_placement 5
 		avoid_forest_zone 4
 		layer_to_place_on PASTURE1
     }
-   create_object WOODEN_FORT {
-        set_place_for_every_player
-		min_distance_to_players 6
-		max_distance_to_players 9
-		find_closest
-		avoid_forest_zone 4
-		layer_to_place_on GRAVEL
-    }
+
 
     create_object FORAGE {
         number_of_objects 4
@@ -1421,14 +1462,14 @@ min_distance_group_placement 5
     }
 
 
-   create_object YURT_A {
+   create_object HOUSE {
         set_place_for_every_player
 		min_distance_to_players 8
 		max_distance_to_players 10
 	min_distance_group_placement 4
 		avoid_forest_zone 3
     }
-   create_object YURT_B {
+   create_object HOUSE {
         set_place_for_every_player
 		min_distance_to_players 8
 		max_distance_to_players 10
