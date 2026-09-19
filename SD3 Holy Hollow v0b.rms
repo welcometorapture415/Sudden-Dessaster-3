@@ -160,8 +160,9 @@ effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 3056 /* = all buildings (11) * 
 effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 1786 /* = KEG (6) * 256 = 1536 + 250 damage - therefore 250 KEG damage */
 effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ARMOR 772 /* 4 Pierce armor */
 
-
-
+effect_amount GAIA_SET_ATTRIBUTE YURT_8 ATTR_HITPOINTS 20
+effect_amount GAIA_SET_ATTRIBUTE YURT_9 ATTR_HITPOINTS 20
+effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_HITPOINTS 20
 
 
 
