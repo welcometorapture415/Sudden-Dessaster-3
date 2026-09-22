@@ -608,11 +608,10 @@ create_terrain WOODIES
 {
   base_terrain                   LAYER_A
   spacing_to_other_terrain_types 3
-  land_percent                   50
+  land_percent                   38
   number_of_clumps               9319
-  set_avoid_player_start_areas    24
+  set_avoid_player_start_areas    30
   set_scale_by_groups
-
 }
 /* PRIMARY PATCH */
 
@@ -843,14 +842,16 @@ create_object STONE
 
 create_object PREDATOR_A
 {
-  number_of_objects          2
+  number_of_objects          3
+  temp_min_distance_group_placement 8
   set_gaia_object_only
   set_place_for_every_player
   min_distance_group_placement 2
-  min_distance_to_players    40
-  max_distance_to_players    50
-  avoid_forest_zone 2
-
+  min_distance_to_players    25
+  max_distance_to_players    45
+  avoid_forest_zone 1
+	place_on_forest_zone
+	require_path
 }
 create_object RELIC
 {

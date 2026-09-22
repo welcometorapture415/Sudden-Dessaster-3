@@ -1,0 +1,5433 @@
+/*
+ * Mountain Forward for Sudden Dessaster 3.
+ * Edited by T-West September 2026.
+ * Based on the winning map contest submission by Hai.
+ */
+#const TC_TECH 187
+#const CUMAN_TC 218
+if ANTIQUITY_MODE
+#define ADMIN_RESTART
+elseif RANDOM_MAP
+if REGICIDE
+#define ADMIN_RESTART
+elseif EMPIRE_WARS
+#define ADMIN_RESTART
+elseif SUDDEN_DEATH
+#define ADMIN_RESTART
+endif
+else
+#define ADMIN_RESTART
+endif
+if TINY_MAP
+else
+#define ADMIN_RESTART
+endif
+if DEFAULT_RESOURCES
+else
+#define ADMIN_RESTART
+endif
+if DARK_AGE_START
+else
+#define ADMIN_RESTART
+endif
+if TURBO_MODE
+#define ADMIN_RESTART
+endif
+if ADMIN_RESTART
+#const GUARD_STATE_OBJECT SABOTEUR
+else
+#const GUARD_STATE_OBJECT TOWN_CENTER
+endif
+#const AMPLITUDE 8
+#const NUM_PERIODS 2
+#const PERIOD_MULTIPLIER (3.6 * NUM_PERIODS)
+#const OFFSET rnd(0,359)
+#const AMPLITUDE2 (AMPLITUDE / 3)
+#const RANDOM_INCREASE rnd(1,3)
+#const NUM_PERIODS2 (NUM_PERIODS * 2 + RANDOM_INCREASE)
+#const PERIOD_MULTIPLIER2 (3.6 * NUM_PERIODS2)
+#const OFFSET2 rnd(0,359)
+#const T_0 (0 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_0 (T_0 % 360 + 360 % 360 * -1 + 180)
+#const ST_0 (RT_0 * 2 + 1 % 2)
+#const PT_0 (180 * ST_0 - RT_0 * RT_0)
+#const DT_0 (40500 - PT_0)
+#const SIN_T_0 (ST_0 * 4 * PT_0 / DT_0)
+#const T2_0 (0 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_0 (T2_0 % 360 + 360 % 360 * -1 + 180)
+#const ST2_0 (RT2_0 * 2 + 1 % 2)
+#const PT2_0 (180 * ST2_0 - RT2_0 * RT2_0)
+#const DT2_0 (40500 - PT2_0)
+#const SIN_T2_0 (ST2_0 * 4 * PT2_0 / DT2_0)
+#const TEMP_0 (AMPLITUDE * SIN_T_0)
+#const Y_0 (AMPLITUDE2 * SIN_T2_0 + TEMP_0 + 50)
+#const T_1 (1 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_1 (T_1 % 360 + 360 % 360 * -1 + 180)
+#const ST_1 (RT_1 * 2 + 1 % 2)
+#const PT_1 (180 * ST_1 - RT_1 * RT_1)
+#const DT_1 (40500 - PT_1)
+#const SIN_T_1 (ST_1 * 4 * PT_1 / DT_1)
+#const T2_1 (1 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_1 (T2_1 % 360 + 360 % 360 * -1 + 180)
+#const ST2_1 (RT2_1 * 2 + 1 % 2)
+#const PT2_1 (180 * ST2_1 - RT2_1 * RT2_1)
+#const DT2_1 (40500 - PT2_1)
+#const SIN_T2_1 (ST2_1 * 4 * PT2_1 / DT2_1)
+#const TEMP_1 (AMPLITUDE * SIN_T_1)
+#const Y_1 (AMPLITUDE2 * SIN_T2_1 + TEMP_1 + 50)
+#const T_2 (2 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_2 (T_2 % 360 + 360 % 360 * -1 + 180)
+#const ST_2 (RT_2 * 2 + 1 % 2)
+#const PT_2 (180 * ST_2 - RT_2 * RT_2)
+#const DT_2 (40500 - PT_2)
+#const SIN_T_2 (ST_2 * 4 * PT_2 / DT_2)
+#const T2_2 (2 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_2 (T2_2 % 360 + 360 % 360 * -1 + 180)
+#const ST2_2 (RT2_2 * 2 + 1 % 2)
+#const PT2_2 (180 * ST2_2 - RT2_2 * RT2_2)
+#const DT2_2 (40500 - PT2_2)
+#const SIN_T2_2 (ST2_2 * 4 * PT2_2 / DT2_2)
+#const TEMP_2 (AMPLITUDE * SIN_T_2)
+#const Y_2 (AMPLITUDE2 * SIN_T2_2 + TEMP_2 + 50)
+#const T_3 (3 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_3 (T_3 % 360 + 360 % 360 * -1 + 180)
+#const ST_3 (RT_3 * 2 + 1 % 2)
+#const PT_3 (180 * ST_3 - RT_3 * RT_3)
+#const DT_3 (40500 - PT_3)
+#const SIN_T_3 (ST_3 * 4 * PT_3 / DT_3)
+#const T2_3 (3 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_3 (T2_3 % 360 + 360 % 360 * -1 + 180)
+#const ST2_3 (RT2_3 * 2 + 1 % 2)
+#const PT2_3 (180 * ST2_3 - RT2_3 * RT2_3)
+#const DT2_3 (40500 - PT2_3)
+#const SIN_T2_3 (ST2_3 * 4 * PT2_3 / DT2_3)
+#const TEMP_3 (AMPLITUDE * SIN_T_3)
+#const Y_3 (AMPLITUDE2 * SIN_T2_3 + TEMP_3 + 50)
+#const T_4 (4 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_4 (T_4 % 360 + 360 % 360 * -1 + 180)
+#const ST_4 (RT_4 * 2 + 1 % 2)
+#const PT_4 (180 * ST_4 - RT_4 * RT_4)
+#const DT_4 (40500 - PT_4)
+#const SIN_T_4 (ST_4 * 4 * PT_4 / DT_4)
+#const T2_4 (4 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_4 (T2_4 % 360 + 360 % 360 * -1 + 180)
+#const ST2_4 (RT2_4 * 2 + 1 % 2)
+#const PT2_4 (180 * ST2_4 - RT2_4 * RT2_4)
+#const DT2_4 (40500 - PT2_4)
+#const SIN_T2_4 (ST2_4 * 4 * PT2_4 / DT2_4)
+#const TEMP_4 (AMPLITUDE * SIN_T_4)
+#const Y_4 (AMPLITUDE2 * SIN_T2_4 + TEMP_4 + 50)
+#const T_5 (5 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_5 (T_5 % 360 + 360 % 360 * -1 + 180)
+#const ST_5 (RT_5 * 2 + 1 % 2)
+#const PT_5 (180 * ST_5 - RT_5 * RT_5)
+#const DT_5 (40500 - PT_5)
+#const SIN_T_5 (ST_5 * 4 * PT_5 / DT_5)
+#const T2_5 (5 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_5 (T2_5 % 360 + 360 % 360 * -1 + 180)
+#const ST2_5 (RT2_5 * 2 + 1 % 2)
+#const PT2_5 (180 * ST2_5 - RT2_5 * RT2_5)
+#const DT2_5 (40500 - PT2_5)
+#const SIN_T2_5 (ST2_5 * 4 * PT2_5 / DT2_5)
+#const TEMP_5 (AMPLITUDE * SIN_T_5)
+#const Y_5 (AMPLITUDE2 * SIN_T2_5 + TEMP_5 + 50)
+#const T_6 (6 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_6 (T_6 % 360 + 360 % 360 * -1 + 180)
+#const ST_6 (RT_6 * 2 + 1 % 2)
+#const PT_6 (180 * ST_6 - RT_6 * RT_6)
+#const DT_6 (40500 - PT_6)
+#const SIN_T_6 (ST_6 * 4 * PT_6 / DT_6)
+#const T2_6 (6 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_6 (T2_6 % 360 + 360 % 360 * -1 + 180)
+#const ST2_6 (RT2_6 * 2 + 1 % 2)
+#const PT2_6 (180 * ST2_6 - RT2_6 * RT2_6)
+#const DT2_6 (40500 - PT2_6)
+#const SIN_T2_6 (ST2_6 * 4 * PT2_6 / DT2_6)
+#const TEMP_6 (AMPLITUDE * SIN_T_6)
+#const Y_6 (AMPLITUDE2 * SIN_T2_6 + TEMP_6 + 50)
+#const T_7 (7 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_7 (T_7 % 360 + 360 % 360 * -1 + 180)
+#const ST_7 (RT_7 * 2 + 1 % 2)
+#const PT_7 (180 * ST_7 - RT_7 * RT_7)
+#const DT_7 (40500 - PT_7)
+#const SIN_T_7 (ST_7 * 4 * PT_7 / DT_7)
+#const T2_7 (7 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_7 (T2_7 % 360 + 360 % 360 * -1 + 180)
+#const ST2_7 (RT2_7 * 2 + 1 % 2)
+#const PT2_7 (180 * ST2_7 - RT2_7 * RT2_7)
+#const DT2_7 (40500 - PT2_7)
+#const SIN_T2_7 (ST2_7 * 4 * PT2_7 / DT2_7)
+#const TEMP_7 (AMPLITUDE * SIN_T_7)
+#const Y_7 (AMPLITUDE2 * SIN_T2_7 + TEMP_7 + 50)
+#const T_8 (8 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_8 (T_8 % 360 + 360 % 360 * -1 + 180)
+#const ST_8 (RT_8 * 2 + 1 % 2)
+#const PT_8 (180 * ST_8 - RT_8 * RT_8)
+#const DT_8 (40500 - PT_8)
+#const SIN_T_8 (ST_8 * 4 * PT_8 / DT_8)
+#const T2_8 (8 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_8 (T2_8 % 360 + 360 % 360 * -1 + 180)
+#const ST2_8 (RT2_8 * 2 + 1 % 2)
+#const PT2_8 (180 * ST2_8 - RT2_8 * RT2_8)
+#const DT2_8 (40500 - PT2_8)
+#const SIN_T2_8 (ST2_8 * 4 * PT2_8 / DT2_8)
+#const TEMP_8 (AMPLITUDE * SIN_T_8)
+#const Y_8 (AMPLITUDE2 * SIN_T2_8 + TEMP_8 + 50)
+#const T_9 (9 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_9 (T_9 % 360 + 360 % 360 * -1 + 180)
+#const ST_9 (RT_9 * 2 + 1 % 2)
+#const PT_9 (180 * ST_9 - RT_9 * RT_9)
+#const DT_9 (40500 - PT_9)
+#const SIN_T_9 (ST_9 * 4 * PT_9 / DT_9)
+#const T2_9 (9 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_9 (T2_9 % 360 + 360 % 360 * -1 + 180)
+#const ST2_9 (RT2_9 * 2 + 1 % 2)
+#const PT2_9 (180 * ST2_9 - RT2_9 * RT2_9)
+#const DT2_9 (40500 - PT2_9)
+#const SIN_T2_9 (ST2_9 * 4 * PT2_9 / DT2_9)
+#const TEMP_9 (AMPLITUDE * SIN_T_9)
+#const Y_9 (AMPLITUDE2 * SIN_T2_9 + TEMP_9 + 50)
+#const T_10 (10 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_10 (T_10 % 360 + 360 % 360 * -1 + 180)
+#const ST_10 (RT_10 * 2 + 1 % 2)
+#const PT_10 (180 * ST_10 - RT_10 * RT_10)
+#const DT_10 (40500 - PT_10)
+#const SIN_T_10 (ST_10 * 4 * PT_10 / DT_10)
+#const T2_10 (10 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_10 (T2_10 % 360 + 360 % 360 * -1 + 180)
+#const ST2_10 (RT2_10 * 2 + 1 % 2)
+#const PT2_10 (180 * ST2_10 - RT2_10 * RT2_10)
+#const DT2_10 (40500 - PT2_10)
+#const SIN_T2_10 (ST2_10 * 4 * PT2_10 / DT2_10)
+#const TEMP_10 (AMPLITUDE * SIN_T_10)
+#const Y_10 (AMPLITUDE2 * SIN_T2_10 + TEMP_10 + 50)
+#const T_11 (11 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_11 (T_11 % 360 + 360 % 360 * -1 + 180)
+#const ST_11 (RT_11 * 2 + 1 % 2)
+#const PT_11 (180 * ST_11 - RT_11 * RT_11)
+#const DT_11 (40500 - PT_11)
+#const SIN_T_11 (ST_11 * 4 * PT_11 / DT_11)
+#const T2_11 (11 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_11 (T2_11 % 360 + 360 % 360 * -1 + 180)
+#const ST2_11 (RT2_11 * 2 + 1 % 2)
+#const PT2_11 (180 * ST2_11 - RT2_11 * RT2_11)
+#const DT2_11 (40500 - PT2_11)
+#const SIN_T2_11 (ST2_11 * 4 * PT2_11 / DT2_11)
+#const TEMP_11 (AMPLITUDE * SIN_T_11)
+#const Y_11 (AMPLITUDE2 * SIN_T2_11 + TEMP_11 + 50)
+#const T_12 (12 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_12 (T_12 % 360 + 360 % 360 * -1 + 180)
+#const ST_12 (RT_12 * 2 + 1 % 2)
+#const PT_12 (180 * ST_12 - RT_12 * RT_12)
+#const DT_12 (40500 - PT_12)
+#const SIN_T_12 (ST_12 * 4 * PT_12 / DT_12)
+#const T2_12 (12 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_12 (T2_12 % 360 + 360 % 360 * -1 + 180)
+#const ST2_12 (RT2_12 * 2 + 1 % 2)
+#const PT2_12 (180 * ST2_12 - RT2_12 * RT2_12)
+#const DT2_12 (40500 - PT2_12)
+#const SIN_T2_12 (ST2_12 * 4 * PT2_12 / DT2_12)
+#const TEMP_12 (AMPLITUDE * SIN_T_12)
+#const Y_12 (AMPLITUDE2 * SIN_T2_12 + TEMP_12 + 50)
+#const T_13 (13 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_13 (T_13 % 360 + 360 % 360 * -1 + 180)
+#const ST_13 (RT_13 * 2 + 1 % 2)
+#const PT_13 (180 * ST_13 - RT_13 * RT_13)
+#const DT_13 (40500 - PT_13)
+#const SIN_T_13 (ST_13 * 4 * PT_13 / DT_13)
+#const T2_13 (13 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_13 (T2_13 % 360 + 360 % 360 * -1 + 180)
+#const ST2_13 (RT2_13 * 2 + 1 % 2)
+#const PT2_13 (180 * ST2_13 - RT2_13 * RT2_13)
+#const DT2_13 (40500 - PT2_13)
+#const SIN_T2_13 (ST2_13 * 4 * PT2_13 / DT2_13)
+#const TEMP_13 (AMPLITUDE * SIN_T_13)
+#const Y_13 (AMPLITUDE2 * SIN_T2_13 + TEMP_13 + 50)
+#const T_14 (14 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_14 (T_14 % 360 + 360 % 360 * -1 + 180)
+#const ST_14 (RT_14 * 2 + 1 % 2)
+#const PT_14 (180 * ST_14 - RT_14 * RT_14)
+#const DT_14 (40500 - PT_14)
+#const SIN_T_14 (ST_14 * 4 * PT_14 / DT_14)
+#const T2_14 (14 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_14 (T2_14 % 360 + 360 % 360 * -1 + 180)
+#const ST2_14 (RT2_14 * 2 + 1 % 2)
+#const PT2_14 (180 * ST2_14 - RT2_14 * RT2_14)
+#const DT2_14 (40500 - PT2_14)
+#const SIN_T2_14 (ST2_14 * 4 * PT2_14 / DT2_14)
+#const TEMP_14 (AMPLITUDE * SIN_T_14)
+#const Y_14 (AMPLITUDE2 * SIN_T2_14 + TEMP_14 + 50)
+#const T_15 (15 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_15 (T_15 % 360 + 360 % 360 * -1 + 180)
+#const ST_15 (RT_15 * 2 + 1 % 2)
+#const PT_15 (180 * ST_15 - RT_15 * RT_15)
+#const DT_15 (40500 - PT_15)
+#const SIN_T_15 (ST_15 * 4 * PT_15 / DT_15)
+#const T2_15 (15 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_15 (T2_15 % 360 + 360 % 360 * -1 + 180)
+#const ST2_15 (RT2_15 * 2 + 1 % 2)
+#const PT2_15 (180 * ST2_15 - RT2_15 * RT2_15)
+#const DT2_15 (40500 - PT2_15)
+#const SIN_T2_15 (ST2_15 * 4 * PT2_15 / DT2_15)
+#const TEMP_15 (AMPLITUDE * SIN_T_15)
+#const Y_15 (AMPLITUDE2 * SIN_T2_15 + TEMP_15 + 50)
+#const T_16 (16 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_16 (T_16 % 360 + 360 % 360 * -1 + 180)
+#const ST_16 (RT_16 * 2 + 1 % 2)
+#const PT_16 (180 * ST_16 - RT_16 * RT_16)
+#const DT_16 (40500 - PT_16)
+#const SIN_T_16 (ST_16 * 4 * PT_16 / DT_16)
+#const T2_16 (16 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_16 (T2_16 % 360 + 360 % 360 * -1 + 180)
+#const ST2_16 (RT2_16 * 2 + 1 % 2)
+#const PT2_16 (180 * ST2_16 - RT2_16 * RT2_16)
+#const DT2_16 (40500 - PT2_16)
+#const SIN_T2_16 (ST2_16 * 4 * PT2_16 / DT2_16)
+#const TEMP_16 (AMPLITUDE * SIN_T_16)
+#const Y_16 (AMPLITUDE2 * SIN_T2_16 + TEMP_16 + 50)
+#const T_17 (17 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_17 (T_17 % 360 + 360 % 360 * -1 + 180)
+#const ST_17 (RT_17 * 2 + 1 % 2)
+#const PT_17 (180 * ST_17 - RT_17 * RT_17)
+#const DT_17 (40500 - PT_17)
+#const SIN_T_17 (ST_17 * 4 * PT_17 / DT_17)
+#const T2_17 (17 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_17 (T2_17 % 360 + 360 % 360 * -1 + 180)
+#const ST2_17 (RT2_17 * 2 + 1 % 2)
+#const PT2_17 (180 * ST2_17 - RT2_17 * RT2_17)
+#const DT2_17 (40500 - PT2_17)
+#const SIN_T2_17 (ST2_17 * 4 * PT2_17 / DT2_17)
+#const TEMP_17 (AMPLITUDE * SIN_T_17)
+#const Y_17 (AMPLITUDE2 * SIN_T2_17 + TEMP_17 + 50)
+#const T_18 (18 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_18 (T_18 % 360 + 360 % 360 * -1 + 180)
+#const ST_18 (RT_18 * 2 + 1 % 2)
+#const PT_18 (180 * ST_18 - RT_18 * RT_18)
+#const DT_18 (40500 - PT_18)
+#const SIN_T_18 (ST_18 * 4 * PT_18 / DT_18)
+#const T2_18 (18 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_18 (T2_18 % 360 + 360 % 360 * -1 + 180)
+#const ST2_18 (RT2_18 * 2 + 1 % 2)
+#const PT2_18 (180 * ST2_18 - RT2_18 * RT2_18)
+#const DT2_18 (40500 - PT2_18)
+#const SIN_T2_18 (ST2_18 * 4 * PT2_18 / DT2_18)
+#const TEMP_18 (AMPLITUDE * SIN_T_18)
+#const Y_18 (AMPLITUDE2 * SIN_T2_18 + TEMP_18 + 50)
+#const T_19 (19 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_19 (T_19 % 360 + 360 % 360 * -1 + 180)
+#const ST_19 (RT_19 * 2 + 1 % 2)
+#const PT_19 (180 * ST_19 - RT_19 * RT_19)
+#const DT_19 (40500 - PT_19)
+#const SIN_T_19 (ST_19 * 4 * PT_19 / DT_19)
+#const T2_19 (19 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_19 (T2_19 % 360 + 360 % 360 * -1 + 180)
+#const ST2_19 (RT2_19 * 2 + 1 % 2)
+#const PT2_19 (180 * ST2_19 - RT2_19 * RT2_19)
+#const DT2_19 (40500 - PT2_19)
+#const SIN_T2_19 (ST2_19 * 4 * PT2_19 / DT2_19)
+#const TEMP_19 (AMPLITUDE * SIN_T_19)
+#const Y_19 (AMPLITUDE2 * SIN_T2_19 + TEMP_19 + 50)
+#const T_20 (20 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_20 (T_20 % 360 + 360 % 360 * -1 + 180)
+#const ST_20 (RT_20 * 2 + 1 % 2)
+#const PT_20 (180 * ST_20 - RT_20 * RT_20)
+#const DT_20 (40500 - PT_20)
+#const SIN_T_20 (ST_20 * 4 * PT_20 / DT_20)
+#const T2_20 (20 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_20 (T2_20 % 360 + 360 % 360 * -1 + 180)
+#const ST2_20 (RT2_20 * 2 + 1 % 2)
+#const PT2_20 (180 * ST2_20 - RT2_20 * RT2_20)
+#const DT2_20 (40500 - PT2_20)
+#const SIN_T2_20 (ST2_20 * 4 * PT2_20 / DT2_20)
+#const TEMP_20 (AMPLITUDE * SIN_T_20)
+#const Y_20 (AMPLITUDE2 * SIN_T2_20 + TEMP_20 + 50)
+#const T_21 (21 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_21 (T_21 % 360 + 360 % 360 * -1 + 180)
+#const ST_21 (RT_21 * 2 + 1 % 2)
+#const PT_21 (180 * ST_21 - RT_21 * RT_21)
+#const DT_21 (40500 - PT_21)
+#const SIN_T_21 (ST_21 * 4 * PT_21 / DT_21)
+#const T2_21 (21 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_21 (T2_21 % 360 + 360 % 360 * -1 + 180)
+#const ST2_21 (RT2_21 * 2 + 1 % 2)
+#const PT2_21 (180 * ST2_21 - RT2_21 * RT2_21)
+#const DT2_21 (40500 - PT2_21)
+#const SIN_T2_21 (ST2_21 * 4 * PT2_21 / DT2_21)
+#const TEMP_21 (AMPLITUDE * SIN_T_21)
+#const Y_21 (AMPLITUDE2 * SIN_T2_21 + TEMP_21 + 50)
+#const T_22 (22 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_22 (T_22 % 360 + 360 % 360 * -1 + 180)
+#const ST_22 (RT_22 * 2 + 1 % 2)
+#const PT_22 (180 * ST_22 - RT_22 * RT_22)
+#const DT_22 (40500 - PT_22)
+#const SIN_T_22 (ST_22 * 4 * PT_22 / DT_22)
+#const T2_22 (22 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_22 (T2_22 % 360 + 360 % 360 * -1 + 180)
+#const ST2_22 (RT2_22 * 2 + 1 % 2)
+#const PT2_22 (180 * ST2_22 - RT2_22 * RT2_22)
+#const DT2_22 (40500 - PT2_22)
+#const SIN_T2_22 (ST2_22 * 4 * PT2_22 / DT2_22)
+#const TEMP_22 (AMPLITUDE * SIN_T_22)
+#const Y_22 (AMPLITUDE2 * SIN_T2_22 + TEMP_22 + 50)
+#const T_23 (23 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_23 (T_23 % 360 + 360 % 360 * -1 + 180)
+#const ST_23 (RT_23 * 2 + 1 % 2)
+#const PT_23 (180 * ST_23 - RT_23 * RT_23)
+#const DT_23 (40500 - PT_23)
+#const SIN_T_23 (ST_23 * 4 * PT_23 / DT_23)
+#const T2_23 (23 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_23 (T2_23 % 360 + 360 % 360 * -1 + 180)
+#const ST2_23 (RT2_23 * 2 + 1 % 2)
+#const PT2_23 (180 * ST2_23 - RT2_23 * RT2_23)
+#const DT2_23 (40500 - PT2_23)
+#const SIN_T2_23 (ST2_23 * 4 * PT2_23 / DT2_23)
+#const TEMP_23 (AMPLITUDE * SIN_T_23)
+#const Y_23 (AMPLITUDE2 * SIN_T2_23 + TEMP_23 + 50)
+#const T_24 (24 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_24 (T_24 % 360 + 360 % 360 * -1 + 180)
+#const ST_24 (RT_24 * 2 + 1 % 2)
+#const PT_24 (180 * ST_24 - RT_24 * RT_24)
+#const DT_24 (40500 - PT_24)
+#const SIN_T_24 (ST_24 * 4 * PT_24 / DT_24)
+#const T2_24 (24 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_24 (T2_24 % 360 + 360 % 360 * -1 + 180)
+#const ST2_24 (RT2_24 * 2 + 1 % 2)
+#const PT2_24 (180 * ST2_24 - RT2_24 * RT2_24)
+#const DT2_24 (40500 - PT2_24)
+#const SIN_T2_24 (ST2_24 * 4 * PT2_24 / DT2_24)
+#const TEMP_24 (AMPLITUDE * SIN_T_24)
+#const Y_24 (AMPLITUDE2 * SIN_T2_24 + TEMP_24 + 50)
+#const T_25 (25 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_25 (T_25 % 360 + 360 % 360 * -1 + 180)
+#const ST_25 (RT_25 * 2 + 1 % 2)
+#const PT_25 (180 * ST_25 - RT_25 * RT_25)
+#const DT_25 (40500 - PT_25)
+#const SIN_T_25 (ST_25 * 4 * PT_25 / DT_25)
+#const T2_25 (25 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_25 (T2_25 % 360 + 360 % 360 * -1 + 180)
+#const ST2_25 (RT2_25 * 2 + 1 % 2)
+#const PT2_25 (180 * ST2_25 - RT2_25 * RT2_25)
+#const DT2_25 (40500 - PT2_25)
+#const SIN_T2_25 (ST2_25 * 4 * PT2_25 / DT2_25)
+#const TEMP_25 (AMPLITUDE * SIN_T_25)
+#const Y_25 (AMPLITUDE2 * SIN_T2_25 + TEMP_25 + 50)
+#const T_26 (26 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_26 (T_26 % 360 + 360 % 360 * -1 + 180)
+#const ST_26 (RT_26 * 2 + 1 % 2)
+#const PT_26 (180 * ST_26 - RT_26 * RT_26)
+#const DT_26 (40500 - PT_26)
+#const SIN_T_26 (ST_26 * 4 * PT_26 / DT_26)
+#const T2_26 (26 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_26 (T2_26 % 360 + 360 % 360 * -1 + 180)
+#const ST2_26 (RT2_26 * 2 + 1 % 2)
+#const PT2_26 (180 * ST2_26 - RT2_26 * RT2_26)
+#const DT2_26 (40500 - PT2_26)
+#const SIN_T2_26 (ST2_26 * 4 * PT2_26 / DT2_26)
+#const TEMP_26 (AMPLITUDE * SIN_T_26)
+#const Y_26 (AMPLITUDE2 * SIN_T2_26 + TEMP_26 + 50)
+#const T_27 (27 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_27 (T_27 % 360 + 360 % 360 * -1 + 180)
+#const ST_27 (RT_27 * 2 + 1 % 2)
+#const PT_27 (180 * ST_27 - RT_27 * RT_27)
+#const DT_27 (40500 - PT_27)
+#const SIN_T_27 (ST_27 * 4 * PT_27 / DT_27)
+#const T2_27 (27 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_27 (T2_27 % 360 + 360 % 360 * -1 + 180)
+#const ST2_27 (RT2_27 * 2 + 1 % 2)
+#const PT2_27 (180 * ST2_27 - RT2_27 * RT2_27)
+#const DT2_27 (40500 - PT2_27)
+#const SIN_T2_27 (ST2_27 * 4 * PT2_27 / DT2_27)
+#const TEMP_27 (AMPLITUDE * SIN_T_27)
+#const Y_27 (AMPLITUDE2 * SIN_T2_27 + TEMP_27 + 50)
+#const T_28 (28 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_28 (T_28 % 360 + 360 % 360 * -1 + 180)
+#const ST_28 (RT_28 * 2 + 1 % 2)
+#const PT_28 (180 * ST_28 - RT_28 * RT_28)
+#const DT_28 (40500 - PT_28)
+#const SIN_T_28 (ST_28 * 4 * PT_28 / DT_28)
+#const T2_28 (28 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_28 (T2_28 % 360 + 360 % 360 * -1 + 180)
+#const ST2_28 (RT2_28 * 2 + 1 % 2)
+#const PT2_28 (180 * ST2_28 - RT2_28 * RT2_28)
+#const DT2_28 (40500 - PT2_28)
+#const SIN_T2_28 (ST2_28 * 4 * PT2_28 / DT2_28)
+#const TEMP_28 (AMPLITUDE * SIN_T_28)
+#const Y_28 (AMPLITUDE2 * SIN_T2_28 + TEMP_28 + 50)
+#const T_29 (29 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_29 (T_29 % 360 + 360 % 360 * -1 + 180)
+#const ST_29 (RT_29 * 2 + 1 % 2)
+#const PT_29 (180 * ST_29 - RT_29 * RT_29)
+#const DT_29 (40500 - PT_29)
+#const SIN_T_29 (ST_29 * 4 * PT_29 / DT_29)
+#const T2_29 (29 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_29 (T2_29 % 360 + 360 % 360 * -1 + 180)
+#const ST2_29 (RT2_29 * 2 + 1 % 2)
+#const PT2_29 (180 * ST2_29 - RT2_29 * RT2_29)
+#const DT2_29 (40500 - PT2_29)
+#const SIN_T2_29 (ST2_29 * 4 * PT2_29 / DT2_29)
+#const TEMP_29 (AMPLITUDE * SIN_T_29)
+#const Y_29 (AMPLITUDE2 * SIN_T2_29 + TEMP_29 + 50)
+#const T_30 (30 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_30 (T_30 % 360 + 360 % 360 * -1 + 180)
+#const ST_30 (RT_30 * 2 + 1 % 2)
+#const PT_30 (180 * ST_30 - RT_30 * RT_30)
+#const DT_30 (40500 - PT_30)
+#const SIN_T_30 (ST_30 * 4 * PT_30 / DT_30)
+#const T2_30 (30 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_30 (T2_30 % 360 + 360 % 360 * -1 + 180)
+#const ST2_30 (RT2_30 * 2 + 1 % 2)
+#const PT2_30 (180 * ST2_30 - RT2_30 * RT2_30)
+#const DT2_30 (40500 - PT2_30)
+#const SIN_T2_30 (ST2_30 * 4 * PT2_30 / DT2_30)
+#const TEMP_30 (AMPLITUDE * SIN_T_30)
+#const Y_30 (AMPLITUDE2 * SIN_T2_30 + TEMP_30 + 50)
+#const T_31 (31 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_31 (T_31 % 360 + 360 % 360 * -1 + 180)
+#const ST_31 (RT_31 * 2 + 1 % 2)
+#const PT_31 (180 * ST_31 - RT_31 * RT_31)
+#const DT_31 (40500 - PT_31)
+#const SIN_T_31 (ST_31 * 4 * PT_31 / DT_31)
+#const T2_31 (31 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_31 (T2_31 % 360 + 360 % 360 * -1 + 180)
+#const ST2_31 (RT2_31 * 2 + 1 % 2)
+#const PT2_31 (180 * ST2_31 - RT2_31 * RT2_31)
+#const DT2_31 (40500 - PT2_31)
+#const SIN_T2_31 (ST2_31 * 4 * PT2_31 / DT2_31)
+#const TEMP_31 (AMPLITUDE * SIN_T_31)
+#const Y_31 (AMPLITUDE2 * SIN_T2_31 + TEMP_31 + 50)
+#const T_32 (32 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_32 (T_32 % 360 + 360 % 360 * -1 + 180)
+#const ST_32 (RT_32 * 2 + 1 % 2)
+#const PT_32 (180 * ST_32 - RT_32 * RT_32)
+#const DT_32 (40500 - PT_32)
+#const SIN_T_32 (ST_32 * 4 * PT_32 / DT_32)
+#const T2_32 (32 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_32 (T2_32 % 360 + 360 % 360 * -1 + 180)
+#const ST2_32 (RT2_32 * 2 + 1 % 2)
+#const PT2_32 (180 * ST2_32 - RT2_32 * RT2_32)
+#const DT2_32 (40500 - PT2_32)
+#const SIN_T2_32 (ST2_32 * 4 * PT2_32 / DT2_32)
+#const TEMP_32 (AMPLITUDE * SIN_T_32)
+#const Y_32 (AMPLITUDE2 * SIN_T2_32 + TEMP_32 + 50)
+#const T_33 (33 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_33 (T_33 % 360 + 360 % 360 * -1 + 180)
+#const ST_33 (RT_33 * 2 + 1 % 2)
+#const PT_33 (180 * ST_33 - RT_33 * RT_33)
+#const DT_33 (40500 - PT_33)
+#const SIN_T_33 (ST_33 * 4 * PT_33 / DT_33)
+#const T2_33 (33 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_33 (T2_33 % 360 + 360 % 360 * -1 + 180)
+#const ST2_33 (RT2_33 * 2 + 1 % 2)
+#const PT2_33 (180 * ST2_33 - RT2_33 * RT2_33)
+#const DT2_33 (40500 - PT2_33)
+#const SIN_T2_33 (ST2_33 * 4 * PT2_33 / DT2_33)
+#const TEMP_33 (AMPLITUDE * SIN_T_33)
+#const Y_33 (AMPLITUDE2 * SIN_T2_33 + TEMP_33 + 50)
+#const T_34 (34 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_34 (T_34 % 360 + 360 % 360 * -1 + 180)
+#const ST_34 (RT_34 * 2 + 1 % 2)
+#const PT_34 (180 * ST_34 - RT_34 * RT_34)
+#const DT_34 (40500 - PT_34)
+#const SIN_T_34 (ST_34 * 4 * PT_34 / DT_34)
+#const T2_34 (34 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_34 (T2_34 % 360 + 360 % 360 * -1 + 180)
+#const ST2_34 (RT2_34 * 2 + 1 % 2)
+#const PT2_34 (180 * ST2_34 - RT2_34 * RT2_34)
+#const DT2_34 (40500 - PT2_34)
+#const SIN_T2_34 (ST2_34 * 4 * PT2_34 / DT2_34)
+#const TEMP_34 (AMPLITUDE * SIN_T_34)
+#const Y_34 (AMPLITUDE2 * SIN_T2_34 + TEMP_34 + 50)
+#const T_35 (35 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_35 (T_35 % 360 + 360 % 360 * -1 + 180)
+#const ST_35 (RT_35 * 2 + 1 % 2)
+#const PT_35 (180 * ST_35 - RT_35 * RT_35)
+#const DT_35 (40500 - PT_35)
+#const SIN_T_35 (ST_35 * 4 * PT_35 / DT_35)
+#const T2_35 (35 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_35 (T2_35 % 360 + 360 % 360 * -1 + 180)
+#const ST2_35 (RT2_35 * 2 + 1 % 2)
+#const PT2_35 (180 * ST2_35 - RT2_35 * RT2_35)
+#const DT2_35 (40500 - PT2_35)
+#const SIN_T2_35 (ST2_35 * 4 * PT2_35 / DT2_35)
+#const TEMP_35 (AMPLITUDE * SIN_T_35)
+#const Y_35 (AMPLITUDE2 * SIN_T2_35 + TEMP_35 + 50)
+#const T_36 (36 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_36 (T_36 % 360 + 360 % 360 * -1 + 180)
+#const ST_36 (RT_36 * 2 + 1 % 2)
+#const PT_36 (180 * ST_36 - RT_36 * RT_36)
+#const DT_36 (40500 - PT_36)
+#const SIN_T_36 (ST_36 * 4 * PT_36 / DT_36)
+#const T2_36 (36 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_36 (T2_36 % 360 + 360 % 360 * -1 + 180)
+#const ST2_36 (RT2_36 * 2 + 1 % 2)
+#const PT2_36 (180 * ST2_36 - RT2_36 * RT2_36)
+#const DT2_36 (40500 - PT2_36)
+#const SIN_T2_36 (ST2_36 * 4 * PT2_36 / DT2_36)
+#const TEMP_36 (AMPLITUDE * SIN_T_36)
+#const Y_36 (AMPLITUDE2 * SIN_T2_36 + TEMP_36 + 50)
+#const T_37 (37 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_37 (T_37 % 360 + 360 % 360 * -1 + 180)
+#const ST_37 (RT_37 * 2 + 1 % 2)
+#const PT_37 (180 * ST_37 - RT_37 * RT_37)
+#const DT_37 (40500 - PT_37)
+#const SIN_T_37 (ST_37 * 4 * PT_37 / DT_37)
+#const T2_37 (37 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_37 (T2_37 % 360 + 360 % 360 * -1 + 180)
+#const ST2_37 (RT2_37 * 2 + 1 % 2)
+#const PT2_37 (180 * ST2_37 - RT2_37 * RT2_37)
+#const DT2_37 (40500 - PT2_37)
+#const SIN_T2_37 (ST2_37 * 4 * PT2_37 / DT2_37)
+#const TEMP_37 (AMPLITUDE * SIN_T_37)
+#const Y_37 (AMPLITUDE2 * SIN_T2_37 + TEMP_37 + 50)
+#const T_38 (38 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_38 (T_38 % 360 + 360 % 360 * -1 + 180)
+#const ST_38 (RT_38 * 2 + 1 % 2)
+#const PT_38 (180 * ST_38 - RT_38 * RT_38)
+#const DT_38 (40500 - PT_38)
+#const SIN_T_38 (ST_38 * 4 * PT_38 / DT_38)
+#const T2_38 (38 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_38 (T2_38 % 360 + 360 % 360 * -1 + 180)
+#const ST2_38 (RT2_38 * 2 + 1 % 2)
+#const PT2_38 (180 * ST2_38 - RT2_38 * RT2_38)
+#const DT2_38 (40500 - PT2_38)
+#const SIN_T2_38 (ST2_38 * 4 * PT2_38 / DT2_38)
+#const TEMP_38 (AMPLITUDE * SIN_T_38)
+#const Y_38 (AMPLITUDE2 * SIN_T2_38 + TEMP_38 + 50)
+#const T_39 (39 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_39 (T_39 % 360 + 360 % 360 * -1 + 180)
+#const ST_39 (RT_39 * 2 + 1 % 2)
+#const PT_39 (180 * ST_39 - RT_39 * RT_39)
+#const DT_39 (40500 - PT_39)
+#const SIN_T_39 (ST_39 * 4 * PT_39 / DT_39)
+#const T2_39 (39 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_39 (T2_39 % 360 + 360 % 360 * -1 + 180)
+#const ST2_39 (RT2_39 * 2 + 1 % 2)
+#const PT2_39 (180 * ST2_39 - RT2_39 * RT2_39)
+#const DT2_39 (40500 - PT2_39)
+#const SIN_T2_39 (ST2_39 * 4 * PT2_39 / DT2_39)
+#const TEMP_39 (AMPLITUDE * SIN_T_39)
+#const Y_39 (AMPLITUDE2 * SIN_T2_39 + TEMP_39 + 50)
+#const T_40 (40 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_40 (T_40 % 360 + 360 % 360 * -1 + 180)
+#const ST_40 (RT_40 * 2 + 1 % 2)
+#const PT_40 (180 * ST_40 - RT_40 * RT_40)
+#const DT_40 (40500 - PT_40)
+#const SIN_T_40 (ST_40 * 4 * PT_40 / DT_40)
+#const T2_40 (40 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_40 (T2_40 % 360 + 360 % 360 * -1 + 180)
+#const ST2_40 (RT2_40 * 2 + 1 % 2)
+#const PT2_40 (180 * ST2_40 - RT2_40 * RT2_40)
+#const DT2_40 (40500 - PT2_40)
+#const SIN_T2_40 (ST2_40 * 4 * PT2_40 / DT2_40)
+#const TEMP_40 (AMPLITUDE * SIN_T_40)
+#const Y_40 (AMPLITUDE2 * SIN_T2_40 + TEMP_40 + 50)
+#const T_41 (41 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_41 (T_41 % 360 + 360 % 360 * -1 + 180)
+#const ST_41 (RT_41 * 2 + 1 % 2)
+#const PT_41 (180 * ST_41 - RT_41 * RT_41)
+#const DT_41 (40500 - PT_41)
+#const SIN_T_41 (ST_41 * 4 * PT_41 / DT_41)
+#const T2_41 (41 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_41 (T2_41 % 360 + 360 % 360 * -1 + 180)
+#const ST2_41 (RT2_41 * 2 + 1 % 2)
+#const PT2_41 (180 * ST2_41 - RT2_41 * RT2_41)
+#const DT2_41 (40500 - PT2_41)
+#const SIN_T2_41 (ST2_41 * 4 * PT2_41 / DT2_41)
+#const TEMP_41 (AMPLITUDE * SIN_T_41)
+#const Y_41 (AMPLITUDE2 * SIN_T2_41 + TEMP_41 + 50)
+#const T_42 (42 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_42 (T_42 % 360 + 360 % 360 * -1 + 180)
+#const ST_42 (RT_42 * 2 + 1 % 2)
+#const PT_42 (180 * ST_42 - RT_42 * RT_42)
+#const DT_42 (40500 - PT_42)
+#const SIN_T_42 (ST_42 * 4 * PT_42 / DT_42)
+#const T2_42 (42 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_42 (T2_42 % 360 + 360 % 360 * -1 + 180)
+#const ST2_42 (RT2_42 * 2 + 1 % 2)
+#const PT2_42 (180 * ST2_42 - RT2_42 * RT2_42)
+#const DT2_42 (40500 - PT2_42)
+#const SIN_T2_42 (ST2_42 * 4 * PT2_42 / DT2_42)
+#const TEMP_42 (AMPLITUDE * SIN_T_42)
+#const Y_42 (AMPLITUDE2 * SIN_T2_42 + TEMP_42 + 50)
+#const T_43 (43 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_43 (T_43 % 360 + 360 % 360 * -1 + 180)
+#const ST_43 (RT_43 * 2 + 1 % 2)
+#const PT_43 (180 * ST_43 - RT_43 * RT_43)
+#const DT_43 (40500 - PT_43)
+#const SIN_T_43 (ST_43 * 4 * PT_43 / DT_43)
+#const T2_43 (43 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_43 (T2_43 % 360 + 360 % 360 * -1 + 180)
+#const ST2_43 (RT2_43 * 2 + 1 % 2)
+#const PT2_43 (180 * ST2_43 - RT2_43 * RT2_43)
+#const DT2_43 (40500 - PT2_43)
+#const SIN_T2_43 (ST2_43 * 4 * PT2_43 / DT2_43)
+#const TEMP_43 (AMPLITUDE * SIN_T_43)
+#const Y_43 (AMPLITUDE2 * SIN_T2_43 + TEMP_43 + 50)
+#const T_44 (44 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_44 (T_44 % 360 + 360 % 360 * -1 + 180)
+#const ST_44 (RT_44 * 2 + 1 % 2)
+#const PT_44 (180 * ST_44 - RT_44 * RT_44)
+#const DT_44 (40500 - PT_44)
+#const SIN_T_44 (ST_44 * 4 * PT_44 / DT_44)
+#const T2_44 (44 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_44 (T2_44 % 360 + 360 % 360 * -1 + 180)
+#const ST2_44 (RT2_44 * 2 + 1 % 2)
+#const PT2_44 (180 * ST2_44 - RT2_44 * RT2_44)
+#const DT2_44 (40500 - PT2_44)
+#const SIN_T2_44 (ST2_44 * 4 * PT2_44 / DT2_44)
+#const TEMP_44 (AMPLITUDE * SIN_T_44)
+#const Y_44 (AMPLITUDE2 * SIN_T2_44 + TEMP_44 + 50)
+#const T_45 (45 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_45 (T_45 % 360 + 360 % 360 * -1 + 180)
+#const ST_45 (RT_45 * 2 + 1 % 2)
+#const PT_45 (180 * ST_45 - RT_45 * RT_45)
+#const DT_45 (40500 - PT_45)
+#const SIN_T_45 (ST_45 * 4 * PT_45 / DT_45)
+#const T2_45 (45 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_45 (T2_45 % 360 + 360 % 360 * -1 + 180)
+#const ST2_45 (RT2_45 * 2 + 1 % 2)
+#const PT2_45 (180 * ST2_45 - RT2_45 * RT2_45)
+#const DT2_45 (40500 - PT2_45)
+#const SIN_T2_45 (ST2_45 * 4 * PT2_45 / DT2_45)
+#const TEMP_45 (AMPLITUDE * SIN_T_45)
+#const Y_45 (AMPLITUDE2 * SIN_T2_45 + TEMP_45 + 50)
+#const T_46 (46 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_46 (T_46 % 360 + 360 % 360 * -1 + 180)
+#const ST_46 (RT_46 * 2 + 1 % 2)
+#const PT_46 (180 * ST_46 - RT_46 * RT_46)
+#const DT_46 (40500 - PT_46)
+#const SIN_T_46 (ST_46 * 4 * PT_46 / DT_46)
+#const T2_46 (46 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_46 (T2_46 % 360 + 360 % 360 * -1 + 180)
+#const ST2_46 (RT2_46 * 2 + 1 % 2)
+#const PT2_46 (180 * ST2_46 - RT2_46 * RT2_46)
+#const DT2_46 (40500 - PT2_46)
+#const SIN_T2_46 (ST2_46 * 4 * PT2_46 / DT2_46)
+#const TEMP_46 (AMPLITUDE * SIN_T_46)
+#const Y_46 (AMPLITUDE2 * SIN_T2_46 + TEMP_46 + 50)
+#const T_47 (47 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_47 (T_47 % 360 + 360 % 360 * -1 + 180)
+#const ST_47 (RT_47 * 2 + 1 % 2)
+#const PT_47 (180 * ST_47 - RT_47 * RT_47)
+#const DT_47 (40500 - PT_47)
+#const SIN_T_47 (ST_47 * 4 * PT_47 / DT_47)
+#const T2_47 (47 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_47 (T2_47 % 360 + 360 % 360 * -1 + 180)
+#const ST2_47 (RT2_47 * 2 + 1 % 2)
+#const PT2_47 (180 * ST2_47 - RT2_47 * RT2_47)
+#const DT2_47 (40500 - PT2_47)
+#const SIN_T2_47 (ST2_47 * 4 * PT2_47 / DT2_47)
+#const TEMP_47 (AMPLITUDE * SIN_T_47)
+#const Y_47 (AMPLITUDE2 * SIN_T2_47 + TEMP_47 + 50)
+#const T_48 (48 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_48 (T_48 % 360 + 360 % 360 * -1 + 180)
+#const ST_48 (RT_48 * 2 + 1 % 2)
+#const PT_48 (180 * ST_48 - RT_48 * RT_48)
+#const DT_48 (40500 - PT_48)
+#const SIN_T_48 (ST_48 * 4 * PT_48 / DT_48)
+#const T2_48 (48 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_48 (T2_48 % 360 + 360 % 360 * -1 + 180)
+#const ST2_48 (RT2_48 * 2 + 1 % 2)
+#const PT2_48 (180 * ST2_48 - RT2_48 * RT2_48)
+#const DT2_48 (40500 - PT2_48)
+#const SIN_T2_48 (ST2_48 * 4 * PT2_48 / DT2_48)
+#const TEMP_48 (AMPLITUDE * SIN_T_48)
+#const Y_48 (AMPLITUDE2 * SIN_T2_48 + TEMP_48 + 50)
+#const T_49 (49 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_49 (T_49 % 360 + 360 % 360 * -1 + 180)
+#const ST_49 (RT_49 * 2 + 1 % 2)
+#const PT_49 (180 * ST_49 - RT_49 * RT_49)
+#const DT_49 (40500 - PT_49)
+#const SIN_T_49 (ST_49 * 4 * PT_49 / DT_49)
+#const T2_49 (49 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_49 (T2_49 % 360 + 360 % 360 * -1 + 180)
+#const ST2_49 (RT2_49 * 2 + 1 % 2)
+#const PT2_49 (180 * ST2_49 - RT2_49 * RT2_49)
+#const DT2_49 (40500 - PT2_49)
+#const SIN_T2_49 (ST2_49 * 4 * PT2_49 / DT2_49)
+#const TEMP_49 (AMPLITUDE * SIN_T_49)
+#const Y_49 (AMPLITUDE2 * SIN_T2_49 + TEMP_49 + 50)
+#const T_50 (50 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_50 (T_50 % 360 + 360 % 360 * -1 + 180)
+#const ST_50 (RT_50 * 2 + 1 % 2)
+#const PT_50 (180 * ST_50 - RT_50 * RT_50)
+#const DT_50 (40500 - PT_50)
+#const SIN_T_50 (ST_50 * 4 * PT_50 / DT_50)
+#const T2_50 (50 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_50 (T2_50 % 360 + 360 % 360 * -1 + 180)
+#const ST2_50 (RT2_50 * 2 + 1 % 2)
+#const PT2_50 (180 * ST2_50 - RT2_50 * RT2_50)
+#const DT2_50 (40500 - PT2_50)
+#const SIN_T2_50 (ST2_50 * 4 * PT2_50 / DT2_50)
+#const TEMP_50 (AMPLITUDE * SIN_T_50)
+#const Y_50 (AMPLITUDE2 * SIN_T2_50 + TEMP_50 + 50)
+#const T_51 (51 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_51 (T_51 % 360 + 360 % 360 * -1 + 180)
+#const ST_51 (RT_51 * 2 + 1 % 2)
+#const PT_51 (180 * ST_51 - RT_51 * RT_51)
+#const DT_51 (40500 - PT_51)
+#const SIN_T_51 (ST_51 * 4 * PT_51 / DT_51)
+#const T2_51 (51 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_51 (T2_51 % 360 + 360 % 360 * -1 + 180)
+#const ST2_51 (RT2_51 * 2 + 1 % 2)
+#const PT2_51 (180 * ST2_51 - RT2_51 * RT2_51)
+#const DT2_51 (40500 - PT2_51)
+#const SIN_T2_51 (ST2_51 * 4 * PT2_51 / DT2_51)
+#const TEMP_51 (AMPLITUDE * SIN_T_51)
+#const Y_51 (AMPLITUDE2 * SIN_T2_51 + TEMP_51 + 50)
+#const T_52 (52 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_52 (T_52 % 360 + 360 % 360 * -1 + 180)
+#const ST_52 (RT_52 * 2 + 1 % 2)
+#const PT_52 (180 * ST_52 - RT_52 * RT_52)
+#const DT_52 (40500 - PT_52)
+#const SIN_T_52 (ST_52 * 4 * PT_52 / DT_52)
+#const T2_52 (52 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_52 (T2_52 % 360 + 360 % 360 * -1 + 180)
+#const ST2_52 (RT2_52 * 2 + 1 % 2)
+#const PT2_52 (180 * ST2_52 - RT2_52 * RT2_52)
+#const DT2_52 (40500 - PT2_52)
+#const SIN_T2_52 (ST2_52 * 4 * PT2_52 / DT2_52)
+#const TEMP_52 (AMPLITUDE * SIN_T_52)
+#const Y_52 (AMPLITUDE2 * SIN_T2_52 + TEMP_52 + 50)
+#const T_53 (53 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_53 (T_53 % 360 + 360 % 360 * -1 + 180)
+#const ST_53 (RT_53 * 2 + 1 % 2)
+#const PT_53 (180 * ST_53 - RT_53 * RT_53)
+#const DT_53 (40500 - PT_53)
+#const SIN_T_53 (ST_53 * 4 * PT_53 / DT_53)
+#const T2_53 (53 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_53 (T2_53 % 360 + 360 % 360 * -1 + 180)
+#const ST2_53 (RT2_53 * 2 + 1 % 2)
+#const PT2_53 (180 * ST2_53 - RT2_53 * RT2_53)
+#const DT2_53 (40500 - PT2_53)
+#const SIN_T2_53 (ST2_53 * 4 * PT2_53 / DT2_53)
+#const TEMP_53 (AMPLITUDE * SIN_T_53)
+#const Y_53 (AMPLITUDE2 * SIN_T2_53 + TEMP_53 + 50)
+#const T_54 (54 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_54 (T_54 % 360 + 360 % 360 * -1 + 180)
+#const ST_54 (RT_54 * 2 + 1 % 2)
+#const PT_54 (180 * ST_54 - RT_54 * RT_54)
+#const DT_54 (40500 - PT_54)
+#const SIN_T_54 (ST_54 * 4 * PT_54 / DT_54)
+#const T2_54 (54 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_54 (T2_54 % 360 + 360 % 360 * -1 + 180)
+#const ST2_54 (RT2_54 * 2 + 1 % 2)
+#const PT2_54 (180 * ST2_54 - RT2_54 * RT2_54)
+#const DT2_54 (40500 - PT2_54)
+#const SIN_T2_54 (ST2_54 * 4 * PT2_54 / DT2_54)
+#const TEMP_54 (AMPLITUDE * SIN_T_54)
+#const Y_54 (AMPLITUDE2 * SIN_T2_54 + TEMP_54 + 50)
+#const T_55 (55 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_55 (T_55 % 360 + 360 % 360 * -1 + 180)
+#const ST_55 (RT_55 * 2 + 1 % 2)
+#const PT_55 (180 * ST_55 - RT_55 * RT_55)
+#const DT_55 (40500 - PT_55)
+#const SIN_T_55 (ST_55 * 4 * PT_55 / DT_55)
+#const T2_55 (55 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_55 (T2_55 % 360 + 360 % 360 * -1 + 180)
+#const ST2_55 (RT2_55 * 2 + 1 % 2)
+#const PT2_55 (180 * ST2_55 - RT2_55 * RT2_55)
+#const DT2_55 (40500 - PT2_55)
+#const SIN_T2_55 (ST2_55 * 4 * PT2_55 / DT2_55)
+#const TEMP_55 (AMPLITUDE * SIN_T_55)
+#const Y_55 (AMPLITUDE2 * SIN_T2_55 + TEMP_55 + 50)
+#const T_56 (56 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_56 (T_56 % 360 + 360 % 360 * -1 + 180)
+#const ST_56 (RT_56 * 2 + 1 % 2)
+#const PT_56 (180 * ST_56 - RT_56 * RT_56)
+#const DT_56 (40500 - PT_56)
+#const SIN_T_56 (ST_56 * 4 * PT_56 / DT_56)
+#const T2_56 (56 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_56 (T2_56 % 360 + 360 % 360 * -1 + 180)
+#const ST2_56 (RT2_56 * 2 + 1 % 2)
+#const PT2_56 (180 * ST2_56 - RT2_56 * RT2_56)
+#const DT2_56 (40500 - PT2_56)
+#const SIN_T2_56 (ST2_56 * 4 * PT2_56 / DT2_56)
+#const TEMP_56 (AMPLITUDE * SIN_T_56)
+#const Y_56 (AMPLITUDE2 * SIN_T2_56 + TEMP_56 + 50)
+#const T_57 (57 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_57 (T_57 % 360 + 360 % 360 * -1 + 180)
+#const ST_57 (RT_57 * 2 + 1 % 2)
+#const PT_57 (180 * ST_57 - RT_57 * RT_57)
+#const DT_57 (40500 - PT_57)
+#const SIN_T_57 (ST_57 * 4 * PT_57 / DT_57)
+#const T2_57 (57 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_57 (T2_57 % 360 + 360 % 360 * -1 + 180)
+#const ST2_57 (RT2_57 * 2 + 1 % 2)
+#const PT2_57 (180 * ST2_57 - RT2_57 * RT2_57)
+#const DT2_57 (40500 - PT2_57)
+#const SIN_T2_57 (ST2_57 * 4 * PT2_57 / DT2_57)
+#const TEMP_57 (AMPLITUDE * SIN_T_57)
+#const Y_57 (AMPLITUDE2 * SIN_T2_57 + TEMP_57 + 50)
+#const T_58 (58 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_58 (T_58 % 360 + 360 % 360 * -1 + 180)
+#const ST_58 (RT_58 * 2 + 1 % 2)
+#const PT_58 (180 * ST_58 - RT_58 * RT_58)
+#const DT_58 (40500 - PT_58)
+#const SIN_T_58 (ST_58 * 4 * PT_58 / DT_58)
+#const T2_58 (58 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_58 (T2_58 % 360 + 360 % 360 * -1 + 180)
+#const ST2_58 (RT2_58 * 2 + 1 % 2)
+#const PT2_58 (180 * ST2_58 - RT2_58 * RT2_58)
+#const DT2_58 (40500 - PT2_58)
+#const SIN_T2_58 (ST2_58 * 4 * PT2_58 / DT2_58)
+#const TEMP_58 (AMPLITUDE * SIN_T_58)
+#const Y_58 (AMPLITUDE2 * SIN_T2_58 + TEMP_58 + 50)
+#const T_59 (59 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_59 (T_59 % 360 + 360 % 360 * -1 + 180)
+#const ST_59 (RT_59 * 2 + 1 % 2)
+#const PT_59 (180 * ST_59 - RT_59 * RT_59)
+#const DT_59 (40500 - PT_59)
+#const SIN_T_59 (ST_59 * 4 * PT_59 / DT_59)
+#const T2_59 (59 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_59 (T2_59 % 360 + 360 % 360 * -1 + 180)
+#const ST2_59 (RT2_59 * 2 + 1 % 2)
+#const PT2_59 (180 * ST2_59 - RT2_59 * RT2_59)
+#const DT2_59 (40500 - PT2_59)
+#const SIN_T2_59 (ST2_59 * 4 * PT2_59 / DT2_59)
+#const TEMP_59 (AMPLITUDE * SIN_T_59)
+#const Y_59 (AMPLITUDE2 * SIN_T2_59 + TEMP_59 + 50)
+#const T_60 (60 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_60 (T_60 % 360 + 360 % 360 * -1 + 180)
+#const ST_60 (RT_60 * 2 + 1 % 2)
+#const PT_60 (180 * ST_60 - RT_60 * RT_60)
+#const DT_60 (40500 - PT_60)
+#const SIN_T_60 (ST_60 * 4 * PT_60 / DT_60)
+#const T2_60 (60 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_60 (T2_60 % 360 + 360 % 360 * -1 + 180)
+#const ST2_60 (RT2_60 * 2 + 1 % 2)
+#const PT2_60 (180 * ST2_60 - RT2_60 * RT2_60)
+#const DT2_60 (40500 - PT2_60)
+#const SIN_T2_60 (ST2_60 * 4 * PT2_60 / DT2_60)
+#const TEMP_60 (AMPLITUDE * SIN_T_60)
+#const Y_60 (AMPLITUDE2 * SIN_T2_60 + TEMP_60 + 50)
+#const T_61 (61 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_61 (T_61 % 360 + 360 % 360 * -1 + 180)
+#const ST_61 (RT_61 * 2 + 1 % 2)
+#const PT_61 (180 * ST_61 - RT_61 * RT_61)
+#const DT_61 (40500 - PT_61)
+#const SIN_T_61 (ST_61 * 4 * PT_61 / DT_61)
+#const T2_61 (61 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_61 (T2_61 % 360 + 360 % 360 * -1 + 180)
+#const ST2_61 (RT2_61 * 2 + 1 % 2)
+#const PT2_61 (180 * ST2_61 - RT2_61 * RT2_61)
+#const DT2_61 (40500 - PT2_61)
+#const SIN_T2_61 (ST2_61 * 4 * PT2_61 / DT2_61)
+#const TEMP_61 (AMPLITUDE * SIN_T_61)
+#const Y_61 (AMPLITUDE2 * SIN_T2_61 + TEMP_61 + 50)
+#const T_62 (62 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_62 (T_62 % 360 + 360 % 360 * -1 + 180)
+#const ST_62 (RT_62 * 2 + 1 % 2)
+#const PT_62 (180 * ST_62 - RT_62 * RT_62)
+#const DT_62 (40500 - PT_62)
+#const SIN_T_62 (ST_62 * 4 * PT_62 / DT_62)
+#const T2_62 (62 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_62 (T2_62 % 360 + 360 % 360 * -1 + 180)
+#const ST2_62 (RT2_62 * 2 + 1 % 2)
+#const PT2_62 (180 * ST2_62 - RT2_62 * RT2_62)
+#const DT2_62 (40500 - PT2_62)
+#const SIN_T2_62 (ST2_62 * 4 * PT2_62 / DT2_62)
+#const TEMP_62 (AMPLITUDE * SIN_T_62)
+#const Y_62 (AMPLITUDE2 * SIN_T2_62 + TEMP_62 + 50)
+#const T_63 (63 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_63 (T_63 % 360 + 360 % 360 * -1 + 180)
+#const ST_63 (RT_63 * 2 + 1 % 2)
+#const PT_63 (180 * ST_63 - RT_63 * RT_63)
+#const DT_63 (40500 - PT_63)
+#const SIN_T_63 (ST_63 * 4 * PT_63 / DT_63)
+#const T2_63 (63 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_63 (T2_63 % 360 + 360 % 360 * -1 + 180)
+#const ST2_63 (RT2_63 * 2 + 1 % 2)
+#const PT2_63 (180 * ST2_63 - RT2_63 * RT2_63)
+#const DT2_63 (40500 - PT2_63)
+#const SIN_T2_63 (ST2_63 * 4 * PT2_63 / DT2_63)
+#const TEMP_63 (AMPLITUDE * SIN_T_63)
+#const Y_63 (AMPLITUDE2 * SIN_T2_63 + TEMP_63 + 50)
+#const T_64 (64 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_64 (T_64 % 360 + 360 % 360 * -1 + 180)
+#const ST_64 (RT_64 * 2 + 1 % 2)
+#const PT_64 (180 * ST_64 - RT_64 * RT_64)
+#const DT_64 (40500 - PT_64)
+#const SIN_T_64 (ST_64 * 4 * PT_64 / DT_64)
+#const T2_64 (64 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_64 (T2_64 % 360 + 360 % 360 * -1 + 180)
+#const ST2_64 (RT2_64 * 2 + 1 % 2)
+#const PT2_64 (180 * ST2_64 - RT2_64 * RT2_64)
+#const DT2_64 (40500 - PT2_64)
+#const SIN_T2_64 (ST2_64 * 4 * PT2_64 / DT2_64)
+#const TEMP_64 (AMPLITUDE * SIN_T_64)
+#const Y_64 (AMPLITUDE2 * SIN_T2_64 + TEMP_64 + 50)
+#const T_65 (65 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_65 (T_65 % 360 + 360 % 360 * -1 + 180)
+#const ST_65 (RT_65 * 2 + 1 % 2)
+#const PT_65 (180 * ST_65 - RT_65 * RT_65)
+#const DT_65 (40500 - PT_65)
+#const SIN_T_65 (ST_65 * 4 * PT_65 / DT_65)
+#const T2_65 (65 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_65 (T2_65 % 360 + 360 % 360 * -1 + 180)
+#const ST2_65 (RT2_65 * 2 + 1 % 2)
+#const PT2_65 (180 * ST2_65 - RT2_65 * RT2_65)
+#const DT2_65 (40500 - PT2_65)
+#const SIN_T2_65 (ST2_65 * 4 * PT2_65 / DT2_65)
+#const TEMP_65 (AMPLITUDE * SIN_T_65)
+#const Y_65 (AMPLITUDE2 * SIN_T2_65 + TEMP_65 + 50)
+#const T_66 (66 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_66 (T_66 % 360 + 360 % 360 * -1 + 180)
+#const ST_66 (RT_66 * 2 + 1 % 2)
+#const PT_66 (180 * ST_66 - RT_66 * RT_66)
+#const DT_66 (40500 - PT_66)
+#const SIN_T_66 (ST_66 * 4 * PT_66 / DT_66)
+#const T2_66 (66 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_66 (T2_66 % 360 + 360 % 360 * -1 + 180)
+#const ST2_66 (RT2_66 * 2 + 1 % 2)
+#const PT2_66 (180 * ST2_66 - RT2_66 * RT2_66)
+#const DT2_66 (40500 - PT2_66)
+#const SIN_T2_66 (ST2_66 * 4 * PT2_66 / DT2_66)
+#const TEMP_66 (AMPLITUDE * SIN_T_66)
+#const Y_66 (AMPLITUDE2 * SIN_T2_66 + TEMP_66 + 50)
+#const T_67 (67 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_67 (T_67 % 360 + 360 % 360 * -1 + 180)
+#const ST_67 (RT_67 * 2 + 1 % 2)
+#const PT_67 (180 * ST_67 - RT_67 * RT_67)
+#const DT_67 (40500 - PT_67)
+#const SIN_T_67 (ST_67 * 4 * PT_67 / DT_67)
+#const T2_67 (67 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_67 (T2_67 % 360 + 360 % 360 * -1 + 180)
+#const ST2_67 (RT2_67 * 2 + 1 % 2)
+#const PT2_67 (180 * ST2_67 - RT2_67 * RT2_67)
+#const DT2_67 (40500 - PT2_67)
+#const SIN_T2_67 (ST2_67 * 4 * PT2_67 / DT2_67)
+#const TEMP_67 (AMPLITUDE * SIN_T_67)
+#const Y_67 (AMPLITUDE2 * SIN_T2_67 + TEMP_67 + 50)
+#const T_68 (68 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_68 (T_68 % 360 + 360 % 360 * -1 + 180)
+#const ST_68 (RT_68 * 2 + 1 % 2)
+#const PT_68 (180 * ST_68 - RT_68 * RT_68)
+#const DT_68 (40500 - PT_68)
+#const SIN_T_68 (ST_68 * 4 * PT_68 / DT_68)
+#const T2_68 (68 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_68 (T2_68 % 360 + 360 % 360 * -1 + 180)
+#const ST2_68 (RT2_68 * 2 + 1 % 2)
+#const PT2_68 (180 * ST2_68 - RT2_68 * RT2_68)
+#const DT2_68 (40500 - PT2_68)
+#const SIN_T2_68 (ST2_68 * 4 * PT2_68 / DT2_68)
+#const TEMP_68 (AMPLITUDE * SIN_T_68)
+#const Y_68 (AMPLITUDE2 * SIN_T2_68 + TEMP_68 + 50)
+#const T_69 (69 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_69 (T_69 % 360 + 360 % 360 * -1 + 180)
+#const ST_69 (RT_69 * 2 + 1 % 2)
+#const PT_69 (180 * ST_69 - RT_69 * RT_69)
+#const DT_69 (40500 - PT_69)
+#const SIN_T_69 (ST_69 * 4 * PT_69 / DT_69)
+#const T2_69 (69 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_69 (T2_69 % 360 + 360 % 360 * -1 + 180)
+#const ST2_69 (RT2_69 * 2 + 1 % 2)
+#const PT2_69 (180 * ST2_69 - RT2_69 * RT2_69)
+#const DT2_69 (40500 - PT2_69)
+#const SIN_T2_69 (ST2_69 * 4 * PT2_69 / DT2_69)
+#const TEMP_69 (AMPLITUDE * SIN_T_69)
+#const Y_69 (AMPLITUDE2 * SIN_T2_69 + TEMP_69 + 50)
+#const T_70 (70 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_70 (T_70 % 360 + 360 % 360 * -1 + 180)
+#const ST_70 (RT_70 * 2 + 1 % 2)
+#const PT_70 (180 * ST_70 - RT_70 * RT_70)
+#const DT_70 (40500 - PT_70)
+#const SIN_T_70 (ST_70 * 4 * PT_70 / DT_70)
+#const T2_70 (70 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_70 (T2_70 % 360 + 360 % 360 * -1 + 180)
+#const ST2_70 (RT2_70 * 2 + 1 % 2)
+#const PT2_70 (180 * ST2_70 - RT2_70 * RT2_70)
+#const DT2_70 (40500 - PT2_70)
+#const SIN_T2_70 (ST2_70 * 4 * PT2_70 / DT2_70)
+#const TEMP_70 (AMPLITUDE * SIN_T_70)
+#const Y_70 (AMPLITUDE2 * SIN_T2_70 + TEMP_70 + 50)
+#const T_71 (71 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_71 (T_71 % 360 + 360 % 360 * -1 + 180)
+#const ST_71 (RT_71 * 2 + 1 % 2)
+#const PT_71 (180 * ST_71 - RT_71 * RT_71)
+#const DT_71 (40500 - PT_71)
+#const SIN_T_71 (ST_71 * 4 * PT_71 / DT_71)
+#const T2_71 (71 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_71 (T2_71 % 360 + 360 % 360 * -1 + 180)
+#const ST2_71 (RT2_71 * 2 + 1 % 2)
+#const PT2_71 (180 * ST2_71 - RT2_71 * RT2_71)
+#const DT2_71 (40500 - PT2_71)
+#const SIN_T2_71 (ST2_71 * 4 * PT2_71 / DT2_71)
+#const TEMP_71 (AMPLITUDE * SIN_T_71)
+#const Y_71 (AMPLITUDE2 * SIN_T2_71 + TEMP_71 + 50)
+#const T_72 (72 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_72 (T_72 % 360 + 360 % 360 * -1 + 180)
+#const ST_72 (RT_72 * 2 + 1 % 2)
+#const PT_72 (180 * ST_72 - RT_72 * RT_72)
+#const DT_72 (40500 - PT_72)
+#const SIN_T_72 (ST_72 * 4 * PT_72 / DT_72)
+#const T2_72 (72 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_72 (T2_72 % 360 + 360 % 360 * -1 + 180)
+#const ST2_72 (RT2_72 * 2 + 1 % 2)
+#const PT2_72 (180 * ST2_72 - RT2_72 * RT2_72)
+#const DT2_72 (40500 - PT2_72)
+#const SIN_T2_72 (ST2_72 * 4 * PT2_72 / DT2_72)
+#const TEMP_72 (AMPLITUDE * SIN_T_72)
+#const Y_72 (AMPLITUDE2 * SIN_T2_72 + TEMP_72 + 50)
+#const T_73 (73 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_73 (T_73 % 360 + 360 % 360 * -1 + 180)
+#const ST_73 (RT_73 * 2 + 1 % 2)
+#const PT_73 (180 * ST_73 - RT_73 * RT_73)
+#const DT_73 (40500 - PT_73)
+#const SIN_T_73 (ST_73 * 4 * PT_73 / DT_73)
+#const T2_73 (73 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_73 (T2_73 % 360 + 360 % 360 * -1 + 180)
+#const ST2_73 (RT2_73 * 2 + 1 % 2)
+#const PT2_73 (180 * ST2_73 - RT2_73 * RT2_73)
+#const DT2_73 (40500 - PT2_73)
+#const SIN_T2_73 (ST2_73 * 4 * PT2_73 / DT2_73)
+#const TEMP_73 (AMPLITUDE * SIN_T_73)
+#const Y_73 (AMPLITUDE2 * SIN_T2_73 + TEMP_73 + 50)
+#const T_74 (74 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_74 (T_74 % 360 + 360 % 360 * -1 + 180)
+#const ST_74 (RT_74 * 2 + 1 % 2)
+#const PT_74 (180 * ST_74 - RT_74 * RT_74)
+#const DT_74 (40500 - PT_74)
+#const SIN_T_74 (ST_74 * 4 * PT_74 / DT_74)
+#const T2_74 (74 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_74 (T2_74 % 360 + 360 % 360 * -1 + 180)
+#const ST2_74 (RT2_74 * 2 + 1 % 2)
+#const PT2_74 (180 * ST2_74 - RT2_74 * RT2_74)
+#const DT2_74 (40500 - PT2_74)
+#const SIN_T2_74 (ST2_74 * 4 * PT2_74 / DT2_74)
+#const TEMP_74 (AMPLITUDE * SIN_T_74)
+#const Y_74 (AMPLITUDE2 * SIN_T2_74 + TEMP_74 + 50)
+#const T_75 (75 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_75 (T_75 % 360 + 360 % 360 * -1 + 180)
+#const ST_75 (RT_75 * 2 + 1 % 2)
+#const PT_75 (180 * ST_75 - RT_75 * RT_75)
+#const DT_75 (40500 - PT_75)
+#const SIN_T_75 (ST_75 * 4 * PT_75 / DT_75)
+#const T2_75 (75 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_75 (T2_75 % 360 + 360 % 360 * -1 + 180)
+#const ST2_75 (RT2_75 * 2 + 1 % 2)
+#const PT2_75 (180 * ST2_75 - RT2_75 * RT2_75)
+#const DT2_75 (40500 - PT2_75)
+#const SIN_T2_75 (ST2_75 * 4 * PT2_75 / DT2_75)
+#const TEMP_75 (AMPLITUDE * SIN_T_75)
+#const Y_75 (AMPLITUDE2 * SIN_T2_75 + TEMP_75 + 50)
+#const T_76 (76 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_76 (T_76 % 360 + 360 % 360 * -1 + 180)
+#const ST_76 (RT_76 * 2 + 1 % 2)
+#const PT_76 (180 * ST_76 - RT_76 * RT_76)
+#const DT_76 (40500 - PT_76)
+#const SIN_T_76 (ST_76 * 4 * PT_76 / DT_76)
+#const T2_76 (76 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_76 (T2_76 % 360 + 360 % 360 * -1 + 180)
+#const ST2_76 (RT2_76 * 2 + 1 % 2)
+#const PT2_76 (180 * ST2_76 - RT2_76 * RT2_76)
+#const DT2_76 (40500 - PT2_76)
+#const SIN_T2_76 (ST2_76 * 4 * PT2_76 / DT2_76)
+#const TEMP_76 (AMPLITUDE * SIN_T_76)
+#const Y_76 (AMPLITUDE2 * SIN_T2_76 + TEMP_76 + 50)
+#const T_77 (77 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_77 (T_77 % 360 + 360 % 360 * -1 + 180)
+#const ST_77 (RT_77 * 2 + 1 % 2)
+#const PT_77 (180 * ST_77 - RT_77 * RT_77)
+#const DT_77 (40500 - PT_77)
+#const SIN_T_77 (ST_77 * 4 * PT_77 / DT_77)
+#const T2_77 (77 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_77 (T2_77 % 360 + 360 % 360 * -1 + 180)
+#const ST2_77 (RT2_77 * 2 + 1 % 2)
+#const PT2_77 (180 * ST2_77 - RT2_77 * RT2_77)
+#const DT2_77 (40500 - PT2_77)
+#const SIN_T2_77 (ST2_77 * 4 * PT2_77 / DT2_77)
+#const TEMP_77 (AMPLITUDE * SIN_T_77)
+#const Y_77 (AMPLITUDE2 * SIN_T2_77 + TEMP_77 + 50)
+#const T_78 (78 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_78 (T_78 % 360 + 360 % 360 * -1 + 180)
+#const ST_78 (RT_78 * 2 + 1 % 2)
+#const PT_78 (180 * ST_78 - RT_78 * RT_78)
+#const DT_78 (40500 - PT_78)
+#const SIN_T_78 (ST_78 * 4 * PT_78 / DT_78)
+#const T2_78 (78 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_78 (T2_78 % 360 + 360 % 360 * -1 + 180)
+#const ST2_78 (RT2_78 * 2 + 1 % 2)
+#const PT2_78 (180 * ST2_78 - RT2_78 * RT2_78)
+#const DT2_78 (40500 - PT2_78)
+#const SIN_T2_78 (ST2_78 * 4 * PT2_78 / DT2_78)
+#const TEMP_78 (AMPLITUDE * SIN_T_78)
+#const Y_78 (AMPLITUDE2 * SIN_T2_78 + TEMP_78 + 50)
+#const T_79 (79 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_79 (T_79 % 360 + 360 % 360 * -1 + 180)
+#const ST_79 (RT_79 * 2 + 1 % 2)
+#const PT_79 (180 * ST_79 - RT_79 * RT_79)
+#const DT_79 (40500 - PT_79)
+#const SIN_T_79 (ST_79 * 4 * PT_79 / DT_79)
+#const T2_79 (79 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_79 (T2_79 % 360 + 360 % 360 * -1 + 180)
+#const ST2_79 (RT2_79 * 2 + 1 % 2)
+#const PT2_79 (180 * ST2_79 - RT2_79 * RT2_79)
+#const DT2_79 (40500 - PT2_79)
+#const SIN_T2_79 (ST2_79 * 4 * PT2_79 / DT2_79)
+#const TEMP_79 (AMPLITUDE * SIN_T_79)
+#const Y_79 (AMPLITUDE2 * SIN_T2_79 + TEMP_79 + 50)
+#const T_80 (80 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_80 (T_80 % 360 + 360 % 360 * -1 + 180)
+#const ST_80 (RT_80 * 2 + 1 % 2)
+#const PT_80 (180 * ST_80 - RT_80 * RT_80)
+#const DT_80 (40500 - PT_80)
+#const SIN_T_80 (ST_80 * 4 * PT_80 / DT_80)
+#const T2_80 (80 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_80 (T2_80 % 360 + 360 % 360 * -1 + 180)
+#const ST2_80 (RT2_80 * 2 + 1 % 2)
+#const PT2_80 (180 * ST2_80 - RT2_80 * RT2_80)
+#const DT2_80 (40500 - PT2_80)
+#const SIN_T2_80 (ST2_80 * 4 * PT2_80 / DT2_80)
+#const TEMP_80 (AMPLITUDE * SIN_T_80)
+#const Y_80 (AMPLITUDE2 * SIN_T2_80 + TEMP_80 + 50)
+#const T_81 (81 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_81 (T_81 % 360 + 360 % 360 * -1 + 180)
+#const ST_81 (RT_81 * 2 + 1 % 2)
+#const PT_81 (180 * ST_81 - RT_81 * RT_81)
+#const DT_81 (40500 - PT_81)
+#const SIN_T_81 (ST_81 * 4 * PT_81 / DT_81)
+#const T2_81 (81 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_81 (T2_81 % 360 + 360 % 360 * -1 + 180)
+#const ST2_81 (RT2_81 * 2 + 1 % 2)
+#const PT2_81 (180 * ST2_81 - RT2_81 * RT2_81)
+#const DT2_81 (40500 - PT2_81)
+#const SIN_T2_81 (ST2_81 * 4 * PT2_81 / DT2_81)
+#const TEMP_81 (AMPLITUDE * SIN_T_81)
+#const Y_81 (AMPLITUDE2 * SIN_T2_81 + TEMP_81 + 50)
+#const T_82 (82 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_82 (T_82 % 360 + 360 % 360 * -1 + 180)
+#const ST_82 (RT_82 * 2 + 1 % 2)
+#const PT_82 (180 * ST_82 - RT_82 * RT_82)
+#const DT_82 (40500 - PT_82)
+#const SIN_T_82 (ST_82 * 4 * PT_82 / DT_82)
+#const T2_82 (82 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_82 (T2_82 % 360 + 360 % 360 * -1 + 180)
+#const ST2_82 (RT2_82 * 2 + 1 % 2)
+#const PT2_82 (180 * ST2_82 - RT2_82 * RT2_82)
+#const DT2_82 (40500 - PT2_82)
+#const SIN_T2_82 (ST2_82 * 4 * PT2_82 / DT2_82)
+#const TEMP_82 (AMPLITUDE * SIN_T_82)
+#const Y_82 (AMPLITUDE2 * SIN_T2_82 + TEMP_82 + 50)
+#const T_83 (83 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_83 (T_83 % 360 + 360 % 360 * -1 + 180)
+#const ST_83 (RT_83 * 2 + 1 % 2)
+#const PT_83 (180 * ST_83 - RT_83 * RT_83)
+#const DT_83 (40500 - PT_83)
+#const SIN_T_83 (ST_83 * 4 * PT_83 / DT_83)
+#const T2_83 (83 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_83 (T2_83 % 360 + 360 % 360 * -1 + 180)
+#const ST2_83 (RT2_83 * 2 + 1 % 2)
+#const PT2_83 (180 * ST2_83 - RT2_83 * RT2_83)
+#const DT2_83 (40500 - PT2_83)
+#const SIN_T2_83 (ST2_83 * 4 * PT2_83 / DT2_83)
+#const TEMP_83 (AMPLITUDE * SIN_T_83)
+#const Y_83 (AMPLITUDE2 * SIN_T2_83 + TEMP_83 + 50)
+#const T_84 (84 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_84 (T_84 % 360 + 360 % 360 * -1 + 180)
+#const ST_84 (RT_84 * 2 + 1 % 2)
+#const PT_84 (180 * ST_84 - RT_84 * RT_84)
+#const DT_84 (40500 - PT_84)
+#const SIN_T_84 (ST_84 * 4 * PT_84 / DT_84)
+#const T2_84 (84 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_84 (T2_84 % 360 + 360 % 360 * -1 + 180)
+#const ST2_84 (RT2_84 * 2 + 1 % 2)
+#const PT2_84 (180 * ST2_84 - RT2_84 * RT2_84)
+#const DT2_84 (40500 - PT2_84)
+#const SIN_T2_84 (ST2_84 * 4 * PT2_84 / DT2_84)
+#const TEMP_84 (AMPLITUDE * SIN_T_84)
+#const Y_84 (AMPLITUDE2 * SIN_T2_84 + TEMP_84 + 50)
+#const T_85 (85 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_85 (T_85 % 360 + 360 % 360 * -1 + 180)
+#const ST_85 (RT_85 * 2 + 1 % 2)
+#const PT_85 (180 * ST_85 - RT_85 * RT_85)
+#const DT_85 (40500 - PT_85)
+#const SIN_T_85 (ST_85 * 4 * PT_85 / DT_85)
+#const T2_85 (85 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_85 (T2_85 % 360 + 360 % 360 * -1 + 180)
+#const ST2_85 (RT2_85 * 2 + 1 % 2)
+#const PT2_85 (180 * ST2_85 - RT2_85 * RT2_85)
+#const DT2_85 (40500 - PT2_85)
+#const SIN_T2_85 (ST2_85 * 4 * PT2_85 / DT2_85)
+#const TEMP_85 (AMPLITUDE * SIN_T_85)
+#const Y_85 (AMPLITUDE2 * SIN_T2_85 + TEMP_85 + 50)
+#const T_86 (86 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_86 (T_86 % 360 + 360 % 360 * -1 + 180)
+#const ST_86 (RT_86 * 2 + 1 % 2)
+#const PT_86 (180 * ST_86 - RT_86 * RT_86)
+#const DT_86 (40500 - PT_86)
+#const SIN_T_86 (ST_86 * 4 * PT_86 / DT_86)
+#const T2_86 (86 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_86 (T2_86 % 360 + 360 % 360 * -1 + 180)
+#const ST2_86 (RT2_86 * 2 + 1 % 2)
+#const PT2_86 (180 * ST2_86 - RT2_86 * RT2_86)
+#const DT2_86 (40500 - PT2_86)
+#const SIN_T2_86 (ST2_86 * 4 * PT2_86 / DT2_86)
+#const TEMP_86 (AMPLITUDE * SIN_T_86)
+#const Y_86 (AMPLITUDE2 * SIN_T2_86 + TEMP_86 + 50)
+#const T_87 (87 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_87 (T_87 % 360 + 360 % 360 * -1 + 180)
+#const ST_87 (RT_87 * 2 + 1 % 2)
+#const PT_87 (180 * ST_87 - RT_87 * RT_87)
+#const DT_87 (40500 - PT_87)
+#const SIN_T_87 (ST_87 * 4 * PT_87 / DT_87)
+#const T2_87 (87 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_87 (T2_87 % 360 + 360 % 360 * -1 + 180)
+#const ST2_87 (RT2_87 * 2 + 1 % 2)
+#const PT2_87 (180 * ST2_87 - RT2_87 * RT2_87)
+#const DT2_87 (40500 - PT2_87)
+#const SIN_T2_87 (ST2_87 * 4 * PT2_87 / DT2_87)
+#const TEMP_87 (AMPLITUDE * SIN_T_87)
+#const Y_87 (AMPLITUDE2 * SIN_T2_87 + TEMP_87 + 50)
+#const T_88 (88 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_88 (T_88 % 360 + 360 % 360 * -1 + 180)
+#const ST_88 (RT_88 * 2 + 1 % 2)
+#const PT_88 (180 * ST_88 - RT_88 * RT_88)
+#const DT_88 (40500 - PT_88)
+#const SIN_T_88 (ST_88 * 4 * PT_88 / DT_88)
+#const T2_88 (88 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_88 (T2_88 % 360 + 360 % 360 * -1 + 180)
+#const ST2_88 (RT2_88 * 2 + 1 % 2)
+#const PT2_88 (180 * ST2_88 - RT2_88 * RT2_88)
+#const DT2_88 (40500 - PT2_88)
+#const SIN_T2_88 (ST2_88 * 4 * PT2_88 / DT2_88)
+#const TEMP_88 (AMPLITUDE * SIN_T_88)
+#const Y_88 (AMPLITUDE2 * SIN_T2_88 + TEMP_88 + 50)
+#const T_89 (89 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_89 (T_89 % 360 + 360 % 360 * -1 + 180)
+#const ST_89 (RT_89 * 2 + 1 % 2)
+#const PT_89 (180 * ST_89 - RT_89 * RT_89)
+#const DT_89 (40500 - PT_89)
+#const SIN_T_89 (ST_89 * 4 * PT_89 / DT_89)
+#const T2_89 (89 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_89 (T2_89 % 360 + 360 % 360 * -1 + 180)
+#const ST2_89 (RT2_89 * 2 + 1 % 2)
+#const PT2_89 (180 * ST2_89 - RT2_89 * RT2_89)
+#const DT2_89 (40500 - PT2_89)
+#const SIN_T2_89 (ST2_89 * 4 * PT2_89 / DT2_89)
+#const TEMP_89 (AMPLITUDE * SIN_T_89)
+#const Y_89 (AMPLITUDE2 * SIN_T2_89 + TEMP_89 + 50)
+#const T_90 (90 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_90 (T_90 % 360 + 360 % 360 * -1 + 180)
+#const ST_90 (RT_90 * 2 + 1 % 2)
+#const PT_90 (180 * ST_90 - RT_90 * RT_90)
+#const DT_90 (40500 - PT_90)
+#const SIN_T_90 (ST_90 * 4 * PT_90 / DT_90)
+#const T2_90 (90 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_90 (T2_90 % 360 + 360 % 360 * -1 + 180)
+#const ST2_90 (RT2_90 * 2 + 1 % 2)
+#const PT2_90 (180 * ST2_90 - RT2_90 * RT2_90)
+#const DT2_90 (40500 - PT2_90)
+#const SIN_T2_90 (ST2_90 * 4 * PT2_90 / DT2_90)
+#const TEMP_90 (AMPLITUDE * SIN_T_90)
+#const Y_90 (AMPLITUDE2 * SIN_T2_90 + TEMP_90 + 50)
+#const T_91 (91 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_91 (T_91 % 360 + 360 % 360 * -1 + 180)
+#const ST_91 (RT_91 * 2 + 1 % 2)
+#const PT_91 (180 * ST_91 - RT_91 * RT_91)
+#const DT_91 (40500 - PT_91)
+#const SIN_T_91 (ST_91 * 4 * PT_91 / DT_91)
+#const T2_91 (91 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_91 (T2_91 % 360 + 360 % 360 * -1 + 180)
+#const ST2_91 (RT2_91 * 2 + 1 % 2)
+#const PT2_91 (180 * ST2_91 - RT2_91 * RT2_91)
+#const DT2_91 (40500 - PT2_91)
+#const SIN_T2_91 (ST2_91 * 4 * PT2_91 / DT2_91)
+#const TEMP_91 (AMPLITUDE * SIN_T_91)
+#const Y_91 (AMPLITUDE2 * SIN_T2_91 + TEMP_91 + 50)
+#const T_92 (92 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_92 (T_92 % 360 + 360 % 360 * -1 + 180)
+#const ST_92 (RT_92 * 2 + 1 % 2)
+#const PT_92 (180 * ST_92 - RT_92 * RT_92)
+#const DT_92 (40500 - PT_92)
+#const SIN_T_92 (ST_92 * 4 * PT_92 / DT_92)
+#const T2_92 (92 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_92 (T2_92 % 360 + 360 % 360 * -1 + 180)
+#const ST2_92 (RT2_92 * 2 + 1 % 2)
+#const PT2_92 (180 * ST2_92 - RT2_92 * RT2_92)
+#const DT2_92 (40500 - PT2_92)
+#const SIN_T2_92 (ST2_92 * 4 * PT2_92 / DT2_92)
+#const TEMP_92 (AMPLITUDE * SIN_T_92)
+#const Y_92 (AMPLITUDE2 * SIN_T2_92 + TEMP_92 + 50)
+#const T_93 (93 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_93 (T_93 % 360 + 360 % 360 * -1 + 180)
+#const ST_93 (RT_93 * 2 + 1 % 2)
+#const PT_93 (180 * ST_93 - RT_93 * RT_93)
+#const DT_93 (40500 - PT_93)
+#const SIN_T_93 (ST_93 * 4 * PT_93 / DT_93)
+#const T2_93 (93 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_93 (T2_93 % 360 + 360 % 360 * -1 + 180)
+#const ST2_93 (RT2_93 * 2 + 1 % 2)
+#const PT2_93 (180 * ST2_93 - RT2_93 * RT2_93)
+#const DT2_93 (40500 - PT2_93)
+#const SIN_T2_93 (ST2_93 * 4 * PT2_93 / DT2_93)
+#const TEMP_93 (AMPLITUDE * SIN_T_93)
+#const Y_93 (AMPLITUDE2 * SIN_T2_93 + TEMP_93 + 50)
+#const T_94 (94 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_94 (T_94 % 360 + 360 % 360 * -1 + 180)
+#const ST_94 (RT_94 * 2 + 1 % 2)
+#const PT_94 (180 * ST_94 - RT_94 * RT_94)
+#const DT_94 (40500 - PT_94)
+#const SIN_T_94 (ST_94 * 4 * PT_94 / DT_94)
+#const T2_94 (94 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_94 (T2_94 % 360 + 360 % 360 * -1 + 180)
+#const ST2_94 (RT2_94 * 2 + 1 % 2)
+#const PT2_94 (180 * ST2_94 - RT2_94 * RT2_94)
+#const DT2_94 (40500 - PT2_94)
+#const SIN_T2_94 (ST2_94 * 4 * PT2_94 / DT2_94)
+#const TEMP_94 (AMPLITUDE * SIN_T_94)
+#const Y_94 (AMPLITUDE2 * SIN_T2_94 + TEMP_94 + 50)
+#const T_95 (95 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_95 (T_95 % 360 + 360 % 360 * -1 + 180)
+#const ST_95 (RT_95 * 2 + 1 % 2)
+#const PT_95 (180 * ST_95 - RT_95 * RT_95)
+#const DT_95 (40500 - PT_95)
+#const SIN_T_95 (ST_95 * 4 * PT_95 / DT_95)
+#const T2_95 (95 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_95 (T2_95 % 360 + 360 % 360 * -1 + 180)
+#const ST2_95 (RT2_95 * 2 + 1 % 2)
+#const PT2_95 (180 * ST2_95 - RT2_95 * RT2_95)
+#const DT2_95 (40500 - PT2_95)
+#const SIN_T2_95 (ST2_95 * 4 * PT2_95 / DT2_95)
+#const TEMP_95 (AMPLITUDE * SIN_T_95)
+#const Y_95 (AMPLITUDE2 * SIN_T2_95 + TEMP_95 + 50)
+#const T_96 (96 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_96 (T_96 % 360 + 360 % 360 * -1 + 180)
+#const ST_96 (RT_96 * 2 + 1 % 2)
+#const PT_96 (180 * ST_96 - RT_96 * RT_96)
+#const DT_96 (40500 - PT_96)
+#const SIN_T_96 (ST_96 * 4 * PT_96 / DT_96)
+#const T2_96 (96 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_96 (T2_96 % 360 + 360 % 360 * -1 + 180)
+#const ST2_96 (RT2_96 * 2 + 1 % 2)
+#const PT2_96 (180 * ST2_96 - RT2_96 * RT2_96)
+#const DT2_96 (40500 - PT2_96)
+#const SIN_T2_96 (ST2_96 * 4 * PT2_96 / DT2_96)
+#const TEMP_96 (AMPLITUDE * SIN_T_96)
+#const Y_96 (AMPLITUDE2 * SIN_T2_96 + TEMP_96 + 50)
+#const T_97 (97 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_97 (T_97 % 360 + 360 % 360 * -1 + 180)
+#const ST_97 (RT_97 * 2 + 1 % 2)
+#const PT_97 (180 * ST_97 - RT_97 * RT_97)
+#const DT_97 (40500 - PT_97)
+#const SIN_T_97 (ST_97 * 4 * PT_97 / DT_97)
+#const T2_97 (97 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_97 (T2_97 % 360 + 360 % 360 * -1 + 180)
+#const ST2_97 (RT2_97 * 2 + 1 % 2)
+#const PT2_97 (180 * ST2_97 - RT2_97 * RT2_97)
+#const DT2_97 (40500 - PT2_97)
+#const SIN_T2_97 (ST2_97 * 4 * PT2_97 / DT2_97)
+#const TEMP_97 (AMPLITUDE * SIN_T_97)
+#const Y_97 (AMPLITUDE2 * SIN_T2_97 + TEMP_97 + 50)
+#const T_98 (98 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_98 (T_98 % 360 + 360 % 360 * -1 + 180)
+#const ST_98 (RT_98 * 2 + 1 % 2)
+#const PT_98 (180 * ST_98 - RT_98 * RT_98)
+#const DT_98 (40500 - PT_98)
+#const SIN_T_98 (ST_98 * 4 * PT_98 / DT_98)
+#const T2_98 (98 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_98 (T2_98 % 360 + 360 % 360 * -1 + 180)
+#const ST2_98 (RT2_98 * 2 + 1 % 2)
+#const PT2_98 (180 * ST2_98 - RT2_98 * RT2_98)
+#const DT2_98 (40500 - PT2_98)
+#const SIN_T2_98 (ST2_98 * 4 * PT2_98 / DT2_98)
+#const TEMP_98 (AMPLITUDE * SIN_T_98)
+#const Y_98 (AMPLITUDE2 * SIN_T2_98 + TEMP_98 + 50)
+#const T_99 (99 * PERIOD_MULTIPLIER + OFFSET)
+#const RT_99 (T_99 % 360 + 360 % 360 * -1 + 180)
+#const ST_99 (RT_99 * 2 + 1 % 2)
+#const PT_99 (180 * ST_99 - RT_99 * RT_99)
+#const DT_99 (40500 - PT_99)
+#const SIN_T_99 (ST_99 * 4 * PT_99 / DT_99)
+#const T2_99 (99 * PERIOD_MULTIPLIER2 + OFFSET2)
+#const RT2_99 (T2_99 % 360 + 360 % 360 * -1 + 180)
+#const ST2_99 (RT2_99 * 2 + 1 % 2)
+#const PT2_99 (180 * ST2_99 - RT2_99 * RT2_99)
+#const DT2_99 (40500 - PT2_99)
+#const SIN_T2_99 (ST2_99 * 4 * PT2_99 / DT2_99)
+#const TEMP_99 (AMPLITUDE * SIN_T_99)
+#const Y_99 (AMPLITUDE2 * SIN_T2_99 + TEMP_99 + 50)
+start_random
+percent_chance 50 #define TB
+percent_chance 50 #define LR
+end_random
+start_random
+percent_chance 50 #define NS
+percent_chance 50 #define EW
+end_random
+start_random
+percent_chance 50
+#const PLAYER_ID_A 1
+#const PLAYER_ID_B 2
+percent_chance 50
+#const PLAYER_ID_A 2
+#const PLAYER_ID_B 1
+end_random
+#const LAND_ID_MIDDLE 1
+#const LAND_ID_CORNER 2
+#const LAND_ID_FAR 3
+#const BASE_SIZE_MIDDLE 6
+#const NUM_TILES_MIDDLE 512
+#const BASE_SIZE_CORNER 16
+#const NUM_CORNER_FOREST_TILES rnd(256,312)
+#const NUM_CORNER_FOREST_CLUMPS 4
+#const GRAVEL 70
+#const UNDERBRUSH_LEAVES 71
+#const UNDERBRUSH_SNOW 72
+#const MUD 76
+#const FALCON 1056
+#const OWL 2490
+#const WOODEN_FORT 2600
+#const FORT_WALL 2678
+#const SPRUCE_FOREST 131
+#const SPRUCE_SNOW_FOREST 132
+#const RAVEN 2578
+#const TREE_SPRUCE 2731
+#const TREE_SPRUCE_SNOW 2732
+#const ROCK_SNOW 2724
+#const LYNX 2736
+#const ELK 2737
+if WALRUS
+#const LURE ELK
+#const PLAYER_STRAGGLER TREE_SPRUCE
+else
+#const LURE BOAR
+#const PLAYER_STRAGGLER SNOWPINETREE
+endif
+#const PHON 1543
+<PLAYER_SETUP>
+direct_placement
+behavior_version 2
+ai_info_map_type CUSTOM 0 0 0
+guard_state GUARD_STATE_OBJECT AMOUNT_GOLD 0 1 else
+effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
+effect_amount MOD_RESOURCE CUMAN_TC ATTR_DISABLE 0
+effect_amount SET_ATTRIBUTE TOWN_CENTER_FOUNDATION ATTR_TRAIN_LOCATION 0
+effect_amount SET_ATTRIBUTE TOWN_CENTER_FOUNDATION_F ATTR_TRAIN_LOCATION 0
+effect_amount SET_ATTRIBUTE TOWN_CENTER_FOUNDATION_C ATTR_TRAIN_LOCATION 0
+effect_amount SET_ATTRIBUTE TOWN_CENTER_FOUNDATION_I ATTR_TRAIN_LOCATION 0
+effect_amount SET_ATTRIBUTE ROCK_SNOW ATTR_OCCLUSION_MODE 2
+effect_amount SET_ATTRIBUTE LURE ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE DEER ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE RED_FOX ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE SHEEP ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE DLC_GOAT ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE HARE_A ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE HARE_B ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE ARCTIC_HARE ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE HAWK ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE FALCON ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE DLC_VULTURE ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE OWL ATTR_LINE_OF_SIGHT 0
+if WALRUS
+effect_amount SET_ATTRIBUTE RAVEN ATTR_LINE_OF_SIGHT 0
+endif
+<LAND_GENERATION>
+base_terrain DLC_BLACK
+enable_waves 0
+create_land {
+terrain_type DLC_BLACK
+if TB
+if NS
+land_position rnd(51,54) rnd(8,12)
+elseif EW
+land_position rnd(46,49) rnd(8,12)
+endif
+elseif LR
+if NS
+land_position rnd(8,12) rnd(51,54)
+elseif EW
+land_position rnd(8,12) rnd(46,49)
+endif
+endif
+number_of_tiles NUM_TILES_MIDDLE
+assign_to_player PLAYER_ID_A
+land_id LAND_ID_MIDDLE
+base_elevation 5
+base_size BASE_SIZE_MIDDLE
+}
+create_land {
+terrain_type DLC_BLACK
+if TB
+if NS
+land_position rnd(46,49) rnd(88,92)
+elseif EW
+land_position rnd(51,54) rnd(88,92)
+endif
+elseif LR
+if NS
+land_position rnd(88,92) rnd(46,49)
+elseif EW
+land_position rnd(88,92) rnd(51,54)
+endif
+endif
+number_of_tiles NUM_TILES_MIDDLE
+assign_to_player PLAYER_ID_B
+land_id LAND_ID_MIDDLE
+base_elevation 5
+base_size BASE_SIZE_MIDDLE
+}
+create_land {
+terrain_type ROAD
+if TB
+if NS
+land_position rnd(88,92) rnd(13,17)
+elseif EW
+land_position rnd(8,12) rnd(13,17)
+endif
+elseif LR
+if NS
+land_position rnd(13,17) rnd(88,92)
+elseif EW
+land_position rnd(13,17) rnd(8,12)
+endif
+endif
+number_of_tiles 0
+base_size BASE_SIZE_CORNER
+assign_to_player PLAYER_ID_B
+land_id LAND_ID_CORNER
+}
+create_land {
+terrain_type ROAD2
+if TB
+if NS
+land_position rnd(8,12) rnd(83,87)
+elseif EW
+land_position rnd(88,92) rnd(83,87)
+endif
+elseif LR
+if NS
+land_position rnd(83,87) rnd(8,12)
+elseif EW
+land_position rnd(83,87) rnd(88,92)
+endif
+endif
+number_of_tiles 0
+base_size BASE_SIZE_CORNER
+assign_to_player PLAYER_ID_A
+land_id LAND_ID_CORNER
+}
+if NS
+create_land { land_position 0 0 terrain_type DLC_BLACK number_of_tiles 0 land_id LAND_ID_FAR }
+create_land { land_position 99 99 terrain_type DLC_BLACK number_of_tiles 0 land_id LAND_ID_FAR }
+elseif EW
+create_land { land_position 0 99 terrain_type DLC_BLACK number_of_tiles 0 land_id LAND_ID_FAR }
+create_land { land_position 99 0 terrain_type DLC_BLACK number_of_tiles 0 land_id LAND_ID_FAR }
+endif
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 0 Y_0
+elseif LR
+land_position Y_0 0
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 1 Y_1
+elseif LR
+land_position Y_1 1
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 2 Y_2
+elseif LR
+land_position Y_2 2
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 3 Y_3
+elseif LR
+land_position Y_3 3
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 4 Y_4
+elseif LR
+land_position Y_4 4
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 5 Y_5
+elseif LR
+land_position Y_5 5
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 6 Y_6
+elseif LR
+land_position Y_6 6
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 7 Y_7
+elseif LR
+land_position Y_7 7
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 8 Y_8
+elseif LR
+land_position Y_8 8
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 9 Y_9
+elseif LR
+land_position Y_9 9
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 10 Y_10
+elseif LR
+land_position Y_10 10
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 11 Y_11
+elseif LR
+land_position Y_11 11
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 12 Y_12
+elseif LR
+land_position Y_12 12
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 13 Y_13
+elseif LR
+land_position Y_13 13
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 14 Y_14
+elseif LR
+land_position Y_14 14
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 15 Y_15
+elseif LR
+land_position Y_15 15
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 16 Y_16
+elseif LR
+land_position Y_16 16
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 17 Y_17
+elseif LR
+land_position Y_17 17
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 18 Y_18
+elseif LR
+land_position Y_18 18
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 19 Y_19
+elseif LR
+land_position Y_19 19
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 20 Y_20
+elseif LR
+land_position Y_20 20
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 21 Y_21
+elseif LR
+land_position Y_21 21
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 22 Y_22
+elseif LR
+land_position Y_22 22
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 23 Y_23
+elseif LR
+land_position Y_23 23
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 24 Y_24
+elseif LR
+land_position Y_24 24
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 25 Y_25
+elseif LR
+land_position Y_25 25
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 26 Y_26
+elseif LR
+land_position Y_26 26
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 27 Y_27
+elseif LR
+land_position Y_27 27
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 28 Y_28
+elseif LR
+land_position Y_28 28
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 29 Y_29
+elseif LR
+land_position Y_29 29
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 30 Y_30
+elseif LR
+land_position Y_30 30
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 31 Y_31
+elseif LR
+land_position Y_31 31
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 32 Y_32
+elseif LR
+land_position Y_32 32
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 33 Y_33
+elseif LR
+land_position Y_33 33
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 34 Y_34
+elseif LR
+land_position Y_34 34
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 35 Y_35
+elseif LR
+land_position Y_35 35
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 36 Y_36
+elseif LR
+land_position Y_36 36
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 37 Y_37
+elseif LR
+land_position Y_37 37
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 38 Y_38
+elseif LR
+land_position Y_38 38
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 39 Y_39
+elseif LR
+land_position Y_39 39
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 40 Y_40
+elseif LR
+land_position Y_40 40
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 41 Y_41
+elseif LR
+land_position Y_41 41
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 42 Y_42
+elseif LR
+land_position Y_42 42
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 43 Y_43
+elseif LR
+land_position Y_43 43
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 44 Y_44
+elseif LR
+land_position Y_44 44
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 45 Y_45
+elseif LR
+land_position Y_45 45
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 46 Y_46
+elseif LR
+land_position Y_46 46
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 47 Y_47
+elseif LR
+land_position Y_47 47
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 48 Y_48
+elseif LR
+land_position Y_48 48
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 49 Y_49
+elseif LR
+land_position Y_49 49
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 50 Y_50
+elseif LR
+land_position Y_50 50
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 51 Y_51
+elseif LR
+land_position Y_51 51
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 52 Y_52
+elseif LR
+land_position Y_52 52
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 53 Y_53
+elseif LR
+land_position Y_53 53
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 54 Y_54
+elseif LR
+land_position Y_54 54
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 55 Y_55
+elseif LR
+land_position Y_55 55
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 56 Y_56
+elseif LR
+land_position Y_56 56
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 57 Y_57
+elseif LR
+land_position Y_57 57
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 58 Y_58
+elseif LR
+land_position Y_58 58
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 59 Y_59
+elseif LR
+land_position Y_59 59
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 60 Y_60
+elseif LR
+land_position Y_60 60
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 61 Y_61
+elseif LR
+land_position Y_61 61
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 62 Y_62
+elseif LR
+land_position Y_62 62
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 63 Y_63
+elseif LR
+land_position Y_63 63
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 64 Y_64
+elseif LR
+land_position Y_64 64
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 65 Y_65
+elseif LR
+land_position Y_65 65
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 66 Y_66
+elseif LR
+land_position Y_66 66
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 67 Y_67
+elseif LR
+land_position Y_67 67
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 68 Y_68
+elseif LR
+land_position Y_68 68
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 69 Y_69
+elseif LR
+land_position Y_69 69
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 70 Y_70
+elseif LR
+land_position Y_70 70
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 71 Y_71
+elseif LR
+land_position Y_71 71
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 72 Y_72
+elseif LR
+land_position Y_72 72
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 73 Y_73
+elseif LR
+land_position Y_73 73
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 74 Y_74
+elseif LR
+land_position Y_74 74
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 75 Y_75
+elseif LR
+land_position Y_75 75
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 76 Y_76
+elseif LR
+land_position Y_76 76
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 77 Y_77
+elseif LR
+land_position Y_77 77
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 78 Y_78
+elseif LR
+land_position Y_78 78
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 79 Y_79
+elseif LR
+land_position Y_79 79
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 80 Y_80
+elseif LR
+land_position Y_80 80
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 81 Y_81
+elseif LR
+land_position Y_81 81
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 82 Y_82
+elseif LR
+land_position Y_82 82
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 83 Y_83
+elseif LR
+land_position Y_83 83
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 84 Y_84
+elseif LR
+land_position Y_84 84
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 85 Y_85
+elseif LR
+land_position Y_85 85
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 86 Y_86
+elseif LR
+land_position Y_86 86
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 87 Y_87
+elseif LR
+land_position Y_87 87
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 88 Y_88
+elseif LR
+land_position Y_88 88
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 89 Y_89
+elseif LR
+land_position Y_89 89
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 90 Y_90
+elseif LR
+land_position Y_90 90
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 91 Y_91
+elseif LR
+land_position Y_91 91
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 92 Y_92
+elseif LR
+land_position Y_92 92
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 93 Y_93
+elseif LR
+land_position Y_93 93
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 94 Y_94
+elseif LR
+land_position Y_94 94
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 95 Y_95
+elseif LR
+land_position Y_95 95
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 96 Y_96
+elseif LR
+land_position Y_96 96
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 97 Y_97
+elseif LR
+land_position Y_97 97
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 98 Y_98
+elseif LR
+land_position Y_98 98
+endif
+}
+create_land {
+terrain_type ICYSHORE
+number_of_tiles 0
+set_circular_base
+start_random
+percent_chance 45 base_size 4
+percent_chance 45 base_size 5
+percent_chance 10 base_size 6
+end_random
+if TB
+land_position 99 Y_99
+elseif LR
+land_position Y_99 99
+endif
+}
+<ELEVATION_GENERATION>
+<TERRAIN_GENERATION>
+create_terrain ICE {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ICE {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ICE {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ICE {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ICE {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ICE {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ICE {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ICE {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_BLACK {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_BLACK {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_BLACK {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_BLACK {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_BLACK {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_BLACK {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_BLACK {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_BLACK {
+base_terrain ICYSHORE
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain SNOW_FOREST {
+base_terrain ICE
+number_of_tiles 200
+number_of_clumps 12
+clumping_factor 25
+}
+if WALRUS
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SNOW_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SNOW_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SNOW_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SNOW_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SNOW_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SNOW_FOREST
+land_percent 100
+}
+if WALRUS
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SNOW_FOREST
+number_of_tiles 16
+number_of_clumps 16
+}
+create_terrain SNOW_FOREST {
+base_terrain SPRUCE_SNOW_FOREST
+number_of_tiles 32
+number_of_clumps 32
+}
+create_terrain DLC_FORESTDEAD {
+base_terrain SNOW_FOREST
+number_of_tiles 16
+number_of_clumps 16
+}
+create_terrain DLC_FORESTDEAD {
+base_terrain SPRUCE_SNOW_FOREST
+number_of_tiles 16
+number_of_clumps 16
+}
+endif
+endif
+create_terrain SHALLOW {
+base_terrain ICE
+number_of_tiles 256
+number_of_clumps 32
+terrain_mask 1
+}
+create_terrain UNDERBRUSH_SNOW {
+base_terrain ICE
+number_of_tiles 256
+number_of_clumps 32
+terrain_mask 1
+}
+create_terrain SNOW {
+base_terrain ICE
+number_of_tiles 128
+number_of_clumps 32
+terrain_mask 1
+}
+create_terrain DLC_DRYROAD {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ICYSHORE 4
+}
+create_terrain DLC_DRYROAD {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ICYSHORE 4
+}
+create_terrain DLC_DRYROAD {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ICYSHORE 4
+}
+create_terrain DLC_DRYROAD {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ICYSHORE 4
+}
+create_terrain DLC_DRYROAD {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ICYSHORE 4
+}
+create_terrain DLC_DRYROAD {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ICYSHORE 4
+}
+create_terrain DLC_DRYROAD {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ICYSHORE 4
+}
+create_terrain DLC_DRYROAD {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ICYSHORE 4
+}
+create_terrain SNOW {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 3
+spacing_to_specific_terrain ROAD2 3
+spacing_to_specific_terrain DLC_DRYROAD 3
+}
+create_terrain SNOW {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 3
+spacing_to_specific_terrain ROAD2 3
+spacing_to_specific_terrain DLC_DRYROAD 3
+}
+create_terrain SNOW {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 3
+spacing_to_specific_terrain ROAD2 3
+spacing_to_specific_terrain DLC_DRYROAD 3
+}
+create_terrain SNOW {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 3
+spacing_to_specific_terrain ROAD2 3
+spacing_to_specific_terrain DLC_DRYROAD 3
+}
+create_terrain SNOW {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 3
+spacing_to_specific_terrain ROAD2 3
+spacing_to_specific_terrain DLC_DRYROAD 3
+}
+create_terrain SNOW {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 3
+spacing_to_specific_terrain ROAD2 3
+spacing_to_specific_terrain DLC_DRYROAD 3
+}
+create_terrain SNOW {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 3
+spacing_to_specific_terrain ROAD2 3
+spacing_to_specific_terrain DLC_DRYROAD 3
+}
+create_terrain SNOW {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 3
+spacing_to_specific_terrain ROAD2 3
+spacing_to_specific_terrain DLC_DRYROAD 3
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ICYSHORE 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ICYSHORE 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ICYSHORE 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ICYSHORE 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ICYSHORE 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ICYSHORE 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ICYSHORE 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain SNOW
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ICYSHORE 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ROAD 2
+spacing_to_specific_terrain ROAD2 2
+spacing_to_specific_terrain DLC_DRYROAD 2
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ROAD 2
+spacing_to_specific_terrain ROAD2 2
+spacing_to_specific_terrain DLC_DRYROAD 2
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ROAD 2
+spacing_to_specific_terrain ROAD2 2
+spacing_to_specific_terrain DLC_DRYROAD 2
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ROAD 2
+spacing_to_specific_terrain ROAD2 2
+spacing_to_specific_terrain DLC_DRYROAD 2
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ROAD 2
+spacing_to_specific_terrain ROAD2 2
+spacing_to_specific_terrain DLC_DRYROAD 2
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ROAD 2
+spacing_to_specific_terrain ROAD2 2
+spacing_to_specific_terrain DLC_DRYROAD 2
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ROAD 2
+spacing_to_specific_terrain ROAD2 2
+spacing_to_specific_terrain DLC_DRYROAD 2
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+spacing_to_specific_terrain ROAD 2
+spacing_to_specific_terrain ROAD2 2
+spacing_to_specific_terrain DLC_DRYROAD 2
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+number_of_tiles 64
+number_of_clumps 32
+terrain_mask 1
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 10
+spacing_to_specific_terrain ROAD2 10
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 10
+spacing_to_specific_terrain ROAD2 10
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 10
+spacing_to_specific_terrain ROAD2 10
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 10
+spacing_to_specific_terrain ROAD2 10
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 10
+spacing_to_specific_terrain ROAD2 10
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 10
+spacing_to_specific_terrain ROAD2 10
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 10
+spacing_to_specific_terrain ROAD2 10
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD 10
+spacing_to_specific_terrain ROAD2 10
+}
+create_terrain ROAD {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD2 32
+height_limits 0 2
+}
+create_terrain ROAD {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD2 32
+height_limits 0 2
+}
+create_terrain ROAD {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD2 32
+height_limits 0 2
+}
+create_terrain ROAD {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD2 32
+height_limits 0 2
+}
+create_terrain ROAD {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD2 32
+height_limits 0 2
+}
+create_terrain ROAD {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD2 32
+height_limits 0 2
+}
+create_terrain ROAD {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD2 32
+height_limits 0 2
+}
+create_terrain ROAD {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+spacing_to_specific_terrain ROAD2 32
+height_limits 0 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+height_limits 0 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+height_limits 0 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+height_limits 0 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+height_limits 0 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+height_limits 0 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+height_limits 0 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+height_limits 0 2
+}
+create_terrain ROAD2 {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+height_limits 0 2
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_BLACK {
+base_terrain DLC_DRYROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain ROAD
+number_of_tiles NUM_CORNER_FOREST_TILES
+number_of_clumps NUM_CORNER_FOREST_CLUMPS
+set_avoid_player_start_areas 15
+clumping_factor 25
+}
+create_terrain PINE_FOREST {
+base_terrain ROAD2
+number_of_tiles NUM_CORNER_FOREST_TILES
+number_of_clumps NUM_CORNER_FOREST_CLUMPS
+set_avoid_player_start_areas 15
+clumping_factor 25
+}
+create_terrain FOREST {
+base_terrain DLC_BLACK
+land_percent 10
+number_of_clumps 16
+set_avoid_player_start_areas 14
+spacing_to_specific_terrain PINE_FOREST 5
+spacing_to_specific_terrain ROAD 5
+spacing_to_specific_terrain ROAD2 5
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain PINE_FOREST {
+base_terrain FOREST
+land_percent 100
+number_of_clumps 8192
+}
+if WALRUS
+create_terrain SPRUCE_FOREST {
+base_terrain PINE_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_FOREST {
+base_terrain PINE_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_FOREST {
+base_terrain PINE_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_FOREST {
+base_terrain PINE_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_FOREST {
+base_terrain PINE_FOREST
+land_percent 100
+}
+create_terrain SPRUCE_FOREST {
+base_terrain PINE_FOREST
+land_percent 100
+}
+create_terrain PINE_FOREST {
+base_terrain SPRUCE_FOREST
+number_of_tiles 64
+number_of_clumps 64
+}
+create_terrain SPRUCE_FOREST {
+base_terrain PINE_FOREST
+number_of_tiles 64
+number_of_clumps 64
+}
+create_terrain SPRUCE_SNOW_FOREST {
+base_terrain SPRUCE_FOREST
+number_of_tiles 32
+number_of_clumps 16
+height_limits 0 3
+}
+endif
+create_terrain SNOW_FOREST {
+base_terrain PINE_FOREST
+number_of_tiles 32
+number_of_clumps 16
+height_limits 0 3
+}
+create_terrain ROAD2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain ROAD2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+set_avoid_player_start_areas 5
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain ROAD2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain MUD {
+base_terrain DLC_DRYGRASS
+spacing_to_specific_terrain ICYSHORE 5
+land_percent 3
+number_of_clumps 4
+set_avoid_player_start_areas 6
+}
+create_terrain ROAD {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain MUD
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain MUD {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain MUD {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain MUD {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain MUD {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain MUD {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain MUD {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain MUD {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain MUD {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain LEAVES {
+base_terrain DLC_DRYGRASS
+spacing_to_specific_terrain ICYSHORE 5
+land_percent 1
+number_of_clumps 6
+set_avoid_player_start_areas 6
+}
+create_terrain ROAD {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRAVEL {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+height_limits 3 7
+}
+create_terrain GRAVEL {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+height_limits 3 7
+}
+create_terrain GRAVEL {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+height_limits 3 7
+}
+create_terrain GRAVEL {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+height_limits 3 7
+}
+create_terrain GRAVEL {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+height_limits 3 7
+}
+create_terrain GRAVEL {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+height_limits 3 7
+}
+create_terrain GRAVEL {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+height_limits 3 7
+}
+create_terrain GRAVEL {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+height_limits 3 7
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRAVEL
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRAVEL
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRAVEL
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRAVEL
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRAVEL
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRAVEL
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRAVEL
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRAVEL
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain GRASS3 {
+base_terrain DLC_DRYGRASS
+base_layer GRAVEL
+number_of_tiles 512
+number_of_clumps 4
+}
+create_terrain DIRT3 {
+base_terrain DLC_DRYGRASS
+base_layer GRAVEL
+number_of_tiles 512
+number_of_clumps 8
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain DLC_BLACK
+land_percent 4
+number_of_clumps 8
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain UNDERBRUSH_LEAVES
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain UNDERBRUSH_LEAVES {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain DLC_BLACK
+land_percent 4
+number_of_clumps 8
+spacing_to_other_terrain_types 1
+spacing_to_specific_terrain ICYSHORE 8
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_1
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_1 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain DLC_BLACK
+land_percent 2
+number_of_clumps 6
+spacing_to_other_terrain_types 1
+spacing_to_specific_terrain ICYSHORE 8
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain ROAD {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+spacing_to_other_terrain_types 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS_FLOWERS_2
+land_percent 100
+number_of_clumps 8192
+terrain_mask 1
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS_FLOWERS_2 {
+base_terrain ROAD
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain GRASS {
+base_terrain DLC_BLACK
+land_percent 6
+number_of_clumps 12
+spacing_to_other_terrain_types 1
+spacing_to_specific_terrain ICYSHORE 8
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain GRASS
+land_percent 100
+number_of_clumps 8192
+terrain_mask 2
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain DLC_DRYGRASS {
+base_terrain DLC_BLACK
+land_percent 100
+number_of_clumps 8192
+}
+create_terrain SNOW {
+base_terrain DLC_DRYGRASS
+land_percent 2
+number_of_clumps 32
+terrain_mask 1
+height_limits 0 3
+set_avoid_player_start_areas
+}
+<OBJECTS_GENERATION>
+if TB
+if NS
+create_actor_area 40 20 20000 28
+create_actor_area 80 100 20000 28
+elseif EW
+create_actor_area 80 20 20000 28
+create_actor_area 40 100 20000 28
+endif
+elseif LR
+if NS
+create_actor_area 20 40 20000 28
+create_actor_area 100 80 20000 28
+elseif EW
+create_actor_area 20 80 20000 28
+create_actor_area 100 40 20000 28
+endif
+endif
+if WALRUS
+create_object_group PREDATOR_GROUP {
+add_object WOLF 50
+add_object LYNX 50
+}
+else
+create_object_group PREDATOR_GROUP {
+add_object WOLF 100
+}
+endif
+create_object_group BEAR_GROUP {
+add_object DLC_BEAR 50
+add_object BLACK_BEAR 50
+}
+create_object_group HARE_GROUP {
+add_object HARE_A 50
+add_object HARE_B 50
+}
+create_object_group BUSH_GROUP {
+add_object DLC_AFRICANBUSH 50
+add_object DLC_AFRICANBUSH_2 50
+}
+create_object PHON {
+place_on_specific_land_id LAND_ID_MIDDLE
+max_distance_to_players 0
+actor_area 20001
+actor_area_radius 24
+}
+create_object HAWK {
+number_of_objects 2
+}
+create_object FALCON {
+number_of_objects 2
+}
+create_object DLC_VULTURE {
+number_of_objects 2
+}
+create_object OWL {
+number_of_objects 2
+}
+if WALRUS
+create_object RAVEN {
+number_of_objects 2
+}
+endif
+create_object DLC_FORTIFIED_PALISADE_WALL {
+number_of_objects 14400
+terrain_to_place_on ICYSHORE
+set_gaia_object_only
+set_gaia_unconvertible
+actor_area 20002
+actor_area_radius 1
+}
+create_object RELIC {
+number_of_objects 5
+terrain_to_place_on ICE
+min_distance_to_map_edge 5
+temp_min_distance_group_placement 12
+min_distance_group_placement 1
+avoid_forest_zone 1
+avoid_actor_area 20002
+}
+create_object ROCK_SNOW {
+number_of_objects 4
+terrain_to_place_on ICE
+avoid_actor_area 20002
+temp_min_distance_group_placement 16
+min_distance_group_placement 1
+}
+create_object BEAR_GROUP {
+number_of_objects 8
+terrain_to_place_on ICE
+avoid_actor_area 20002
+temp_min_distance_group_placement 10
+min_distance_group_placement 2
+}
+create_object BEAR_GROUP {
+number_of_objects 8
+terrain_to_place_on ICE
+avoid_actor_area 20002
+temp_min_distance_group_placement 10
+min_distance_group_placement 2
+}
+create_object BEAR_GROUP {
+number_of_objects 8
+terrain_to_place_on ICE
+avoid_actor_area 20002
+temp_min_distance_group_placement 10
+min_distance_group_placement 2
+}
+create_object TOWN_CENTER {
+place_on_specific_land_id LAND_ID_CORNER
+max_distance_to_players 0
+}
+create_object FORT_WALL {
+place_on_specific_land_id LAND_ID_CORNER
+min_distance_to_players 20
+max_distance_to_players 20
+actor_area 20003
+actor_area_radius 15
+}
+create_object VILLAGER {
+place_on_specific_land_id LAND_ID_CORNER
+min_distance_to_players 6
+max_distance_to_players 6
+}
+create_object GOLD {
+place_on_specific_land_id LAND_ID_CORNER
+set_gaia_object_only
+number_of_objects 7
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 12
+max_distance_to_players 16
+set_circular_placement
+min_distance_to_map_edge 10
+avoid_forest_zone 4
+min_distance_group_placement 3
+actor_area 20004
+actor_area_radius 4
+}
+create_object STONE {
+place_on_specific_land_id LAND_ID_CORNER
+set_gaia_object_only
+number_of_objects 5
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 12
+max_distance_to_players 16
+set_circular_placement
+min_distance_to_map_edge 10
+avoid_forest_zone 3
+min_distance_group_placement 3
+avoid_actor_area 20004
+actor_area 20005
+actor_area_radius 4
+}
+create_object FORAGE {
+place_on_specific_land_id LAND_ID_CORNER
+set_gaia_object_only
+number_of_objects 5
+set_tight_grouping
+group_placement_radius 2
+min_distance_to_players 12
+max_distance_to_players 16
+set_circular_placement
+min_distance_to_map_edge 10
+avoid_forest_zone 3
+min_distance_group_placement 3
+avoid_actor_area 20004
+avoid_actor_area 20005
+}
+create_object SCOUT {
+place_on_specific_land_id LAND_ID_CORNER
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+}
+create_object TURKEY {
+number_of_objects 4
+set_loose_grouping
+place_on_specific_land_id LAND_ID_CORNER
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+}
+create_object LURE {
+place_on_specific_land_id LAND_ID_CORNER
+number_of_objects 2
+set_gaia_object_only
+temp_min_distance_group_placement 8
+avoid_forest_zone 1
+min_distance_to_players 14
+max_distance_to_players 17
+min_distance_to_map_edge 1
+}
+create_object DEER {
+place_on_specific_land_id LAND_ID_CORNER
+number_of_objects 4
+group_placement_radius 2
+set_gaia_object_only
+min_distance_to_players 13
+max_distance_to_players 16
+avoid_forest_zone 2
+set_loose_grouping
+}
+create_object SHEEP {
+place_on_specific_land_id LAND_ID_CORNER
+number_of_objects 2
+number_of_groups 2
+group_placement_radius 2
+temp_min_distance_group_placement 8
+set_gaia_object_only
+min_distance_to_players 13
+max_distance_to_players 16
+avoid_forest_zone 2
+set_loose_grouping
+}
+create_object PLAYER_STRAGGLER {
+number_of_objects 2
+place_on_specific_land_id LAND_ID_CORNER
+temp_min_distance_group_placement 6
+min_distance_to_players 4
+max_distance_to_players 5
+min_distance_group_placement 3
+avoid_forest_zone 1
+set_gaia_object_only
+ignore_terrain_restrictions
+}
+create_object PLAYER_STRAGGLER {
+number_of_objects 3
+place_on_specific_land_id LAND_ID_CORNER
+temp_min_distance_group_placement 4
+min_distance_to_players 6
+max_distance_to_players 8
+min_distance_group_placement 1
+avoid_forest_zone 1
+set_gaia_object_only
+ignore_terrain_restrictions
+}
+create_object TOWN_CENTER {
+place_on_specific_land_id LAND_ID_MIDDLE
+max_distance_to_players 0
+}
+create_object WOODEN_FORT {
+place_on_specific_land_id LAND_ID_MIDDLE
+min_distance_to_players 7
+avoid_forest_zone 3
+find_closest
+min_distance_group_placement 5
+min_distance_to_map_edge 8
+avoid_actor_area 20000
+}
+create_object VILLAGER {
+place_on_specific_land_id LAND_ID_MIDDLE
+min_distance_to_players 6
+max_distance_to_players 6
+}
+create_object GOLD {
+place_on_specific_land_id LAND_ID_MIDDLE
+set_gaia_object_only
+number_of_objects 7
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 12
+max_distance_to_players 16
+set_circular_placement
+min_distance_to_map_edge 6
+avoid_forest_zone 4
+min_distance_group_placement 3
+actor_area 20004
+avoid_actor_area 20003
+actor_area_radius 4
+}
+create_object STONE {
+place_on_specific_land_id LAND_ID_MIDDLE
+set_gaia_object_only
+number_of_objects 5
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_players 12
+max_distance_to_players 16
+set_circular_placement
+min_distance_to_map_edge 6
+avoid_forest_zone 3
+min_distance_group_placement 3
+avoid_actor_area 20004
+actor_area 20005
+avoid_actor_area 20003
+actor_area_radius 4
+}
+create_object FORAGE {
+place_on_specific_land_id LAND_ID_MIDDLE
+set_gaia_object_only
+number_of_objects 5
+set_tight_grouping
+group_placement_radius 2
+min_distance_to_players 12
+max_distance_to_players 16
+set_circular_placement
+min_distance_to_map_edge 6
+avoid_forest_zone 3
+min_distance_group_placement 3
+avoid_actor_area 20004
+avoid_actor_area 20005
+avoid_actor_area 20003
+}
+create_object SCOUT {
+place_on_specific_land_id LAND_ID_MIDDLE
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+}
+create_object DLC_GOOSE {
+number_of_objects 4
+set_loose_grouping
+place_on_specific_land_id LAND_ID_MIDDLE
+min_distance_to_players 7
+max_distance_to_players 9
+set_circular_placement
+}
+create_object LURE {
+place_on_specific_land_id LAND_ID_MIDDLE
+number_of_objects 2
+set_gaia_object_only
+temp_min_distance_group_placement 8
+avoid_forest_zone 1
+min_distance_to_players 14
+max_distance_to_players 17
+set_circular_placement
+min_distance_to_map_edge 1
+avoid_actor_area 20003
+}
+create_object DLC_GOAT {
+place_on_specific_land_id LAND_ID_MIDDLE
+number_of_objects 2
+number_of_groups 2
+group_placement_radius 2
+temp_min_distance_group_placement 8
+set_gaia_object_only
+min_distance_to_players 18
+max_distance_to_players 24
+set_circular_placement
+avoid_forest_zone 2
+min_distance_to_map_edge 3
+set_loose_grouping
+max_distance_to_other_zones 7
+avoid_actor_area 20003
+}
+create_object PLAYER_STRAGGLER {
+number_of_objects 2
+place_on_specific_land_id LAND_ID_MIDDLE
+temp_min_distance_group_placement 6
+min_distance_to_players 4
+max_distance_to_players 5
+min_distance_group_placement 3
+avoid_forest_zone 1
+set_gaia_object_only
+ignore_terrain_restrictions
+}
+create_object PLAYER_STRAGGLER {
+number_of_objects 3
+place_on_specific_land_id LAND_ID_MIDDLE
+temp_min_distance_group_placement 4
+min_distance_to_players 6
+max_distance_to_players 8
+min_distance_group_placement 1
+avoid_forest_zone 1
+set_gaia_object_only
+ignore_terrain_restrictions
+}
+create_object GOLD {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 7
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_map_edge 4
+avoid_forest_zone 2
+avoid_actor_area 20001
+max_distance_to_players 32
+max_distance_to_other_zones 8
+min_distance_group_placement 3
+actor_area 20006
+actor_area_radius 12
+}
+create_object STONE {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 5
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_map_edge 4
+avoid_forest_zone 2
+avoid_actor_area 20001
+max_distance_to_players 32
+max_distance_to_other_zones 8
+min_distance_group_placement 3
+avoid_actor_area 20006
+actor_area 20007
+actor_area_radius 15
+}
+create_object STONE {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 3
+set_tight_grouping
+group_placement_radius 1
+min_distance_to_map_edge 4
+avoid_forest_zone 2
+avoid_actor_area 20001
+max_distance_to_players 32
+max_distance_to_other_zones 8
+min_distance_group_placement 3
+avoid_actor_area 20006
+avoid_actor_area 20007
+}
+create_object LURE {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 4
+temp_min_distance_group_placement 15
+avoid_forest_zone 1
+min_distance_to_map_edge 2
+min_distance_group_placement 1
+avoid_actor_area 20001
+max_distance_to_players 45
+max_distance_to_other_zones 5
+}
+create_object HARE_GROUP {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 6
+number_of_groups 3
+set_loose_grouping
+group_placement_radius 2
+temp_min_distance_group_placement 15
+avoid_forest_zone 3
+min_distance_to_map_edge 3
+min_distance_group_placement 1
+avoid_actor_area 20001
+max_distance_to_players 45
+max_distance_to_other_zones 7
+}
+create_object DEER {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 3
+number_of_groups 3
+set_loose_grouping
+group_placement_radius 2
+temp_min_distance_group_placement 15
+avoid_forest_zone 3
+min_distance_to_map_edge 3
+min_distance_group_placement 1
+avoid_actor_area 20001
+max_distance_to_players 45
+max_distance_to_other_zones 7
+}
+create_object RED_FOX {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 2
+number_of_groups 5
+set_loose_grouping
+group_placement_radius 2
+temp_min_distance_group_placement 15
+avoid_forest_zone 3
+min_distance_to_map_edge 3
+min_distance_group_placement 1
+avoid_actor_area 20001
+max_distance_to_players 45
+max_distance_to_other_zones 7
+}
+create_object PREDATOR_GROUP {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 5
+avoid_actor_area 20001
+avoid_forest_zone 1
+min_distance_to_map_edge 1
+min_distance_group_placement 1
+temp_min_distance_group_placement 7
+max_distance_to_players 28
+max_distance_to_other_zones 8
+}
+create_object BUSH_GROUP {
+place_on_specific_land_id LAND_ID_FAR
+number_of_objects 5
+number_of_groups 2
+group_variance 2
+set_loose_grouping
+group_placement_radius 2
+max_distance_to_other_zones 8
+avoid_forest_zone 4
+avoid_actor_area 20001
+temp_min_distance_group_placement 8
+max_distance_to_players 50
+}

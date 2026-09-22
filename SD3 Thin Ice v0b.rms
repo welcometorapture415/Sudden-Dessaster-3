@@ -71,12 +71,87 @@ endif
 /* #const ICE_TERRAIN 35  solid */
 #const ICE_TERRAIN 26 /* navigable */
 
+#const PLAYER_BASE_SIZE 11
+#const POND_BASE_SIZE 12
+
+/* Counts the number of players. */
+if 2_PLAYER_GAME
+  #define PLAYERS_AT_LEAST_2
+elseif 3_PLAYER_GAME
+  #define PLAYERS_AT_LEAST_2
+  #define PLAYERS_AT_LEAST_3
+elseif 4_PLAYER_GAME
+  #define PLAYERS_AT_LEAST_2
+  #define PLAYERS_AT_LEAST_3
+  #define PLAYERS_AT_LEAST_4
+elseif 5_PLAYER_GAME
+  #define PLAYERS_AT_LEAST_2
+  #define PLAYERS_AT_LEAST_3
+  #define PLAYERS_AT_LEAST_4
+  #define PLAYERS_AT_LEAST_5
+elseif 6_PLAYER_GAME
+  #define PLAYERS_AT_LEAST_2
+  #define PLAYERS_AT_LEAST_3
+  #define PLAYERS_AT_LEAST_4
+  #define PLAYERS_AT_LEAST_5
+  #define PLAYERS_AT_LEAST_6
+elseif 7_PLAYER_GAME
+  #define PLAYERS_AT_LEAST_2
+  #define PLAYERS_AT_LEAST_3
+  #define PLAYERS_AT_LEAST_4
+  #define PLAYERS_AT_LEAST_5
+  #define PLAYERS_AT_LEAST_6
+  #define PLAYERS_AT_LEAST_7
+elseif 8_PLAYER_GAME
+  #define PLAYERS_AT_LEAST_2
+  #define PLAYERS_AT_LEAST_3
+  #define PLAYERS_AT_LEAST_4
+  #define PLAYERS_AT_LEAST_5
+  #define PLAYERS_AT_LEAST_6
+  #define PLAYERS_AT_LEAST_7
+  #define PLAYERS_AT_LEAST_8
+endif
+
+/* Defines the constants for the Viking DLC, so they aren't undefined. */
+#const SPRUCE_FOREST 131
+#const SPRUCE_SNOW_FOREST 132
+#const WALRUS 1924
+#const RAVEN 2578
+#const TREE_SPRUCE 2731
+#const TREE_SPRUCE_SNOW 2832
+#const BUSH_GORSE 2733
+#const ROCK_SNOW 2734
+#const SEAL 2735
+#const LYNX 2736
+#const ELK 2737
+#const FLAMING_BIRD 2742
+
+/* Checks for the Viking DLC and assigns constants if it's available. */
+if GREEN_OAK_FOREST
+  #const LURE WALRUS
+  #const HUNT SEAL
+  #const BIRD RAVEN
+  #const FIRE_BIRD FLAMING_BIRD
+else
+  #const BOAR
+  #const HUNT DEER
+  #const BIRD HAWK
+  #const FIRE_BIRD HAWK
+endif
+
+/* Actor area numbers. */
+#const PLAYER_CLOSE_HUNT 10
+#const PLAYER_NEAR_GOLD 11
+#const PLAYER_NEAR_STONE 12
+#const PLAYER_MED_GOLD 13
+#const PLAYER_MED_STONE 14
+
 <PLAYER_SETUP>
 /*
  * Sets the Sudden Death Game Mode, or defeats players with incorrect
  * lobby settings.
  */
-guard_state GUARD_STATE_OBJECT AMOUNT_GOLD 0 1 else
+guard_state GUARD_STATE_OBJECT AMOUNT_GOLD 0 1
 /* Disables the ability to construct additional Town Centers. */
 effect_amount DISABLE_TECH TC_TECH ATTR_DISABLE 187
 effect_amount MOD_RESOURCE CUMAN_TC ATTR_DISABLE 0
@@ -89,9 +164,15 @@ random_placement
 behavior_version 1
 
 effect_amount SET_ATTRIBUTE TEMP ATTR_TERRAIN_ID 10
-effect_amount SET_ATTRIBUTE DEER ATTR_TERRAIN_ID 10
+/* effect_amount SET_ATTRIBUTE DEER ATTR_TERRAIN_ID 10 */
 effect_amount SET_ATTRIBUTE RELIC ATTR_TERRAIN_ID 10
 effect_amount SET_ATTRIBUTE TREE_CLASS ATTR_TERRAIN_ID 13
+
+effect_amount SET_ATTRIBUTE SHEEP ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE LURE ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE HUNT ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE GOLD ATTR_TERRAIN_ID 4
+effect_amount SET_ATTRIBUTE STONE ATTR_TERRAIN_ID 4
 
 effect_amount SET_ATTRIBUTE BAMBOO_TREE ATTR_STORAGE_VALUE 200
 effect_amount SET_ATTRIBUTE BAMBOO_TREE ATTR_HITPOINTS 0
@@ -129,8 +210,8 @@ effect_amount ADD_ATTRIBUTE GUNPOWDER_KEG ATTR_ATTACK 3583
 effect_amount SET_ATTRIBUTE GUNPOWDER_KEG ATTR_STANDING_GRAPHIC 1751
 
 /* Uses birds to make a larger explosion. */
-effect_amount SET_ATTRIBUTE GUNPOWDER_KEG ATTR_DEAD_ID MACAW
 effect_amount SET_ATTRIBUTE MACAW ATTR_HITPOINTS 0
+effect_amount SET_ATTRIBUTE GUNPOWDER_KEG ATTR_DEAD_ID MACAW
 
 effect_amount SET_ATTRIBUTE MAP_REVEALER ATTR_DEAD_ID GUNPOWDER_KEG
 effect_amount SET_ATTRIBUTE BLOCKER ATTR_HITPOINTS 30000
@@ -283,29 +364,53 @@ effect_amount SET_ATTRIBUTE DOCK_C ATTR_TRAIN_LOCATION 0
 effect_amount SET_ATTRIBUTE DOCK_I ATTR_TRAIN_LOCATION 0
 effect_amount SET_ATTRIBUTE HARBOR ATTR_TRAIN_LOCATION 0
 
-/* Allow Mills and Mining Camps on Ice (and the surrounding hill). */
-/* effect_amount SET_ATTRIBUTE MILL ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE MILL_F ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE MILL_C ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE MILL_I ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE FOLWARK ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE FOLWARK_F ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE FOLWARK_C ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE SETTLEMENT ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE SETTLEMENT_F ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE SETTLEMENT_C ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE MINING_CAMP ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE MINING_CAMP_F ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE MINING_CAMP_C ATTR_TERRAIN_ID 0
-effect_amount SET_ATTRIBUTE MINING_CAMP_I ATTR_TERRAIN_ID 0 */
-
 <LAND_GENERATION>
 base_terrain DLC_ROCK
-create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size 12 number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 1 land_id 1 }
-create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size 12 number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 2 land_id 1 }
-
-create_land { terrain_type GRASS zone 3 other_zone_avoidance_distance 5 base_size 11 land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 1 }
-create_land { terrain_type GRASS zone 4 other_zone_avoidance_distance 5 base_size 11 land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 2 }
+/* Generate lands for up to 8 players, where the colors are in order. */
+create_land { terrain_type GRASS zone 3 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 1 }
+if PLAYERS_AT_LEAST_2
+  create_land { terrain_type GRASS zone 4 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 2 }
+endif
+if PLAYERS_AT_LEAST_3
+  create_land { terrain_type GRASS zone 5 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 3 }
+endif
+if PLAYERS_AT_LEAST_4
+  create_land { terrain_type GRASS zone 6 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 4 }
+endif
+if PLAYERS_AT_LEAST_5
+  create_land { terrain_type GRASS zone 7 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 5 }
+endif
+if PLAYERS_AT_LEAST_6
+  create_land { terrain_type GRASS zone 8 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 6 }
+endif
+if PLAYERS_AT_LEAST_7
+  create_land { terrain_type GRASS zone 9 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 7 }
+endif
+if PLAYERS_AT_LEAST_8
+  create_land { terrain_type GRASS zone 10 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 8 }
+endif
+create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 1 land_id 1 }
+if PLAYERS_AT_LEAST_2
+  create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 2 land_id 1 }
+endif
+if PLAYERS_AT_LEAST_3
+  create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 3 land_id 1 }
+endif
+if PLAYERS_AT_LEAST_4
+  create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 4 land_id 1 }
+endif
+if PLAYERS_AT_LEAST_5
+  create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 5 land_id 1 }
+endif
+if PLAYERS_AT_LEAST_6
+  create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 6 land_id 1 }
+endif
+if PLAYERS_AT_LEAST_7
+  create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 7 land_id 1 }
+endif
+if PLAYERS_AT_LEAST_8
+  create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 8 land_id 1 }
+endif
 
 <ELEVATION_GENERATION>
 create_elevation 15
@@ -502,13 +607,25 @@ create_actor_area (77.05 * MAP_LENGTH / 100) (42.75 * MAP_LENGTH / 100) 4 2
 create_actor_area (77.57 * MAP_LENGTH / 100) (45.14 * MAP_LENGTH / 100) 4 2
 create_actor_area (77.89 * MAP_LENGTH / 100) (47.56 * MAP_LENGTH / 100) 4 2
 
-create_object_group TREE_GROUP {
-	add_object SNOW_PINE_TREE 20
-	add_object PINETREE 20
-	add_object BUSH_C 20
-	add_object BIRCH_TREE 20
-	add_object DLC_AUTUMNSNOWTREE 20
-}
+if GREEN_OAK_FOREST
+  create_object_group TREE_GROUP {
+    add_object TREE_SPRUCE_SNOW 15
+    add_object TREE_SPRUCE 15
+  	add_object SNOWPINETREE 14
+  	add_object PINETREE 14
+  	add_object BUSH_C 14
+  	add_object BIRCH_TREE 14
+  	add_object DLC_AUTUMNSNOWTREE 14
+  }
+else
+  create_object_group TREE_GROUP {
+  	add_object SNOWPINETREE 20
+  	add_object PINETREE 20
+  	add_object BUSH_C 20
+  	add_object BIRCH_TREE 20
+  	add_object DLC_AUTUMNSNOWTREE 20
+  }
+endif
 
 /* Map's 5th Relic */
 create_object ON_GRID {
@@ -644,18 +761,21 @@ create_object VILLAGER {
 	set_place_for_every_player
 	min_distance_to_players 6
 	max_distance_to_players 6
+  min_distance_group_placement 1
 }
 
 create_object HOUSE {
 	set_place_for_every_player
 	min_distance_to_players 8
 	max_distance_to_players 8
+  min_distance_group_placement 2
 }
 
 create_object DOCK {
 	place_on_specific_land_id 1
 	max_distance_to_players 0
 	min_distance_group_placement 2
+  min_distance_group_placement 1
 }
 
 create_object ON_GRID {
@@ -758,12 +878,13 @@ create_object GOLD {
 	set_place_for_every_player
 	set_gaia_object_only
 	min_distance_to_players 14
-	max_distance_to_players 18
+	max_distance_to_players 16
 	set_circular_placement
 	min_distance_group_placement 5
-	temp_min_distance_group_placement 15
 	max_distance_to_other_zones 5
 	avoid_forest_zone 2
+	actor_area PLAYER_NEAR_GOLD
+  actor_area_radius 15
 }
 
 create_object STONE {
@@ -773,11 +894,12 @@ create_object STONE {
 	set_gaia_object_only
 	min_distance_group_placement 5
 	min_distance_to_players 16
-	max_distance_to_players 20
+	max_distance_to_players 18
 	set_circular_placement
-	temp_min_distance_group_placement 15
 	max_distance_to_other_zones 5
 	avoid_forest_zone 2
+	actor_area PLAYER_NEAR_STONE
+  actor_area_radius 15
 }
 
 /* Medium-distance Resources */
@@ -786,13 +908,15 @@ create_object GOLD {
 	set_tight_grouping
 	set_place_for_every_player
 	set_gaia_object_only
-	min_distance_to_players 25
-	max_distance_to_players 30
+	min_distance_to_players 20
+	max_distance_to_players 25
 	set_circular_placement
 	min_distance_group_placement 5
-	temp_min_distance_group_placement 15
 	max_distance_to_other_zones 5
 	avoid_forest_zone 2
+  avoid_actor_area PLAYER_NEAR_GOLD
+  actor_area PLAYER_MED_GOLD
+  actor_area_radius 15
 }
 
 create_object STONE {
@@ -801,12 +925,14 @@ create_object STONE {
 	set_place_for_every_player
 	set_gaia_object_only
 	min_distance_group_placement 5
-	min_distance_to_players 25
-	max_distance_to_players 30
+	min_distance_to_players 20
+	max_distance_to_players 25
 	set_circular_placement
-	temp_min_distance_group_placement 15
 	max_distance_to_other_zones 5
 	avoid_forest_zone 2
+  avoid_actor_area PLAYER_NEAR_STONE
+  actor_area PLAYER_MED_STONE
+  actor_area_radius 15
 }
 
 /* Far Resources */
@@ -814,61 +940,66 @@ create_object GOLD {
 	number_of_objects 4
 	number_of_groups 2
 	set_tight_grouping
-	place_on_specific_land_id 1
-	ignore_terrain_restrictions
+	set_place_for_every_player
 	set_gaia_object_only
-	min_distance_to_players 25
-	max_distance_to_players 30
+	min_distance_to_players 40
+	max_distance_to_players 45
 	set_circular_placement
 	min_distance_group_placement 5
 	temp_min_distance_group_placement 15
 	max_distance_to_other_zones 5
 	avoid_forest_zone 2
 	terrain_to_place_on GRASS
+  avoid_actor_area PLAYER_NEAR_GOLD
+  avoid_actor_area PLAYER_MED_GOLD
 }
 
 create_object STONE {
 	number_of_objects 3
 	number_of_groups 2
 	set_tight_grouping
-	place_on_specific_land_id 1
-	ignore_terrain_restrictions
+  set_place_for_every_player
 	set_gaia_object_only
 	min_distance_group_placement 5
-	min_distance_to_players 25
-	max_distance_to_players 30
+	min_distance_to_players 40
+	max_distance_to_players 45
 	set_circular_placement
 	temp_min_distance_group_placement 15
 	max_distance_to_other_zones 5
 	avoid_forest_zone 2
 	terrain_to_place_on GRASS
+  avoid_actor_area PLAYER_NEAR_STONE
+  avoid_actor_area PLAYER_MED_STONE
 }
 
 if DEATH_MATCH
 else
-  create_object SHEEP /* primary */
-  {
+   /* primary */
+  create_object SHEEP {
   	number_of_objects 4
-  	set_gaia_object_only
   	set_loose_grouping
   	set_place_for_every_player
-  	min_distance_to_players 8
-  	find_closest
+  	min_distance_to_players 7
+    max_distance_to_players 9
+    set_circular_placement
+    min_distance_group_placement 3
   }
-  create_object SHEEP /* secondary */
-  {
+
+  /* Secondary */
+  create_object SHEEP {
   	number_of_objects 2
   	number_of_groups 2
   	set_loose_grouping
   	set_gaia_object_only
   	set_place_for_every_player
+    set_circular_placement
   	min_distance_to_players 14
   	max_distance_to_players 20
   	max_distance_to_other_zones 7
   	terrain_to_place_on GRASS
   }
-  create_object BOAR
-  {
+
+  create_object LURE {
   	number_of_objects 2
   	set_place_for_every_player
   	set_gaia_object_only
@@ -879,10 +1010,28 @@ else
   	avoid_forest_zone 1
   	terrain_to_place_on GRASS
   }
-  create_object DEER
-  {
+
+  /* 1 group of hunt, rather close. */
+  create_object HUNT {
   	number_of_objects 5
-  	number_of_groups 5
+    set_loose_grouping
+  	set_place_for_every_player
+  	set_gaia_object_only
+  	min_distance_to_players 18
+  	max_distance_to_players 20
+  	set_circular_placement
+  	max_distance_to_other_zones 5
+  	avoid_forest_zone 1
+  	terrain_to_place_on GRASS
+    actor_area PLAYER_CLOSE_HUNT
+    actor_area_radius 15
+  }
+
+  /* 4 goups of hunt, rather far away. */
+  create_object HUNT {
+  	number_of_objects 5
+  	number_of_groups 4
+    set_loose_grouping
   	set_place_for_every_player
   	set_gaia_object_only
   	min_distance_to_players 25
@@ -892,25 +1041,32 @@ else
   	max_distance_to_other_zones 5
   	avoid_forest_zone 1
   	terrain_to_place_on GRASS
+    avoid_actor_area PLAYER_CLOSE_HUNT
   }
+
   /* TODO straggler trees aren't spawning */
-  create_object SNOW_PINE_TREE /* straggler trees */
-  {
+  /* straggler trees */
+  create_object ON_GRID {
   	number_of_objects 2
   	set_gaia_object_only
   	set_place_for_every_player
   	min_distance_to_players 4
   	max_distance_to_players 5
-  	min_distance_group_placement 2
+  	min_distance_group_placement 3
+  	temp_min_distance_group_placement 6
+    avoid_forest_zone 1
+    second_object TREE_GROUP
   }
-  create_object SNOW_PINE_TREE
-  {
+  create_object ON_GRID {
   	number_of_objects 3
   	set_gaia_object_only
   	set_place_for_every_player
   	min_distance_to_players 6
   	max_distance_to_players 8
-  	min_distance_group_placement 2
+  	min_distance_group_placement 1
+  	temp_min_distance_group_placement 5
+    avoid_forest_zone 1
+    second_object TREE_GROUP
   }
 endif
 
@@ -925,7 +1081,7 @@ create_object OYSTERS {
 }
 
 create_object SALMON {
-	number_of_objects 5
+	number_of_objects 4
 	place_on_specific_land_id 1
 	set_gaia_object_only
 	min_distance_to_players 9
@@ -937,8 +1093,11 @@ create_object SALMON {
 }
 
 create_object ON_GRID {
-	number_of_objects 9999
-	set_scaling_to_map_size
+	number_of_objects 8
+  place_on_specific_land_id 1
+  min_distance_to_players 6
+  max_distance_to_players 20
+  set_circular_placement
 	set_gaia_object_only
 	temp_min_distance_group_placement 4
 	terrain_to_place_on ICE_TERRAIN
@@ -956,6 +1115,6 @@ create_object RELIC {
 }
 
 /* Birds */
-create_object HAWK {
+create_object BIRD {
 	number_of_objects 7
 }
