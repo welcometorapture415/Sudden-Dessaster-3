@@ -52,8 +52,15 @@ endif
 #const GATE_D 88
 #const PLACEHOLDER_A 1543
 #const BUILDING 1639
+
+start_random
+	percent_chance 50
 #define P1_HILL
 #define P2_HILL
+	percent_chance 50
+#define P1_HILL_B
+#define P2_HILL_B
+end_random
 <PLAYER_SETUP>
 direct_placement
 behavior_version 1
@@ -61,6 +68,9 @@ override_map_size 144
 effect_percent SET_ATTRIBUTE BUILDING ATTR_RADIUS_1 50 /* make it a 1x1 object */
 effect_percent SET_ATTRIBUTE BUILDING ATTR_RADIUS_2 50 /* make it a 1x1 object */
 effect_amount SET_ATTRIBUTE BUILDING ATTR_FOUNDATION_TERRAIN 10 /* forest */
+
+if P1_HILL
+
 start_random
 	percent_chance 50
 		#const X3 60 #const Y3 20 #const X4 20 #const Y4 20 #const X5 80 #const Y5 80 #const X6 40 #const Y6 80
@@ -68,6 +78,15 @@ start_random
 		#const X3 80 #const Y3 20 #const X4 40 #const Y4 20 #const X5 60 #const Y5 80 #const X6 20 #const Y6 80
 end_random
 
+elseif P1_HILL_B
+
+start_random
+	percent_chance 50
+		#const X3 20 #const Y3 40 #const X4 20 #const Y4 80 #const X5 80 #const Y5 20 #const X6 80 #const Y6 60
+	percent_chance 50
+		#const X3 20 #const Y3 20 #const X4 80 #const Y4 80 #const X5 80 #const Y5 40 #const X6 20 #const Y6 60
+end_random
+endif
 /*
  * Sets the Sudden Death Game Mode, or defeats players with incorrect
  * lobby settings.
@@ -269,7 +288,200 @@ create_land { base_size 1 land_position 62 52 number_of_tiles 0 terrain_type DLC
 create_land { base_size 1 land_position 62 51 number_of_tiles 0 terrain_type DLC_ROCK }
 
 endif
+
+if P1_HILL_B
+create_land { base_size 1 land_position 50 39 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 49 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 48 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 47 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 46 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 45 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 44 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 43 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 42 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 41 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 40 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 39 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 39 34 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 33 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 33 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 32 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 31 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 30 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 29 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 28 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 27 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 26 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 25 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 25 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 24 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 23 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 22 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 21 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 20 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 19 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 18 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 17 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 17 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 39 16 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 39 15 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 40 15 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 41 14 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 42 14 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 43 13 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 44 13 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 45 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 46 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 47 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 48 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 49 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 50 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 51 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 52 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 53 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 54 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 55 12 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 56 13 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 57 13 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 58 14 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 59 14 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 60 15 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 61 15 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 61 16 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 17 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 17 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 18 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 19 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 20 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 21 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 22 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 23 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 24 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 25 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 25 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 26 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 27 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 28 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 29 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 30 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 31 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 32 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 33 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 33 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 61 34 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 61 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 60 35 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 59 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 58 36 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 57 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 56 37 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 55 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 54 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 53 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 52 38 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 51 38 number_of_tiles 0 terrain_type DLC_ROCK }
+
+endif
+
+if P2_HILL_B
+create_land { base_size 1 land_position 50 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 51 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 52 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 53 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 54 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 55 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 56 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 57 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 58 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 59 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 60 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 61 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 61 66 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 67 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 67 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 68 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 69 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 70 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 71 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 72 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 73 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 74 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 75 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 75 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 76 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 77 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 78 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 65 79 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 80 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 64 81 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 82 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 63 83 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 62 83 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 61 84 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 61 85 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 60 85 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 59 86 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 58 86 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 57 87 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 56 87 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 55 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 54 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 53 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 52 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 51 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 50 89 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 49 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 48 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 47 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 46 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 45 88 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 44 87 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 43 87 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 42 86 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 41 86 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 40 85 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 39 85 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 39 84 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 83 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 83 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 82 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 81 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 80 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 79 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 78 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 77 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 76 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 75 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 75 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 74 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 73 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 72 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 35 71 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 70 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 36 69 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 68 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 37 67 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 38 67 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 39 66 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 39 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 40 65 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 41 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 42 64 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 43 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 44 63 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 45 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 46 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 47 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 48 62 number_of_tiles 0 terrain_type DLC_ROCK }
+create_land { base_size 1 land_position 49 62 number_of_tiles 0 terrain_type DLC_ROCK }
+
+
+endif
+
 /* hill bases */
+
+if P1_HILL
+
 create_land
 {
 	terrain_type DLC_DRYROAD
@@ -288,6 +500,28 @@ create_land
 	base_elevation 5
 	land_id 2
 }
+
+elseif P1_HILL_B
+create_land
+{
+	terrain_type DLC_DRYROAD
+	land_percent 100
+	land_position 50 25
+	assign_to_player 2
+	base_elevation 5
+	land_id 1
+}
+create_land
+{
+	terrain_type ROAD2
+	land_percent 100
+	land_position 50 75
+	assign_to_player 1
+	base_elevation 5
+	land_id 2
+}
+
+endif
 /* left bases */
 create_land
 {
