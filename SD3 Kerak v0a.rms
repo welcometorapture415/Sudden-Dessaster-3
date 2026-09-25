@@ -713,13 +713,14 @@ create_terrain DIRT
 	clumping_factor 5
 	terrain_mask 2
 }
-create_terrain DLC_CRACKED
+create_terrain DLC_SAVANNAH
 {
 	base_terrain DESERT
-	land_percent 7
+	land_percent 4
 	number_of_clumps 10
 	clumping_factor 5
 	terrain_mask 1
+	set_avoid_player_start_areas 20
 }
 create_terrain DLC_QUICKSAND
 {
