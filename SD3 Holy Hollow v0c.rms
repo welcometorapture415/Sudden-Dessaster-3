@@ -2464,6 +2464,7 @@ if NOMAD_START
 			else
 				#define HERDABLE_STARTING_COUNT_FOUR
 
+				#define TOWN_HERDABLE
 				#include_drs includes/herdable_starting.inc
 				#include_drs includes/herdable.inc
 
