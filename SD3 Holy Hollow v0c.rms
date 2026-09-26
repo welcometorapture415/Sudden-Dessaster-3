@@ -74,23 +74,27 @@ endif
 #const RESOURCE_RESTRICTION 2
 
 /* Map_theme */
+/* TODO restore themes */
+/* TODO ensure that Yurts have 20 HP */
+#define PALAEARCTIC_ASIA_TEMPERATE
+/*
 start_random
-		percent_chance 8 #define AFROTROPICAL_TROPICAL
-		percent_chance 8 #define NEOTROPICAL_TEMPERATE
-		percent_chance 7 #define NEOTROPICAL_TROPICAL
-		percent_chance 8 #define NEARCTIC_TEMPERATE
-		percent_chance 7 #define INDOMALAYAN_TROPICAL
-		percent_chance 7 #define PALAEARCTIC_ASIA_TEMPERATE
-		percent_chance 8 #define PALAEARCTIC_MIDDLE_EAST_DESERT
-		percent_chance 8 #define PALAEARCTIC_EUROPE_TAIGA
-		percent_chance 7 #define PALAEARCTIC_EUROPE_TEMPERATE
-		percent_chance 8 #define PALAEARCTIC_EUROPE_MEDITERRANEAN
-		percent_chance 8 #define AUSTRALASIAN_TEMPERATE
-		/* my own themes */
-		percent_chance 8 #define PALAEARCTIC_EASTASIA_BROADLEAF
-		percent_chance 8 #define INDOMALAYAN_SWAMP
+	percent_chance 8 #define AFROTROPICAL_TROPICAL
+	percent_chance 8 #define NEOTROPICAL_TEMPERATE
+	percent_chance 7 #define NEOTROPICAL_TROPICAL
+	percent_chance 8 #define NEARCTIC_TEMPERATE
+	percent_chance 7 #define INDOMALAYAN_TROPICAL
+	percent_chance 7 #define PALAEARCTIC_ASIA_TEMPERATE
+	percent_chance 8 #define PALAEARCTIC_MIDDLE_EAST_DESERT
+	percent_chance 8 #define PALAEARCTIC_EUROPE_TAIGA
+	percent_chance 7 #define PALAEARCTIC_EUROPE_TEMPERATE
+	percent_chance 8 #define PALAEARCTIC_EUROPE_MEDITERRANEAN
+	percent_chance 8 #define AUSTRALASIAN_TEMPERATE
+	/* my own themes */
+	percent_chance 8 #define PALAEARCTIC_EASTASIA_BROADLEAF
+	percent_chance 8 #define INDOMALAYAN_SWAMP
 end_random
-
+*/
 start_random
 	percent_chance 20 #define RND_GLOBAL_CLIFFS_NONE
 	percent_chance 48 #define RND_GLOBAL_CLIFFS_FEW
@@ -135,14 +139,11 @@ end_random
 #const PLACEHOLDER_WATER 1921
 #const PLACEHOLDER_WATER_TILE 1547
 
-
-
 if PALAEARCTIC_EASTASIA_BROADLEAF
-/* I place Reeds and then placing massive amount of asian trees on that forests, to be able to do that I need to not make these trees spawn */
-effect_amount GAIA_SET_ATTRIBUTE REEDS_TREE ATTR_TERRAIN_ID 3 /* only water and beach */
+  /* I place Reeds and then placing massive amount of asian trees on that forests, to be able to do that I need to not make these trees spawn */
+  effect_amount GAIA_SET_ATTRIBUTE REEDS_TREE ATTR_TERRAIN_ID 3 /* only water and beach */
 elseif INDOMALAYAN_SWAMP
-effect_amount GAIA_SET_ATTRIBUTE REEDS_TREE ATTR_TERRAIN_ID 3 /* only water and beach */
-
+  effect_amount GAIA_SET_ATTRIBUTE REEDS_TREE ATTR_TERRAIN_ID 3 /* only water and beach */
 endif
 
 effect_amount GAIA_SET_ATTRIBUTE BENCH ATTR_STANDING_GRAPHIC 17032 /* give ES FLAG the Wooden Bench Graphics, because benches can't be build over, but allows units to pass through, kinda like ROCK1 except it's a unit */
@@ -164,30 +165,26 @@ effect_amount GAIA_SET_ATTRIBUTE YURT_8 ATTR_HITPOINTS 20
 effect_amount GAIA_SET_ATTRIBUTE YURT_9 ATTR_HITPOINTS 20
 effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_HITPOINTS 20
 
-
-
-
 /* default sizes */
-    if MAPSIZE_MINI           #const SIZE	#const MAPSIZE 80 /* */
-    elseif MAPSIZE_TINY       #const SIZE	#const MAPSIZE 120 /* 2 */
-    elseif MAPSIZE_SMALL      #const SIZE	#const MAPSIZE 144 /* 3 */
-    elseif MAPSIZE_MEDIUM     #const SIZE	#const MAPSIZE 168 /* 4 */
-    elseif MAPSIZE_NORMAL     #const SIZE	#const MAPSIZE 200 /* 6 */
-    elseif MAPSIZE_LARGE      #const SIZE	#const MAPSIZE 220 /* 8 */
-    elseif MAPSIZE_HUGE       #const SIZE	#const MAPSIZE 240 /* */
-    elseif MAPSIZE_GIANT      #const SIZE	#const MAPSIZE 252 /* */
-    elseif MAPSIZE_MASSIVE    #const SIZE 	#const MAPSIZE 276 /* */
-    elseif MAPSIZE_ENORMOUS   #const SIZE  	#const MAPSIZE 300 /* */
-    elseif MAPSIZE_COLOSSAL   #const SIZE   #const MAPSIZE 320 /* */
-    elseif MAPSIZE_INCREDIBLE #const SIZE	#const MAPSIZE 360 /* */
-    elseif MAPSIZE_MONSTROUS  #const SIZE 	#const MAPSIZE 400
-    elseif MAPSIZE_LUDICROUS  #const SIZE	#const MAPSIZE 480
-    else               		  #const SIZE	#const MAPSIZE 260
-    endif
+if MAPSIZE_MINI           #const SIZE	#const MAPSIZE 80 /* */
+elseif MAPSIZE_TINY       #const SIZE	#const MAPSIZE 120 /* 2 */
+elseif MAPSIZE_SMALL      #const SIZE	#const MAPSIZE 144 /* 3 */
+elseif MAPSIZE_MEDIUM     #const SIZE	#const MAPSIZE 168 /* 4 */
+elseif MAPSIZE_NORMAL     #const SIZE	#const MAPSIZE 200 /* 6 */
+elseif MAPSIZE_LARGE      #const SIZE	#const MAPSIZE 220 /* 8 */
+elseif MAPSIZE_HUGE       #const SIZE	#const MAPSIZE 240 /* */
+elseif MAPSIZE_GIANT      #const SIZE	#const MAPSIZE 252 /* */
+elseif MAPSIZE_MASSIVE    #const SIZE 	#const MAPSIZE 276 /* */
+elseif MAPSIZE_ENORMOUS   #const SIZE  	#const MAPSIZE 300 /* */
+elseif MAPSIZE_COLOSSAL   #const SIZE   #const MAPSIZE 320 /* */
+elseif MAPSIZE_INCREDIBLE #const SIZE	#const MAPSIZE 360 /* */
+elseif MAPSIZE_MONSTROUS  #const SIZE 	#const MAPSIZE 400
+elseif MAPSIZE_LUDICROUS  #const SIZE	#const MAPSIZE 480
+else               		    #const SIZE	#const MAPSIZE 260
+endif
 
 /* for area scaling */
- #const MAPAREA (MAPSIZE * MAPSIZE)
-
+#const MAPAREA (MAPSIZE * MAPSIZE)
 
  /*
 	#const HOLLOW_PIT_A 83
@@ -196,8 +193,6 @@ effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_HITPOINTS 20
 */
 
 if AFROTROPICAL_TROPICAL
-
-
 		#const STRAGGLER_SPAWN 1053 /* Bush B  - Straggler Trees next to TC */
 		#const STRAGGLER_NEUTRAL 1348 /* Italian Pine - Straggler Trees around the map */
 
@@ -1108,60 +1103,67 @@ effect_amount SET_ATTRIBUTE TOWN_CENTER_FOUNDATION_F ATTR_TRAIN_LOCATION 0
 effect_amount SET_ATTRIBUTE TOWN_CENTER_FOUNDATION_C ATTR_TRAIN_LOCATION 0
 effect_amount SET_ATTRIBUTE TOWN_CENTER_FOUNDATION_I ATTR_TRAIN_LOCATION 0
 
-	#include_drs includes/preliminaries.inc
+#include_drs includes/preliminaries.inc
 
-	#define WATER_POND
-	#include_drs includes/water_preset.inc
-	water_definition WATER_PRESET
+#define WATER_POND
+#include_drs includes/water_preset.inc
+water_definition WATER_PRESET
 
-	random_placement
-	ai_info_map_type ARABIA 0 0
+random_placement
+ai_info_map_type ARABIA 0 0
 
-	/* the 3 bushes renamed to just Bush - from constants.inc */
-	effect_amount SET_ATTRIBUTE BUSH_A ATTR_NAME_ID 5650
-	effect_amount SET_ATTRIBUTE BUSH_B ATTR_NAME_ID 5650
-	effect_amount SET_ATTRIBUTE BUSH_SNOW ATTR_NAME_ID 5650
+/* the 3 bushes renamed to just Bush - from constants.inc */
+effect_amount SET_ATTRIBUTE BUSH_A ATTR_NAME_ID 5650
+effect_amount SET_ATTRIBUTE BUSH_B ATTR_NAME_ID 5650
+effect_amount SET_ATTRIBUTE BUSH_SNOW ATTR_NAME_ID 5650
 
-	if AFROTROPICAL_TROPICAL
-		effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 21074 /* renames Tree_F to just Tree (DEAD) */
-		effect_amount SET_ATTRIBUTE STRAGGLER_C ATTR_NAME_ID 5651
-		effect_amount SET_ATTRIBUTE STRAGGLER_A ATTR_NAME_ID 5651
-	elseif NEOTROPICAL_TROPICAL
-		effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 5651
-	elseif PALAEARCTIC_MIDDLE_EAST_DESERT
-		effect_amount GAIA_UPGRADE_UNIT TREE_BIRCH TREE_DEAD 0
-	elseif AUSTRALASIAN_TEMPERATE
-		effect_amount GAIA_UPGRADE_UNIT PALMTREE ITALIAN_PINETREE 0
-		effect_amount GAIA_UPGRADE_UNIT DLC_DRAGONTREE TREE_DEAD 0
-		effect_amount SET_ATTRIBUTE TREE_BIRCH ATTR_NAME_ID 5651 /* it's eucalyptus, not Birch */
-		effect_amount SET_ATTRIBUTE ITALIAN_PINETREE ATTR_NAME_ID 5399 /* it's australian pine, not italy */
-		effect_amount SET_ATTRIBUTE STRAGGLER_NEUTRAL ATTR_NAME_ID 5651
-	endif
+if AFROTROPICAL_TROPICAL
+	effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 21074 /* renames Tree_F to just Tree (DEAD) */
+	effect_amount SET_ATTRIBUTE STRAGGLER_C ATTR_NAME_ID 5651
+	effect_amount SET_ATTRIBUTE STRAGGLER_A ATTR_NAME_ID 5651
+elseif NEOTROPICAL_TROPICAL
+	effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 5651
+elseif PALAEARCTIC_MIDDLE_EAST_DESERT
+	effect_amount GAIA_UPGRADE_UNIT TREE_BIRCH TREE_DEAD 0
+elseif AUSTRALASIAN_TEMPERATE
+	effect_amount GAIA_UPGRADE_UNIT PALMTREE ITALIAN_PINETREE 0
+	effect_amount GAIA_UPGRADE_UNIT DLC_DRAGONTREE TREE_DEAD 0
+	effect_amount SET_ATTRIBUTE TREE_BIRCH ATTR_NAME_ID 5651 /* it's eucalyptus, not Birch */
+	effect_amount SET_ATTRIBUTE ITALIAN_PINETREE ATTR_NAME_ID 5399 /* it's australian pine, not italy */
+	effect_amount SET_ATTRIBUTE STRAGGLER_NEUTRAL ATTR_NAME_ID 5651
+endif
 
-	if YURTS
-		effect_amount GAIA_SET_ATTRIBUTE YURT2 ATTR_NAME_ID 5467
-		effect_amount GAIA_SET_ATTRIBUTE YURT3 ATTR_NAME_ID 5467
-		effect_amount GAIA_SET_ATTRIBUTE YURT4 ATTR_NAME_ID 5467
-		effect_amount GAIA_SET_ATTRIBUTE YURT5 ATTR_NAME_ID 5467
-		effect_amount GAIA_SET_ATTRIBUTE YURT6 ATTR_NAME_ID 5467
-		effect_amount GAIA_SET_ATTRIBUTE YURT7 ATTR_NAME_ID 5467
-		effect_amount GAIA_SET_ATTRIBUTE YURT_8 ATTR_NAME_ID 5467
-		effect_amount GAIA_SET_ATTRIBUTE YURT_9 ATTR_NAME_ID 5467
-		effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_NAME_ID 5467
-		effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 21074
-		effect_amount SET_ATTRIBUTE STRAGGLER_C ATTR_NAME_ID 5651
-	endif
+if YURTS
+	effect_amount GAIA_SET_ATTRIBUTE YURT2 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT3 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT4 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT5 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT6 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT7 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT_8 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT_9 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_NAME_ID 5467
+	effect_amount GAIA_SET_ATTRIBUTE YURT2 ATTR_HITPOINTS 20
+	effect_amount GAIA_SET_ATTRIBUTE YURT3 ATTR_HITPOINTS 20
+	effect_amount GAIA_SET_ATTRIBUTE YURT4 ATTR_HITPOINTS 20
+	effect_amount GAIA_SET_ATTRIBUTE YURT5 ATTR_HITPOINTS 20
+	effect_amount GAIA_SET_ATTRIBUTE YURT6 ATTR_HITPOINTS 20
+	effect_amount GAIA_SET_ATTRIBUTE YURT7 ATTR_HITPOINTS 20
+	effect_amount GAIA_SET_ATTRIBUTE YURT_8 ATTR_HITPOINTS 20
+	effect_amount GAIA_SET_ATTRIBUTE YURT_9 ATTR_HITPOINTS 20
+	effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_HITPOINTS 20
+	effect_amount SET_ATTRIBUTE STRAGGLER_B ATTR_NAME_ID 21074
+	effect_amount SET_ATTRIBUTE STRAGGLER_C ATTR_NAME_ID 5651
+endif
 
-	effect_percent SET_ATTRIBUTE FORESTBUILDING ATTR_RADIUS_1 50 /* make it a 1x1 object */
-	effect_percent SET_ATTRIBUTE FORESTBUILDING ATTR_RADIUS_2 50 /* make it a 1x1 object */
-	effect_amount SET_ATTRIBUTE FORESTBUILDING ATTR_FOUNDATION_TERRAIN BASE_FOREST /* Forest, so it's not a straggler */
+effect_percent SET_ATTRIBUTE FORESTBUILDING ATTR_RADIUS_1 50 /* make it a 1x1 object */
+effect_percent SET_ATTRIBUTE FORESTBUILDING ATTR_RADIUS_2 50 /* make it a 1x1 object */
+effect_amount SET_ATTRIBUTE FORESTBUILDING ATTR_FOUNDATION_TERRAIN BASE_FOREST /* Forest, so it's not a straggler */
 
 behavior_version 1
+
 <LAND_GENERATION>
 base_terrain BASE_TERRAIN
-
-
-
 
 create_player_lands {
 	terrain_type SPAWN_PLACEHOLDER
@@ -1172,7 +1174,6 @@ create_player_lands {
 	clumping_factor 15
 	base_elevation 3
 }
-
 
 create_land {
 	terrain_type BASE_FOREST
@@ -1195,12 +1196,7 @@ create_player_lands {
 	land_id 99
 }
 
-
-
-
-
 <ELEVATION_GENERATION>
-
 create_elevation 4 {
 	base_terrain BASE_TERRAIN
 	number_of_tiles 9320
@@ -1277,45 +1273,41 @@ create_elevation 6 {
 	enable_balanced_elevation
 }
 
-
-
-
 <CLIFF_GENERATION>
-	#define CLIFF_ENABLE
+#define CLIFF_ENABLE
 
-	#const CLIFF_MINIMUM_DISTANCE 10
+#const CLIFF_MINIMUM_DISTANCE 10
 
-	if RND_GLOBAL_CLIFFS_NONE
-		#const MIN_CLIFF_NUMBER 0
-		#const MAX_CLIFF_NUMBER 1
-	elseif RND_GLOBAL_CLIFFS_FEW
-		#const MIN_CLIFF_NUMBER 2
-		#const MAX_CLIFF_NUMBER 3
-	elseif RND_GLOBAL_CLIFFS_NORMAL
-		#const MIN_CLIFF_NUMBER 4
-		#const MAX_CLIFF_NUMBER 5
-	elseif RND_GLOBAL_CLIFFS_MANY
-		#const MIN_CLIFF_NUMBER 6
-		#const MAX_CLIFF_NUMBER 7
-	endif
+if RND_GLOBAL_CLIFFS_NONE
+	#const MIN_CLIFF_NUMBER 0
+	#const MAX_CLIFF_NUMBER 1
+elseif RND_GLOBAL_CLIFFS_FEW
+	#const MIN_CLIFF_NUMBER 2
+	#const MAX_CLIFF_NUMBER 3
+elseif RND_GLOBAL_CLIFFS_NORMAL
+	#const MIN_CLIFF_NUMBER 4
+	#const MAX_CLIFF_NUMBER 5
+elseif RND_GLOBAL_CLIFFS_MANY
+	#const MIN_CLIFF_NUMBER 6
+	#const MAX_CLIFF_NUMBER 7
+endif
 
-	#const CLIFF_MINIMUM_LENGTH 2
-	#const CLIFF_MAXIMUM_LENGTH 4
+#const CLIFF_MINIMUM_LENGTH 2
+#const CLIFF_MAXIMUM_LENGTH 4
 
-	#include_drs includes/cliffs.inc
-	cliff_type CLIFF_TYPE
-
+#include_drs includes/cliffs.inc
+cliff_type CLIFF_TYPE
 
 <TERRAIN_GENERATION>
 if PALAEARCTIC_EUROPE_TAIGA
 	start_random
-	percent_chance 34 #const COLOUR_MOOD 16 /* Brumous */
-	percent_chance 33 #const COLOUR_MOOD 15 /* Murky */
-	percent_chance 33 #const COLOUR_MOOD 2 /* Winter */
+  	percent_chance 34 #const COLOUR_MOOD 16 /* Brumous */
+  	percent_chance 33 #const COLOUR_MOOD 15 /* Murky */
+  	percent_chance 33 #const COLOUR_MOOD 2 /* Winter */
 	end_random
 endif
 #include_drs includes/colour.inc
-color_correction COLOUR_MOOD
+/* color_correction COLOUR_MOOD */
 
 create_terrain MOUNTAIN_TOP {
 	base_terrain SPAWN_PLACEHOLDER
@@ -2893,66 +2885,66 @@ endif
 
 		}
 if YURTS
-create_object_group SOLID_OBJECT {
-	add_object YURT2 11
-	add_object YURT3 11
-	add_object YURT4 11
-	add_object YURT5 11
-	add_object YURT6 11
-	add_object YURT7 11
-	add_object YURT_8 11
-	add_object YURT_9 11
-	add_object YURT_10 11
-}
-create_object_group YURT_ASTHETIC {
-	add_object WATER_TROUGH 25
-	add_object BONFIRE  	25
-	add_object BENCH   		25
-	add_object LEATHER		25
-}
+  create_object_group SOLID_OBJECT {
+  	add_object YURT2 11
+  	add_object YURT3 11
+  	add_object YURT4 11
+  	add_object YURT5 11
+  	add_object YURT6 11
+  	add_object YURT7 11
+  	add_object YURT_8 11
+  	add_object YURT_9 11
+  	add_object YURT_10 11
+  }
+  create_object_group YURT_ASTHETIC {
+  	add_object WATER_TROUGH 25
+  	add_object BONFIRE  	25
+  	add_object BENCH   		25
+  	add_object LEATHER		25
+  }
 endif
 
 if AUSTRALASIAN_TEMPERATE
-create_object_group HOLLOW_EYECANDY {
-	add_object PATH_1 25
-	add_object PATH_2 25
-	add_object PATH_3 25
-	add_object PATH_4 25
-}
+  create_object_group HOLLOW_EYECANDY {
+  	add_object PATH_1 25
+  	add_object PATH_2 25
+  	add_object PATH_3 25
+  	add_object PATH_4 25
+  }
 endif
 
-		create_object SOLID_OBJECT
-		{
-			second_object SOLID_UNDERBRUSH
-			number_of_objects rnd(2,3)
-			min_distance_to_players 32
-			terrain_to_place_on BASE_TERRAIN
-			set_circular_placement
-			set_gaia_object_only
-			set_scaling_to_map_size
-			temp_min_distance_group_placement 26
-			min_distance_group_placement 1
-			max_distance_to_other_zones 3
-			avoid_forest_zone 2
-			avoid_cliff_zone 2
-			min_distance_to_map_edge 6
-			max_distance_to_other_zones 2
-			if YURTS
-				set_gaia_unconvertible
-				avoid_actor_area 1100
-			endif
+create_object SOLID_OBJECT {
+	second_object SOLID_UNDERBRUSH
+	number_of_objects rnd(2,3)
+	min_distance_to_players 32
+	terrain_to_place_on BASE_TERRAIN
+	set_circular_placement
+	set_gaia_object_only
+	set_scaling_to_map_size
+	temp_min_distance_group_placement 26
+	min_distance_group_placement 1
+	max_distance_to_other_zones 3
+	avoid_forest_zone 2
+	avoid_cliff_zone 2
+	min_distance_to_map_edge 6
+	max_distance_to_other_zones 2
+	if YURTS
+		set_gaia_unconvertible
+		avoid_actor_area 1100
+	endif
 
-			actor_area 8010
-			actor_area_radius 3
+	actor_area 8010
+	actor_area_radius 3
 
-			avoid_actor_area 610
-			avoid_actor_area 220
-			avoid_actor_area 660
-			avoid_actor_area 8000 /* Wildlife */
-			avoid_actor_area 8001 /* Aesthetic Objects A */
-			avoid_actor_area 8002 /* Aesthetic Objects B */
-			avoid_actor_area 8003 /* Aesthetic Objects C */
-		}
+	avoid_actor_area 610
+	avoid_actor_area 220
+	avoid_actor_area 660
+	avoid_actor_area 8000 /* Wildlife */
+	avoid_actor_area 8001 /* Aesthetic Objects A */
+	avoid_actor_area 8002 /* Aesthetic Objects B */
+	avoid_actor_area 8003 /* Aesthetic Objects C */
+}
+		
 if YURTS
 		create_object YURT_ASTHETIC {
 			number_of_objects 32
