@@ -74,10 +74,8 @@ endif
 #const RESOURCE_RESTRICTION 2
 
 /* Map_theme */
-/* TODO restore themes */
-/* TODO ensure that Yurts have 20 HP */
 #define PALAEARCTIC_ASIA_TEMPERATE
-/*
+
 start_random
 	percent_chance 8 #define AFROTROPICAL_TROPICAL
 	percent_chance 8 #define NEOTROPICAL_TEMPERATE
@@ -94,7 +92,7 @@ start_random
 	percent_chance 8 #define PALAEARCTIC_EASTASIA_BROADLEAF
 	percent_chance 8 #define INDOMALAYAN_SWAMP
 end_random
-*/
+
 start_random
 	percent_chance 20 #define RND_GLOBAL_CLIFFS_NONE
 	percent_chance 48 #define RND_GLOBAL_CLIFFS_FEW
