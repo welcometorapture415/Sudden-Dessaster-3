@@ -520,22 +520,14 @@ else
 
 /* starting sheep - start with 1 under your control */
 create_object DLC_PIG {
-	number_of_objects 3
+	number_of_objects 4
 	set_loose_grouping
-	set_gaia_object_only
 	set_place_for_every_player
 	min_distance_to_players 7
+	max_distance_to_players 9
 	set_circular_placement
-	find_closest
 	actor_area 6
 	actor_area_radius 1
-}
-create_object DLC_PIG {
-	number_of_objects 1
-	set_place_for_every_player
-	min_distance_to_players 7
-	set_circular_placement
-	actor_area_to_place_in 6
 }
 
 /* more sheep */
