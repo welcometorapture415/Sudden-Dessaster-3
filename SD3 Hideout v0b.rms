@@ -109,17 +109,14 @@ ai_info_map_type HIDEOUT 0 0 0
 #include_drs thebr_setup.inc
 
 /* PH SEASONS */
-
-/* TODO themes, avoid Javelinas */
-#define PH_MEDISOUTH
-/* start_random
+start_random
   percent_chance 20 #define PH_SPRING
   percent_chance 25 #define PH_ALPINE
   percent_chance 10 #define PH_TROPHICALSOUTH
   percent_chance 10 #define PH_TROPHICALEAST
   percent_chance 25 #define PH_FROZEN
   percent_chance 10 #define PH_MEDISOUTH
-end_random */
+end_random
 
 #define FROZEN_WESTONLY
 
