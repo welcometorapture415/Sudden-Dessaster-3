@@ -50,6 +50,7 @@ endif
 #const GATE 64
 #const MUD 76
 #const GATE_D 88
+#const FALCON 1056
 #const PLACEHOLDER_A 1543
 #const BUILDING 1639
 
@@ -739,6 +740,15 @@ create_terrain DLC_DESERTGRAVEL
 	terrain_mask 1
 }
 <OBJECTS_GENERATION>
+create_object FALCON {
+  number_of_objects 3
+}
+create_object DLC_VULTURE {
+  number_of_objects 3
+}
+create_object DLC_STORK {
+  number_of_objects 3
+}
 
 create_object RELIC { number_of_groups 1 set_gaia_object_only place_on_specific_land_id 7 terrain_to_place_on DLC_SAVANNAH actor_area 3333 actor_area_radius 20 }
 create_object RELIC { number_of_groups 1 set_gaia_object_only min_distance_to_players 30 max_distance_to_players 35 place_on_specific_land_id 3 force_placement avoid_actor_area 3333 }
