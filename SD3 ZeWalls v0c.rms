@@ -650,7 +650,6 @@ create_terrain WOODIES {
 create_terrain LAYER_C {
   base_terrain LAYER_A
   number_of_clumps 12
-  spacing_to_other_terrain_types 0
   land_percent 10
   set_scale_by_groups
 }
@@ -665,7 +664,6 @@ create_terrain DLC_ROCK {
 create_terrain LAYER_A {
   base_terrain LAYER_C
   number_of_clumps 1000
-  spacing_to_other_terrain_types 0
   land_percent 100
   terrain_mask 1
 }
@@ -673,32 +671,20 @@ create_terrain LAYER_A {
 create_terrain LAYER_C {
   base_terrain DLC_ROCK
   number_of_clumps 1000
-  spacing_to_other_terrain_types 0
   land_percent 100
 }
 
 create_terrain LAYER_C {
   base_terrain DLC_ROCK
   number_of_clumps 1000
-  spacing_to_other_terrain_types 0
   land_percent 100
 }
 
-/* SECONDARY PATCH */
-create_terrain LAYER_A {
-  base_terrain LAYER_B
-  number_of_clumps 6
-  spacing_to_other_terrain_types 0
-  land_percent 6
-  set_scale_by_groups
-  terrain_mask 1
-}
-
+/* SECONDARY PATCH (used for far player resources) */
 create_terrain LAYER_B {
   base_terrain LAYER_A
+  land_percent 8
   number_of_clumps 6
-  spacing_to_other_terrain_types 0
-  land_percent 4
   set_scale_by_groups
   terrain_mask 1
 }
