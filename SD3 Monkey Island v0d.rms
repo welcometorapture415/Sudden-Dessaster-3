@@ -242,10 +242,17 @@ create_land { terrain_type BLACK_WALKABLE base_elevation BE number_of_tiles 0 ba
 
 create_land { terrain_type FOREST2 base_elevation BE number_of_tiles 0 base_size 21 assign_to_player P2NUMBER set_circular_base land_conformity 99 }
 
+<ELEVATION_GENERATION>
+create_elevation 7 {
+  base_terrain DIRT
+  number_of_tiles 50
+  number_of_clumps 2
+  set_scale_by_groups
+  enable_balanced_elevation
+}
 
-/* **************************************** */
 <TERRAIN_GENERATION>
-color_correction CC_STEPPES
+/* color_correction CC_STEPPES */
 water_definition WD_TROPICAL
 
 /* FOREST2 */
@@ -386,72 +393,63 @@ create_terrain T1 { base_terrain DIRT number_of_clumps 20 number_of_tiles 300 cl
 create_terrain MSK1 { base_terrain PL1 number_of_clumps 9320 land_percent 100 terrain_mask 1 }
 
 
-/* **************************************** */
-<OBJECTS_GENERATION>
-/* PLACING BACK FORESTS */
-
-
-
-create_object_group TREES {
-    add_object ASIAN_MAPLE_AUTUMN_TREE 25
-    add_object PEACH_BLOSSOM_TREE 25
-    add_object TREE_BRAZILWOOD 25
-    add_object DLC_RAINTREE 25
-
-	    }
-
-create_object TREES
-{
-set_gaia_object_only
-number_of_groups 9320
-number_of_objects 1
-set_scaling_to_map_size
-set_tight_grouping
-terrain_to_place_on FOREST2
+<CONNECTION_GENERATION>
+accumulate_connections
+create_connect_all_lands {
+  replace_terrain BEACH BCH
+  terrain_size BEACH 961 0
 }
 
+<OBJECTS_GENERATION>
 create_actor_area 60 60 9876 10
 create_actor_area 60 60 6789 1
 create_actor_area 60 60 3333 3
 create_actor_area 60 60 5050 0
 
+/* PLACING BACK FORESTS */
+create_object_group TREES {
+  add_object ASIAN_MAPLE_AUTUMN_TREE 25
+  add_object PEACH_BLOSSOM_TREE 25
+  add_object TREE_BRAZILWOOD 25
+  add_object DLC_RAINTREE 25
+}
+
+create_object TREES {
+  set_gaia_object_only
+  number_of_groups 9320
+  number_of_objects 1
+  set_scaling_to_map_size
+  set_tight_grouping
+  terrain_to_place_on FOREST2
+}
+
 /* edge objects */
-
-create_object BLCKR1 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only temp_min_distance_group_placement 3   }
-create_object BLCKR2 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only temp_min_distance_group_placement 6  }
+create_object BLCKR1 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only temp_min_distance_group_placement 3 }
+create_object BLCKR2 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only temp_min_distance_group_placement 6 }
 create_object BLCKR4 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only temp_min_distance_group_placement 6 }
-create_object BLCKR3 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only  }
-create_object BLCKR3 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only  }
+create_object BLCKR3 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only }
+create_object BLCKR3 { number_of_groups 4056 number_of_objects 1 terrain_to_place_on NNWR set_gaia_object_only }
 
-
-
-
-create_object TOWN_CENTER
-{
-     set_place_for_every_player
-     group_placement_radius 18
-     min_distance_to_players 0
-     max_distance_to_players 0
-	 place_on_specific_land_id 1
-	 actor_area 2525
-	 actor_area_radius 22
+create_object TOWN_CENTER {
+  set_place_for_every_player
+  max_distance_to_players 0
+  place_on_specific_land_id 1
+  actor_area 2525
+  actor_area_radius 22
 }
 
-create_object VILLAGER
-{
-     set_place_for_every_player
-     min_distance_to_players 6
-     max_distance_to_players 6
-	 place_on_specific_land_id 1
+create_object VILLAGER {
+  set_place_for_every_player
+  min_distance_to_players 6
+  max_distance_to_players 6
+  place_on_specific_land_id 1
 }
 
-create_object SCOUT
-{
-     number_of_objects 1
-     set_place_for_every_player
-     min_distance_to_players 7
-     max_distance_to_players 9
-	 place_on_specific_land_id 1
+create_object SCOUT {
+  set_place_for_every_player
+  min_distance_to_players 7
+  max_distance_to_players 9
+  place_on_specific_land_id 1
 }
 
 if REGICIDE
@@ -602,66 +600,39 @@ create_object STONE
 
 
 
-create_object CAPYBARA
-{
-    number_of_objects 3
-    set_loose_grouping
-    group_placement_radius 3
-    set_gaia_object_only
-    set_place_for_every_player
-    min_distance_to_players 6
-    max_distance_to_players 8
-    set_circular_placement
-    avoid_forest_zone 2
-	place_on_specific_land_id 1
-	actor_area 22
-	actor_area_radius 2
+create_object CAPYBARA {
+  number_of_objects 4
+  set_loose_grouping
+  set_place_for_every_player
+  min_distance_to_players 7
+  max_distance_to_players 9
+  set_circular_placement
+ 	place_on_specific_land_id 1
 }
 
-   create_object CAPYBARA {
-    number_of_objects 1
-    set_loose_grouping
-    group_placement_radius 3
-    set_place_for_every_player
-    min_distance_to_players 6
-    max_distance_to_players 8
-    set_circular_placement
-    avoid_forest_zone 2
-	place_on_specific_land_id 1
-	actor_area_to_place_in 22
-
-  }
-
-create_object CAPYBARA
-{
-     number_of_objects 2
-     number_of_groups  2
-     set_loose_grouping
-     set_gaia_object_only
-	 set_circular_placement
-     set_place_for_every_player
-     min_distance_to_players    20
-     max_distance_to_players    20
-	 avoid_forest_zone 2
-	 place_on_specific_land_id 1
-	 avoid_actor_area 9999 /* wall */
+create_object CAPYBARA {
+  number_of_objects 2
+  number_of_groups 2
+  set_loose_grouping
+  set_gaia_object_only
+  set_circular_placement
+  set_place_for_every_player
+  min_distance_to_players 20
+  max_distance_to_players 20
+  avoid_forest_zone 2
+  place_on_specific_land_id 1
+  avoid_actor_area 9999 /* wall */
 }
 
-create_object TAPIR
-{
-     number_of_objects          1
-     set_loose_grouping
-     set_gaia_object_only
-     set_place_for_every_player
-     min_distance_to_players    11
-     max_distance_to_players    12
-	 place_on_specific_land_id 1
+create_object TAPIR {
+  set_gaia_object_only
+  set_place_for_every_player
+  min_distance_to_players 11
+  max_distance_to_players 12
+  place_on_specific_land_id 1
 }
-
-
 
 /* STRAGLER TREES  */
-
 create_object TREE_MONKEY_PUZZLE
 {
      number_of_objects             2
@@ -962,36 +933,7 @@ create_object WILD_MONKEY
 	 find_closest_to_map_center
 }
 
-create_object FLAMINGO
-{
-     number_of_objects 6
-     set_scaling_to_map_size
-}
-
-
-/* **************************************** */
-
-
-<ELEVATION_GENERATION>
-
-
-create_elevation 7 {
-base_terrain DIRT
-number_of_tiles 50
-number_of_clumps 2
-set_scale_by_groups
-enable_balanced_elevation
-}
-
-
-
-
-/* **************************************** */
-<CONNECTION_GENERATION>
-
-accumulate_connections
-
-create_connect_all_lands {
-replace_terrain BEACH BCH
-terrain_size BEACH 961 0
+create_object FLAMINGO {
+  number_of_objects 6
+  set_scaling_to_map_size
 }
