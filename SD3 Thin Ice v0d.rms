@@ -67,8 +67,6 @@ endif
 #const REAVEAL1_TEMP 1872
 #const GRENADE_EXPLOSION 1917
 
-#const FIRE_BIRD_SPAWNER 1774 /* MAP_REVEALER_MEDIUM */
-
 #const GUNPOWDER_KEG 2607
 
 #const MID_RELIC_AREA 100
@@ -135,10 +133,10 @@ endif
 if GREEN_OAK_FOREST
   #const LURE WALRUS
   #const HUNT SEAL
-  #const BIRD RAVEN
+  #const BIRD HAWK
   #const FIRE_BIRD FLAMING_BIRD
 else
-  #const BOAR
+  #const LURE BOAR
   #const HUNT DEER
   #const BIRD HAWK
   #const FIRE_BIRD HAWK
@@ -249,11 +247,10 @@ effect_amount SET_ATTRIBUTE FLAG_B ATTR_LINE_OF_SIGHT 0
 effect_amount SET_ATTRIBUTE FLAG_C ATTR_LINE_OF_SIGHT 0
 
 /*
- * Used to spawn three fire birds when a dock is destroyed.
- * The extra HP ensures that the Bird survives the explosion.
+ * The explosion with Blast Attack Level 0 kills birds.
+ * This effect sets alight the birds (in the DLC) by using the Flaming Bird as a
+ * dead object, and giving the Flaming Bird enough HP to survive the explosions.
  */
-effect_amount SET_ATTRIBUTE FIRE_BIRD_SPAWNER ATTR_LINE_OF_SIGHT 0
-effect_amount SET_ATTRIBUTE FIRE_BIRD_SPAWNER ATTR_DEAD_ID FIRE_BIRD
 effect_amount SET_ATTRIBUTE FIRE_BIRD ATTR_HITPOINTS 10000
 effect_amount SET_ATTRIBUTE BIRD ATTR_DEAD_ID FIRE_BIRD
 
@@ -1118,5 +1115,5 @@ create_object RELIC {
 
 /* Birds */
 create_object BIRD {
-	number_of_objects 7
+	number_of_objects 16
 }
