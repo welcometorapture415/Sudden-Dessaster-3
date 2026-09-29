@@ -1,3 +1,8 @@
+/*
+ * Mauerfall for Sudden Dessaster 3.
+ * By T-West, edited September 2026.
+ */
+
 /* Constants for inserting the Sudden Death Game Mode. */
 #const TC_TECH 187
 #const CUMAN_TC 218
@@ -75,6 +80,7 @@ effect_amount SET_ATTRIBUTE TOWN_CENTER_FOUNDATION_I ATTR_TRAIN_LOCATION 0
 #const PHOFF 1902
 #const PHON 1543
 #const TERRAIN_BLOCKER 1613
+#const PHEASANT 2739
 start_random
 percent_chance 50 #const SHEP0 590
 percent_chance 50 #const SHEP0 592
@@ -3173,7 +3179,18 @@ create_actor_area 64 20 20001 20
 create_actor_area 64 60 20001 20
 create_actor_area 64 100 20001 20
 endif
-
+if WALRUS
+create_object_group HARES {
+add_object HARE_A 33
+add_object HARE_B 33
+add_object PHEASANT 34
+}
+else
+create_object_group HARES {
+add_object HARE_A 50
+add_object HARE_B 50
+}
+endif
 create_object HAWK {
 number_of_objects 6
 set_scaling_to_map_size
@@ -4401,10 +4418,6 @@ avoid_actor_area 20001
 avoid_actor_area 20111
 terrain_to_place_on GRASS2
 }
-create_object_group HARES {
-add_object HARE_A 50
-add_object HARE_B 50
-}
 create_object HARES {
 number_of_objects 7
 group_variance 1
@@ -4457,4 +4470,5 @@ number_of_objects 12
 avoid_forest_zone 2
 temp_min_distance_group_placement 8
 max_distance_to_other_zones 4
+min_distance_to_players 18
 }
