@@ -63,6 +63,9 @@ endif
 #const DARK_GRAVEL 81
 #const TERRAIN_BLOCKER 1613
 #const BUSH_C 1054
+#const HARBOR 1189
+#const REAVEAL1_TEMP 1872
+#const GRENADE_EXPLOSION 1917
 
 #const GUNPOWDER_KEG 2607
 
@@ -130,10 +133,10 @@ endif
 if GREEN_OAK_FOREST
   #const LURE WALRUS
   #const HUNT SEAL
-  #const BIRD RAVEN
+  #const BIRD HAWK
   #const FIRE_BIRD FLAMING_BIRD
 else
-  #const BOAR
+  #const LURE BOAR
   #const HUNT DEER
   #const BIRD HAWK
   #const FIRE_BIRD HAWK
@@ -164,7 +167,7 @@ random_placement
 behavior_version 1
 
 effect_amount SET_ATTRIBUTE TEMP ATTR_TERRAIN_ID 10
-/* effect_amount SET_ATTRIBUTE DEER ATTR_TERRAIN_ID 10 */
+effect_amount GAIA_SET_ATTRIBUTE TEMP ATTR_STANDING_GRAPHIC 0
 effect_amount SET_ATTRIBUTE RELIC ATTR_TERRAIN_ID 10
 effect_amount SET_ATTRIBUTE TREE_CLASS ATTR_TERRAIN_ID 13
 
@@ -193,12 +196,6 @@ effect_amount ADD_ATTRIBUTE SAB ATTR_ATTACK 3583
 effect_amount SET_ATTRIBUTE SAB ATTR_STANDING_GRAPHIC 1751
 effect_amount SET_ATTRIBUTE SAB ATTR_TRAIN_SOUND_EVENT 0
 
-/* effect_amount ADD_ATTRIBUTE SAB ATTR_SELECTION_SOUND -1
-effect_amount ADD_ATTRIBUTE SAB ATTR_SELECTION_SOUND_EVENT -1
-effect_amount ADD_ATTRIBUTE SAB ATTR_TRAIN_SOUND -1
-effect_amount ADD_ATTRIBUTE SAB ATTR_TRAIN_SOUND_EVENT -1 */
-/* effect_amount SET_ATTRIBUTE SAB ATTR_SELECTION_SOUND 0 */
-
 /* The rest of the explosion is handled by Gunpowder Kegs. */
 effect_amount SET_ATTRIBUTE GUNPOWDER_KEG ATTR_HITPOINTS 0
 effect_amount SET_ATTRIBUTE GUNPOWDER_KEG ATTR_BLAST_LEVEL 0
@@ -212,17 +209,13 @@ effect_amount SET_ATTRIBUTE GUNPOWDER_KEG ATTR_STANDING_GRAPHIC 1751
 /* Uses birds to make a larger explosion. */
 effect_amount SET_ATTRIBUTE MACAW ATTR_HITPOINTS 0
 effect_amount SET_ATTRIBUTE GUNPOWDER_KEG ATTR_DEAD_ID MACAW
+effect_amount SET_ATTRIBUTE MACAW ATTR_DEAD_ID BLOCKER
 
 effect_amount SET_ATTRIBUTE MAP_REVEALER ATTR_DEAD_ID GUNPOWDER_KEG
+effect_amount SET_ATTRIBUTE MAP_REVEALER ATTR_LINE_OF_SIGHT 0
 effect_amount SET_ATTRIBUTE BLOCKER ATTR_HITPOINTS 30000
 
 /* Makes Dock destruction destroy the ice. */
-#const HARBOR 1189
-/* effect_amount SET_ATTRIBUTE DOCK ATTR_DEAD_ID 706
-effect_amount SET_ATTRIBUTE DOCK_F ATTR_DEAD_ID 706
-effect_amount SET_ATTRIBUTE DOCK_C ATTR_DEAD_ID 706
-effect_amount SET_ATTRIBUTE DOCK_I ATTR_DEAD_ID 706
-effect_amount SET_ATTRIBUTE HARBOR ATTR_DEAD_ID 706 */
 /* Using the Blood ID instead of the dead ID makes the explosion instant. */
 effect_amount SET_ATTRIBUTE DOCK ATTR_BLOOD_ID SAB
 effect_amount SET_ATTRIBUTE DOCK_F ATTR_BLOOD_ID SAB
@@ -233,30 +226,33 @@ effect_amount SET_ATTRIBUTE HARBOR ATTR_BLOOD_ID SAB
 effect_percent SET_ATTRIBUTE BUILDING_DEEP_WATER ATTR_RADIUS_1 50
 effect_percent SET_ATTRIBUTE BUILDING_DEEP_WATER ATTR_RADIUS_2 50
 effect_amount SET_ATTRIBUTE BUILDING_DEEP_WATER ATTR_FOUNDATION_TERRAIN DEEP_WATER
-effect_amount SET_ATTRIBUTE BUILDING_DEEP_WATER ATTR_DEAD_ID 1776
-effect_amount ADD_ATTRIBUTE BUILDING_DEEP_WATER ATTR_TRAIN_SOUND 0
+effect_amount SET_ATTRIBUTE BUILDING_DEEP_WATER ATTR_BLOOD_ID REAVEAL1_TEMP
+effect_amount SET_ATTRIBUTE BUILDING_DEEP_WATER ATTR_DEAD_ID BLOCKER
 
 effect_percent SET_ATTRIBUTE BUILDING_MED_WATER ATTR_RADIUS_1 50
 effect_percent SET_ATTRIBUTE BUILDING_MED_WATER ATTR_RADIUS_2 50
 effect_amount SET_ATTRIBUTE BUILDING_MED_WATER ATTR_FOUNDATION_TERRAIN MED_WATER
-effect_amount SET_ATTRIBUTE BUILDING_MED_WATER ATTR_DEAD_ID 1776
-effect_amount ADD_ATTRIBUTE BUILDING_MED_WATER ATTR_TRAIN_SOUND 0
+effect_amount SET_ATTRIBUTE BUILDING_MED_WATER ATTR_BLOOD_ID REAVEAL1_TEMP
+effect_amount SET_ATTRIBUTE BUILDING_MED_WATER ATTR_DEAD_ID BLOCKER
 
-effect_amount ADD_ATTRIBUTE FLARE ATTR_TRAIN_SOUND 0
-
+/* Objects that control the lake terrain change and vision, via dead objects. */
 effect_amount SET_ATTRIBUTE FLAG_A ATTR_STANDING_GRAPHIC 1751
 effect_amount SET_ATTRIBUTE FLAG_B ATTR_STANDING_GRAPHIC 1751
 effect_amount SET_ATTRIBUTE FLAG_C ATTR_STANDING_GRAPHIC 1751
 effect_amount SET_ATTRIBUTE FLAG_A ATTR_DEAD_ID BUILDING_DEEP_WATER
 effect_amount SET_ATTRIBUTE FLAG_B ATTR_DEAD_ID BUILDING_MED_WATER
 effect_amount SET_ATTRIBUTE FLAG_C ATTR_DEAD_ID FLARE
+effect_amount SET_ATTRIBUTE FLAG_A ATTR_LINE_OF_SIGHT 0
+effect_amount SET_ATTRIBUTE FLAG_B ATTR_LINE_OF_SIGHT 0
 effect_amount SET_ATTRIBUTE FLAG_C ATTR_LINE_OF_SIGHT 0
 
-/* effect_amount SET_ATTRIBUTE DOCK ATTR_GARRISON_TYPE 1
-effect_amount SET_ATTRIBUTE DOCK_F ATTR_GARRISON_TYPE 1
-effect_amount SET_ATTRIBUTE DOCK_C ATTR_GARRISON_TYPE 1
-effect_amount SET_ATTRIBUTE DOCK_I ATTR_GARRISON_TYPE 1
-effect_amount SET_ATTRIBUTE HARBOR ATTR_GARRISON_TYPE 1 */
+/*
+ * The explosion with Blast Attack Level 0 kills birds.
+ * This effect sets alight the birds (in the DLC) by using the Flaming Bird as a
+ * dead object, and giving the Flaming Bird enough HP to survive the explosions.
+ */
+effect_amount SET_ATTRIBUTE FIRE_BIRD ATTR_HITPOINTS 10000
+effect_amount SET_ATTRIBUTE BIRD ATTR_DEAD_ID FIRE_BIRD
 
 #define DISABLE_SHIPS
 if DISABLE_SHIPS
@@ -366,6 +362,8 @@ effect_amount SET_ATTRIBUTE HARBOR ATTR_TRAIN_LOCATION 0
 
 <LAND_GENERATION>
 base_terrain DLC_ROCK
+enable_waves 0
+
 /* Generate lands for up to 8 players, where the colors are in order. */
 create_land { terrain_type GRASS zone 3 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 1 }
 if PLAYERS_AT_LEAST_2
@@ -692,25 +690,34 @@ create_object FLAG_C {
 }
 
 /*
- * These two objects handle changing the terrain, with different water
- * terrains placed on different areas of the ice, depending on the
- * underlying layer.
+ * This object handles the "chain reaction" by dropping Gunpowder Kegs.
+ * It has to belong to the Gaia player, so the Kegs don't end up in the
+ * possession of players.
  */
 create_object MAP_REVEALER {
 	number_of_objects 9999
-	set_scaling_to_map_size
+	terrain_to_place_on ICE_TERRAIN
+}
+
+/*
+ * These two objects handle changing the terrain, with different water
+ * terrains placed on different areas of the ice, depending on the
+ * underlying layer. They are placed as player objects, so they don't convert
+ * to the gaia player and produce a "Gaia Converted" sound effect.
+ */
+create_object FLAG_A {
+	number_of_objects 9999
+  set_place_for_every_player
 	terrain_to_place_on ICE_TERRAIN
 	layer_to_place_on MED_WATER
-	second_object FLAG_A
 	actor_area 1
 	actor_area_radius 0
 }
 
-create_object MAP_REVEALER {
+create_object FLAG_B {
 	number_of_objects 9999
-	set_scaling_to_map_size
+  set_place_for_every_player
 	terrain_to_place_on ICE_TERRAIN
-	second_object FLAG_B
 	avoid_actor_area 1
 }
 
@@ -771,6 +778,15 @@ create_object HOUSE {
   min_distance_group_placement 2
 }
 
+create_object FIRE_BIRD_SPAWNER {
+  number_of_objects 3
+  place_on_specific_land_id 1
+  set_gaia_object_only
+  set_gaia_unconvertible
+  max_distance_to_players 1
+  temp_min_distance_group_placement 1
+}
+
 create_object DOCK {
 	place_on_specific_land_id 1
 	max_distance_to_players 0
@@ -788,15 +804,6 @@ create_object ON_GRID {
 	number_of_objects 3
 }
 
-/* create_object ON_GRID
-{
-	place_on_specific_land_id 1
-	set_gaia_object_only
-	min_distance_to_players 0
-	max_distance_to_players 0
-	second_object MARLIN1
-	min_distance_group_placement 2
-} */
 create_object FISHING_SHIP {
 	number_of_objects 3
 	place_on_specific_land_id 1
@@ -839,9 +846,9 @@ create_object OFF_GRID {
 create_object TEMP {
 	number_of_objects 9999
 	set_place_for_every_player
+  set_gaia_object_only
 	actor_area_to_place_in 5
 	avoid_actor_area 4
-	/* second_object DLC_FORTIFIED_PALISADE_WALL */
 	actor_area 6
 	actor_area_radius 1
 }
@@ -854,16 +861,8 @@ create_object OFF_GRID {
 	actor_area 7
 	actor_area_radius 0
 }
-/* create_object OUTPOST
-{
-	number_of_objects 9999
-	set_place_for_every_player
-	actor_area_to_place_in 5
-	avoid_actor_area 7
-	temp_min_distance_group_placement 1
-} */
-create_object TERRAIN_BLOCKER
-{
+
+create_object TERRAIN_BLOCKER {
 	number_of_objects 9999
 	set_place_for_every_player
 	set_gaia_object_only
@@ -1116,5 +1115,5 @@ create_object RELIC {
 
 /* Birds */
 create_object BIRD {
-	number_of_objects 7
+	number_of_objects 16
 }
