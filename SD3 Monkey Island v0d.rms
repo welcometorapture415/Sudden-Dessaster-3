@@ -613,12 +613,13 @@ create_object CAPYBARA {
 create_object CAPYBARA {
   number_of_objects 2
   number_of_groups 2
-  set_loose_grouping
+  set_tight_grouping
   set_gaia_object_only
   set_circular_placement
   set_place_for_every_player
-  min_distance_to_players 20
-  max_distance_to_players 20
+  min_distance_to_players 18
+  max_distance_to_players 22
+  temp_min_distance_group_placement 5
   avoid_forest_zone 2
   place_on_specific_land_id 1
   avoid_actor_area 9999 /* wall */
