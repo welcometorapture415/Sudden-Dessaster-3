@@ -157,6 +157,11 @@ effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 3056 /* = all buildings (11) * 
 effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 1786 /* = KEG (6) * 256 = 1536 + 250 damage - therefore 250 KEG damage */
 effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ARMOR 772 /* 4 Pierce armor */
 
+/* Match the displayed values with the new attack values. */
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_SHOWN_ATTACK 40
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_SHOWN_PIERCE_ARMOR 4
+
+/* Sets the neutral huts to 20 hitpoints. */
 effect_amount GAIA_SET_ATTRIBUTE YURT_8 ATTR_HITPOINTS 20
 effect_amount GAIA_SET_ATTRIBUTE YURT_9 ATTR_HITPOINTS 20
 effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_HITPOINTS 20
