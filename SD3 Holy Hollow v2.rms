@@ -2472,15 +2472,12 @@ if NOMAD_START
 				/* end_random */
 				#define GAME_HUNTABLE
 				if GAME_HUNTABLE
-					start_random
-						percent_chance 20
-							#const HUNTABLE_COUNT 2
-						percent_chance 45
-							#const HUNTABLE_COUNT 3
-						percent_chance 35
-							#const HUNTABLE_COUNT 4
-					end_random
-
+				  #const HUNTABLE_COUNT 4
+					/* start_random
+						percent_chance 20 #const HUNTABLE_COUNT 2
+						percent_chance 45 #const HUNTABLE_COUNT 3
+						percent_chance 35 #const HUNTABLE_COUNT 4
+					end_random */
 					#const HUNTABLE_GROUPS 1
 					#const HUNTABLE_DISTANCE rnd(20,28)
 					#const HUNTABLE_CAA_A 100
@@ -2488,19 +2485,13 @@ if NOMAD_START
 					#define HUNTABLE_TIGHT_GROUPING
 
 					start_random
-						percent_chance 20
-							#const HUNTABLE_ADDITIONAL_COUNT 2
-						percent_chance 45
-							#const HUNTABLE_ADDITIONAL_COUNT 3
-						percent_chance 35
-							#const HUNTABLE_ADDITIONAL_COUNT 4
+						percent_chance 20 #const HUNTABLE_ADDITIONAL_COUNT 2
+						percent_chance 45 #const HUNTABLE_ADDITIONAL_COUNT 3
+						percent_chance 35 #const HUNTABLE_ADDITIONAL_COUNT 4
 					end_random
-
 					#const HUNTABLE_ADDITIONAL_GROUPS 1
 					#const HUNTABLE_ADDITIONAL_DISTANCE rnd(36,40)
 					#const HUNTABLE_ADDITIONAL_TERRAIN BASE_TERRAIN
-
-
 				endif
 
 				if GAME_CHICKEN
