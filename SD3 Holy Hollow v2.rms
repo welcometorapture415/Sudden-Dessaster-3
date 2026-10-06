@@ -74,8 +74,6 @@ endif
 #const RESOURCE_RESTRICTION 2
 
 /* Map_theme */
-#define PALAEARCTIC_ASIA_TEMPERATE
-
 start_random
 	percent_chance 8 #define AFROTROPICAL_TROPICAL
 	percent_chance 8 #define NEOTROPICAL_TEMPERATE
@@ -2943,7 +2941,7 @@ create_object SOLID_OBJECT {
 	avoid_actor_area 8002 /* Aesthetic Objects B */
 	avoid_actor_area 8003 /* Aesthetic Objects C */
 }
-		
+
 if YURTS
 		create_object YURT_ASTHETIC {
 			number_of_objects 32
