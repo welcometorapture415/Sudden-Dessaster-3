@@ -76,7 +76,7 @@ else
 endif
 
 /* #define 9_VIL_START */
-
+#const PHON 1543
 
 /* terrains */
 #const GRAVEL_GREY 70
@@ -95,6 +95,9 @@ endif
 #const AA_9V_VIL 9002
 #const AA_TC 9003
 #const AA_WALL 9004
+#const AA_FORAGE_PLACEMENT 9005
+#const AA_CENTER_2 9006
+#const AA_CENTER_3 9007
 
 /* map scaling */
 if MAPSIZE_NANO			#const RAW_LENGTH 36	#define 36x36	#define MEDIUM_OR_SMALLER #define TINY_OR_SMALLER	#define MINI_OR_SMALLER
@@ -494,7 +497,6 @@ create_object_group STRAGGLER_MIX {
 	add_object ITALIAN_PINETREE 10
 }
 
-
 create_object DLC_BOULDER_C {
 	terrain_to_place_on PASTURE_DEAD
 	number_of_objects 9320
@@ -518,6 +520,23 @@ create_object DLC_BOULDER_A {
 	number_of_objects 9320
 	set_scaling_to_map_size
 	temp_min_distance_group_placement 0
+}
+
+/* Center Spawn Placeholders */
+create_object PHON {
+  set_gaia_object_only
+  set_place_for_every_player
+  max_distance_to_players 0
+  actor_area AA_CENTER_2
+  actor_area_radius 2
+}
+
+create_object PHON {
+  set_gaia_object_only
+  set_place_for_every_player
+  max_distance_to_players 0
+  actor_area AA_CENTER_3
+  actor_area_radius 3
 }
 
 /* player objects */
@@ -577,39 +596,39 @@ create_object DLC_FORTIFIED_PALISADE_WALL {
 }
 
 if 9_VIL_START
-create_object LARGE_TEMP_REVEALER {
-	set_place_for_every_player
-	find_closest
-}
+  create_object LARGE_TEMP_REVEALER {
+  	set_place_for_every_player
+  	find_closest
+  }
 
-create_object VILLAGER {
-	set_place_for_every_player
-	find_closest
-	avoid_actor_area AA_HOUSE
-	avoid_actor_area AA_WALL
-}
-create_object VILLAGER {
-	set_place_for_every_player
-	find_closest
-	avoid_actor_area AA_HOUSE
-	avoid_actor_area AA_WALL
-}
+  create_object VILLAGER {
+  	set_place_for_every_player
+  	find_closest
+  	avoid_actor_area AA_HOUSE
+  	avoid_actor_area AA_WALL
+  }
+  create_object VILLAGER {
+  	set_place_for_every_player
+  	find_closest
+  	avoid_actor_area AA_HOUSE
+  	avoid_actor_area AA_WALL
+  }
 
-create_object VILLAGER {
-	set_place_for_every_player
-	actor_area_to_place_in AA_LUMBER_CAMP
-	find_closest
-	force_placement
-	actor_area AA_9V_VIL
-	actor_area_radius 3
-}
+  create_object VILLAGER {
+  	set_place_for_every_player
+  	actor_area_to_place_in AA_LUMBER_CAMP
+  	find_closest
+  	force_placement
+  	actor_area AA_9V_VIL
+  	actor_area_radius 3
+  }
 else /* 3 vill start */
-create_object VILLAGER {
-	set_place_for_every_player
-	find_closest enable_tile_shuffling
-	avoid_actor_area AA_HOUSE
-	avoid_actor_area AA_WALL
-}
+  create_object VILLAGER {
+  	set_place_for_every_player
+  	find_closest enable_tile_shuffling
+  	avoid_actor_area AA_HOUSE
+  	avoid_actor_area AA_WALL
+  }
 endif
 
 if REGICIDE
@@ -633,17 +652,44 @@ if REGICIDE
 	}
 endif
 
+/* TODO */
 create_object FORAGE {
+  set_place_for_every_player
+  set_gaia_object_only
+  find_closest_to_map_center
+	avoid_actor_area AA_WALL
+  avoid_actor_area AA_CENTER_2
+  actor_area_to_place_in AA_CENTER_3
+	actor_area AA_FORAGE_PLACEMENT
+  actor_area_radius 1
+}
+
+create_object FORAGE {
+	number_of_objects 2
+  find_closest
+  set_place_for_every_player
+	set_gaia_object_only
+  avoid_actor_area AA_WALL
+  avoid_actor_area AA_CENTER_2
+	actor_area_to_place_in AA_FORAGE_PLACEMENT
+}
+
+/*
+ * Original Forage Bush Placement
+ * Could be an inconsistent number of tiles from the TC.
+ */
+/* create_object FORAGE {
 	set_gaia_object_only
 	number_of_objects 3
 	set_tight_grouping
+  group_placement_radius 1
 	set_place_for_every_player
 	min_distance_to_players 1
 	set_circular_placement
 	find_closest enable_tile_shuffling
 	avoid_actor_area AA_WALL
 	actor_area_to_place_in AA_TC
-}
+} */
 
 create_object TURKEY {
 	number_of_objects 4
