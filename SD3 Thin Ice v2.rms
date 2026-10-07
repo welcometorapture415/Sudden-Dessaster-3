@@ -148,6 +148,7 @@ endif
 #const PLAYER_NEAR_STONE 12
 #const PLAYER_MED_GOLD 13
 #const PLAYER_MED_STONE 14
+#const PLAYER_DOCK_AREA_FOR_FISH 15
 
 <PLAYER_SETUP>
 /*
@@ -387,6 +388,7 @@ endif
 if PLAYERS_AT_LEAST_8
   create_land { terrain_type GRASS zone 10 other_zone_avoidance_distance 5 base_size PLAYER_BASE_SIZE land_percent 100 clumping_factor 20 base_elevation 4 circle_radius 28 2 assign_to_player 8 }
 endif
+/* Pand Lands */
 create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 1 land_id 1 }
 if PLAYERS_AT_LEAST_2
   create_land { terrain_type DLC_ROCK other_zone_avoidance_distance 5 base_size POND_BASE_SIZE number_of_tiles 0 clumping_factor 20 set_circular_base top_border 20 bottom_border 20 right_border 20 left_border 20 assign_to_player 2 land_id 1 }
@@ -411,8 +413,7 @@ if PLAYERS_AT_LEAST_8
 endif
 
 <ELEVATION_GENERATION>
-create_elevation 15
-{
+create_elevation 15 {
 	base_terrain GRASS
 	number_of_tiles 10000
 	number_of_clumps 1000
@@ -424,52 +425,65 @@ create_elevation 15
 create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
 create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
 create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
+create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
+create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
+create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
+create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
+create_terrain DLC_ROCK { base_terrain GRASS land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 0 3 }
 
 create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
 create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
 create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
-create_terrain ICE_TERRAIN
-{
+create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
+create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
+create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
+create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
+create_terrain GRASS { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups height_limits 4 15 }
+
+create_terrain ICE_TERRAIN {
 	base_terrain DLC_ROCK
 	land_percent 5
 	number_of_clumps 24
 	set_scale_by_groups
 	terrain_mask 1
 }
-create_terrain DARK_GRAVEL
-{
-	base_terrain DLC_ROCK
-	land_percent 100
-	number_of_clumps 10000
-	set_scale_by_groups
-	terrain_mask 1
-}
-create_terrain ICE_TERRAIN
-{
-	base_terrain DLC_ROCK
-	land_percent 100
-	number_of_clumps 10000
-	set_scale_by_groups
-	spacing_to_other_terrain_types 4
-}
-create_terrain MED_WATER
-{
+
+create_terrain DARK_GRAVEL { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups terrain_mask 1 }
+create_terrain DARK_GRAVEL { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups terrain_mask 1 }
+create_terrain DARK_GRAVEL { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups terrain_mask 1 }
+create_terrain DARK_GRAVEL { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups terrain_mask 1 }
+create_terrain DARK_GRAVEL { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups terrain_mask 1 }
+create_terrain DARK_GRAVEL { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups terrain_mask 1 }
+create_terrain DARK_GRAVEL { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups terrain_mask 1 }
+create_terrain DARK_GRAVEL { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups terrain_mask 1 }
+
+create_terrain ICE_TERRAIN { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups spacing_to_other_terrain_types 4 }
+create_terrain ICE_TERRAIN { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups spacing_to_other_terrain_types 4 }
+create_terrain ICE_TERRAIN { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups spacing_to_other_terrain_types 4 }
+create_terrain ICE_TERRAIN { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups spacing_to_other_terrain_types 4 }
+create_terrain ICE_TERRAIN { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups spacing_to_other_terrain_types 4 }
+create_terrain ICE_TERRAIN { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups spacing_to_other_terrain_types 4 }
+create_terrain ICE_TERRAIN { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups spacing_to_other_terrain_types 4 }
+create_terrain ICE_TERRAIN { base_terrain DLC_ROCK land_percent 100 number_of_clumps 10000 set_scale_by_groups spacing_to_other_terrain_types 4 }
+
+create_terrain MED_WATER {
 	base_terrain ICE_TERRAIN
 	land_percent 5
 	number_of_clumps 24
 	set_scale_by_groups
 	terrain_mask 1
 }
-create_terrain WATER
-{
-	base_terrain ICE_TERRAIN
-	land_percent 2
-	number_of_clumps 24
-	set_scale_by_groups
-	terrain_mask 1
-}
-create_terrain PINE_FOREST
-{
+
+create_terrain WATER { base_terrain ICE_TERRAIN land_percent 100 number_of_clumps 8192 set_scale_by_groups terrain_mask 1 }
+create_terrain WATER { base_terrain ICE_TERRAIN land_percent 100 number_of_clumps 8192 set_scale_by_groups terrain_mask 1 }
+create_terrain WATER { base_terrain ICE_TERRAIN land_percent 100 number_of_clumps 8192 set_scale_by_groups terrain_mask 1 }
+create_terrain WATER { base_terrain ICE_TERRAIN land_percent 100 number_of_clumps 8192 set_scale_by_groups terrain_mask 1 }
+create_terrain WATER { base_terrain ICE_TERRAIN land_percent 100 number_of_clumps 8192 set_scale_by_groups terrain_mask 1 }
+create_terrain WATER { base_terrain ICE_TERRAIN land_percent 100 number_of_clumps 8192 set_scale_by_groups terrain_mask 1 }
+create_terrain WATER { base_terrain ICE_TERRAIN land_percent 100 number_of_clumps 8192 set_scale_by_groups terrain_mask 1 }
+create_terrain WATER { base_terrain ICE_TERRAIN land_percent 100 number_of_clumps 8192 set_scale_by_groups terrain_mask 1 }
+
+create_terrain PINE_FOREST {
 	base_terrain GRASS
 	land_percent 14
 	number_of_clumps 48
@@ -478,40 +492,40 @@ create_terrain PINE_FOREST
 	spacing_to_other_terrain_types 4
 	terrain_mask 2
 }
-create_terrain SNOW_FOREST
-{
+
+create_terrain SNOW_FOREST {
 	base_terrain PINE_FOREST
 	land_percent 8
 	number_of_clumps 100
 	set_scale_by_groups
 	terrain_mask 2
 }
-create_terrain SNOW_SOFT
-{
+
+create_terrain SNOW_SOFT {
 	base_terrain GRASS
 	land_percent 12
 	number_of_clumps 64
 	set_scale_by_groups
 	terrain_mask 1
 }
-create_terrain SNOW_SOFT_LIGHT
-{
+
+create_terrain SNOW_SOFT_LIGHT {
 	base_terrain GRASS
 	land_percent 12
 	number_of_clumps 64
 	set_scale_by_groups
 	terrain_mask 1
 }
-create_terrain SNOW_SOFT_STRONG
-{
+
+create_terrain SNOW_SOFT_STRONG {
 	base_terrain GRASS
 	land_percent 12
 	number_of_clumps 64
 	set_scale_by_groups
 	terrain_mask 1
 }
-create_terrain DARK_GRAVEL
-{
+
+create_terrain DARK_GRAVEL {
 	base_terrain GRASS
 	land_percent 6
 	number_of_clumps 24
@@ -771,45 +785,45 @@ create_object VILLAGER {
   min_distance_group_placement 1
 }
 
-create_object HOUSE {
+/*
+ * A House was intended to spawn. But since it hassn't spawned,
+ * keep it disabled so we don't edit the map during round 1.
+ * We will re-enable it for Round 2.
+ */
+/* create_object HOUSE {
 	set_place_for_every_player
 	min_distance_to_players 8
-	max_distance_to_players 8
+  find_closest
+	set_circular_placement
+  enable_tile_shuffling
   min_distance_group_placement 2
-}
-
-create_object FIRE_BIRD_SPAWNER {
-  number_of_objects 3
-  place_on_specific_land_id 1
-  set_gaia_object_only
-  set_gaia_unconvertible
-  max_distance_to_players 1
-  temp_min_distance_group_placement 1
-}
+} */
 
 create_object DOCK {
 	place_on_specific_land_id 1
 	max_distance_to_players 0
-	min_distance_group_placement 2
-  min_distance_group_placement 1
+	min_distance_group_placement 2 /* Keeps Shore Fish away. */
+  actor_area PLAYER_DOCK_AREA_FOR_FISH
+  actor_area_radius 3
 }
 
 create_object ON_GRID {
 	place_on_specific_land_id 1
 	set_gaia_object_only
-	max_distance_to_players 3
 	min_distance_group_placement 1
-	temp_min_distance_group_placement 2
+	temp_min_distance_group_placement 3
 	second_object SHORE_FISH
 	number_of_objects 3
+  actor_area_to_place_in PLAYER_DOCK_AREA_FOR_FISH
 }
 
 create_object FISHING_SHIP {
 	number_of_objects 3
 	place_on_specific_land_id 1
-	set_circular_placement
 	min_distance_to_players 6
-	max_distance_to_players 7
+	set_circular_placement
+  find_closest
+  enable_tile_shuffling
 	temp_min_distance_group_placement 4
 }
 
@@ -1074,8 +1088,9 @@ create_object OYSTERS {
 	place_on_specific_land_id 1
 	set_gaia_object_only
 	min_distance_to_players 5
-	max_distance_to_players 6
+  find_closest
 	set_circular_placement
+  enable_tile_shuffling
 	min_distance_group_placement 2
 }
 
@@ -1084,8 +1099,9 @@ create_object SALMON {
 	place_on_specific_land_id 1
 	set_gaia_object_only
 	min_distance_to_players 9
-	max_distance_to_players 11
+  find_closest
 	set_circular_placement
+  enable_tile_shuffling
 	ignore_terrain_restrictions
 	temp_min_distance_group_placement 8
 	min_distance_group_placement 3
