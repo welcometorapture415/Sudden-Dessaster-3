@@ -74,8 +74,6 @@ endif
 #const RESOURCE_RESTRICTION 2
 
 /* Map_theme */
-#define PALAEARCTIC_ASIA_TEMPERATE
-
 start_random
 	percent_chance 8 #define AFROTROPICAL_TROPICAL
 	percent_chance 8 #define NEOTROPICAL_TEMPERATE
@@ -159,6 +157,11 @@ effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 3056 /* = all buildings (11) * 
 effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ATTACK 1786 /* = KEG (6) * 256 = 1536 + 250 damage - therefore 250 KEG damage */
 effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_ARMOR 772 /* 4 Pierce armor */
 
+/* Match the displayed values with the new attack values. */
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_SHOWN_ATTACK 40
+effect_amount GAIA_SET_ATTRIBUTE KEG ATTR_SHOWN_PIERCE_ARMOR 4
+
+/* Sets the neutral huts to 20 hitpoints. */
 effect_amount GAIA_SET_ATTRIBUTE YURT_8 ATTR_HITPOINTS 20
 effect_amount GAIA_SET_ATTRIBUTE YURT_9 ATTR_HITPOINTS 20
 effect_amount GAIA_SET_ATTRIBUTE YURT_10 ATTR_HITPOINTS 20
@@ -2474,15 +2477,12 @@ if NOMAD_START
 				/* end_random */
 				#define GAME_HUNTABLE
 				if GAME_HUNTABLE
-					start_random
-						percent_chance 20
-							#const HUNTABLE_COUNT 2
-						percent_chance 45
-							#const HUNTABLE_COUNT 3
-						percent_chance 35
-							#const HUNTABLE_COUNT 4
-					end_random
-
+				  #const HUNTABLE_COUNT 4
+					/* start_random
+						percent_chance 20 #const HUNTABLE_COUNT 2
+						percent_chance 45 #const HUNTABLE_COUNT 3
+						percent_chance 35 #const HUNTABLE_COUNT 4
+					end_random */
 					#const HUNTABLE_GROUPS 1
 					#const HUNTABLE_DISTANCE rnd(20,28)
 					#const HUNTABLE_CAA_A 100
@@ -2490,19 +2490,13 @@ if NOMAD_START
 					#define HUNTABLE_TIGHT_GROUPING
 
 					start_random
-						percent_chance 20
-							#const HUNTABLE_ADDITIONAL_COUNT 2
-						percent_chance 45
-							#const HUNTABLE_ADDITIONAL_COUNT 3
-						percent_chance 35
-							#const HUNTABLE_ADDITIONAL_COUNT 4
+						percent_chance 20 #const HUNTABLE_ADDITIONAL_COUNT 2
+						percent_chance 45 #const HUNTABLE_ADDITIONAL_COUNT 3
+						percent_chance 35 #const HUNTABLE_ADDITIONAL_COUNT 4
 					end_random
-
 					#const HUNTABLE_ADDITIONAL_GROUPS 1
 					#const HUNTABLE_ADDITIONAL_DISTANCE rnd(36,40)
 					#const HUNTABLE_ADDITIONAL_TERRAIN BASE_TERRAIN
-
-
 				endif
 
 				if GAME_CHICKEN
@@ -2943,7 +2937,7 @@ create_object SOLID_OBJECT {
 	avoid_actor_area 8002 /* Aesthetic Objects B */
 	avoid_actor_area 8003 /* Aesthetic Objects C */
 }
-		
+
 if YURTS
 		create_object YURT_ASTHETIC {
 			number_of_objects 32
