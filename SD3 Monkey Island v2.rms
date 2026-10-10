@@ -96,6 +96,8 @@ endif
 
 #const PETARD_BUILDING 2414
 
+#const LAND_ID_CENTER 100
+
 <PLAYER_SETUP>
 /*
  * Sets the Sudden Death Game Mode, or defeats players with incorrect
@@ -230,7 +232,7 @@ endif
 base_terrain ICE
 
 
-create_land { terrain_type DIRT base_elevation (BE + 1) land_position 50 50 land_percent 100 top_border 20 bottom_border 20 left_border 20 right_border 20 }
+create_land { terrain_type DIRT base_elevation (BE + 1) land_position 50 50 land_percent 100 top_border 20 bottom_border 20 left_border 20 right_border 20 land_id LAND_ID_CENTER }
 
 
 create_land { terrain_type GRASS base_elevation BE set_circular_base  base_size 21 assign_to_player P2NUMBER set_circular_base land_conformity 99 land_id 1 }
@@ -404,7 +406,6 @@ create_connect_all_lands {
 create_actor_area 60 60 9876 10
 create_actor_area 60 60 6789 1
 create_actor_area 60 60 3333 3
-create_actor_area 60 60 5050 0
 
 /* PLACING BACK FORESTS */
 create_object_group TREES {
@@ -657,13 +658,10 @@ create_object TREE_MONKEY_PUZZLE
 	 place_on_specific_land_id 1
 }
 
-
-
 /* PAGAN SHRINES */
 
 /* NEUTRAL SHRINE */
-create_object ON_GRID
-{
+create_object ON_GRID {
   number_of_objects 9999
   set_place_for_every_player
   set_gaia_object_only
@@ -673,12 +671,9 @@ create_object ON_GRID
   max_distance_to_players 20
   actor_area 1515
   actor_area_radius 0
-
-
 }
 
-create_object PETARD_BUILDING
-{
+create_object PETARD_BUILDING {
   set_gaia_object_only
   place_on_specific_land_id 99
   find_closest
@@ -688,13 +683,11 @@ create_object PETARD_BUILDING
 	actor_area_radius 3
 }
 
-create_object UNBUILDABLE_TERRAIN
-{    place_on_specific_land_id 99
-     number_of_objects          9999
-	 set_gaia_object_only
-	 actor_area_to_place_in 2222 /* PETARD_BUILDING */
-
-
+create_object UNBUILDABLE_TERRAIN {
+  place_on_specific_land_id 99
+  number_of_objects 9999
+  set_gaia_object_only
+  actor_area_to_place_in 2222 /* PETARD_BUILDING */
 }
 
 /* creating neutral lands actor areas */
@@ -733,30 +726,22 @@ create_object UNBUILDABLE_TERRAIN
 
 }
 
-
-
 /* CENTRAL SHRINE */
-create_object PETARD_BUILDING
-{
-    number_of_objects          1
+create_object PETARD_BUILDING {
 	set_gaia_object_only
 	make_indestructible
 	set_building_capturable
-	actor_area_to_place_in 5050 /* MIDDLE OF THE MAP */
-	find_closest_to_map_center
+  place_on_specific_land_id LAND_ID_CENTER
+  find_closest
 	actor_area 2222
 	actor_area_radius 3
 }
 
-create_object UNBUILDABLE_TERRAIN
-{
-     number_of_objects          9999
-	 set_gaia_object_only
-	 actor_area_to_place_in 2222 /* PETARD_BUILDING */
-
-
+create_object UNBUILDABLE_TERRAIN {
+  number_of_objects 9999
+  set_gaia_object_only
+  actor_area_to_place_in 2222 /* PETARD_BUILDING */
 }
-
 
 /* *****EXTRA RESOURCES ***** */
 #const PEACOCK 2537
