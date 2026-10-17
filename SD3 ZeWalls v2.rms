@@ -110,6 +110,11 @@ elseif PH_AFRICAN_D        #const PREDATOR DLC_LION
 elseif PH_AFRICAN_E        #const PREDATOR DLC_LION
 endif
 
+/* Ensures there is no cracked terrain on African B. */
+if PH_AFRICAN_B
+  #const LAYER_A DLC_DRYGRASS
+endif
+
 #include_drs F_seasons.inc
 
 #const NUM_PREDATORS rnd(5,7)
@@ -830,12 +835,13 @@ create_object STONE {
   set_tight_grouping
   set_gaia_object_only
   set_place_for_every_player
-  min_distance_to_players 20
-  max_distance_to_players 24
+  min_distance_to_players 22
+  max_distance_to_players 28
   min_distance_group_placement 5
   max_distance_to_other_zones 7
   avoid_forest_zone 3
   terrain_to_place_on LAYER_B
+  require_path 0
 }
 
 /* Places Predators before straggler trees to use Forest Zone. */
