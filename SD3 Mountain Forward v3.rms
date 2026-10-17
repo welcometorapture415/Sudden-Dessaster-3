@@ -5202,8 +5202,8 @@ if TB
 if NS
 create_actor_area 40 20 20000 28
 create_actor_area 80 100 20000 28
-create_actor_area 96 10 20001 10
-create_actor_area 23 109 20001 10
+create_actor_area 109 27 20001 10
+create_actor_area 10 92 20001 10
 elseif EW
 create_actor_area 80 20 20000 28
 create_actor_area 40 100 20000 28
@@ -5391,25 +5391,29 @@ min_distance_to_players 7
 max_distance_to_players 9
 set_circular_placement
 }
+create_object DEER {
+place_on_specific_land_id LAND_ID_CORNER
+number_of_objects 4
+group_placement_radius 2
+set_gaia_object_only
+set_loose_grouping
+min_distance_to_players 12
+max_distance_to_players 15
+avoid_forest_zone 2
+min_distance_to_map_edge 2
+min_distance_group_placement 1
+require_path 0
+}
 create_object LURE {
 place_on_specific_land_id LAND_ID_CORNER
 number_of_objects 2
 set_gaia_object_only
 temp_min_distance_group_placement 8
 avoid_forest_zone 1
-min_distance_to_players 14
-max_distance_to_players 17
-min_distance_to_map_edge 1
-}
-create_object DEER {
-place_on_specific_land_id LAND_ID_CORNER
-number_of_objects 4
-group_placement_radius 2
-set_gaia_object_only
 min_distance_to_players 13
 max_distance_to_players 16
-avoid_forest_zone 2
-set_loose_grouping
+min_distance_to_map_edge 1
+require_path 0
 }
 create_object SHEEP {
 place_on_specific_land_id LAND_ID_CORNER
@@ -5420,8 +5424,10 @@ temp_min_distance_group_placement 8
 set_gaia_object_only
 min_distance_to_players 13
 max_distance_to_players 16
+min_distance_to_map_edge 1
 avoid_forest_zone 2
 set_loose_grouping
+require_path 0
 }
 create_object PLAYER_STRAGGLER {
 number_of_objects 2
